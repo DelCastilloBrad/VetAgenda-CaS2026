@@ -1,0 +1,72 @@
+18:32:12.240 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration pe.unsa.vetagenda.VetAgendaApplication for test class pe.unsa.vetagenda.BusinessTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.4.13)
+
+2026-11-24T18:32:12.744-05:00  INFO 59 --- [VetAgenda] [           main] pe.unsa.vetagenda.BusinessTests          : Starting BusinessTests using Java 21.0.13.1 with PID 59 (started by agent in /workspace/scratch/ddd9961fd1d3/vetagenda)
+2026-11-24T18:32:12.746-05:00  INFO 59 --- [VetAgenda] [           main] pe.unsa.vetagenda.BusinessTests          : The following 1 profile is active: "test"
+2026-11-24T18:32:14.111-05:00  INFO 59 --- [VetAgenda] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-11-24T18:32:14.390-05:00  INFO 59 --- [VetAgenda] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:vetagenda user=SA
+2026-11-24T18:32:14.392-05:00  INFO 59 --- [VetAgenda] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-11-24T18:32:14.452-05:00  INFO 59 --- [VetAgenda] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:h2:mem:vetagenda (H2 2.3)
+2026-11-24T18:32:14.463-05:00  WARN 59 --- [VetAgenda] [           main] o.f.c.internal.database.base.Database    : Flyway upgrade recommended: H2 2.3.232 is newer than this version of Flyway and support has not been tested. The latest supported version of H2 is 2.2.224.
+2026-11-24T18:32:14.485-05:00  INFO 59 --- [VetAgenda] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-11-24T18:32:14.488-05:00  INFO 59 --- [VetAgenda] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.013s)
+2026-11-24T18:32:14.498-05:00  INFO 59 --- [VetAgenda] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-11-24T18:32:14.532-05:00  INFO 59 --- [VetAgenda] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-11-24T18:32:14.543-05:00  INFO 59 --- [VetAgenda] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - schema"
+2026-11-24T18:32:14.575-05:00  INFO 59 --- [VetAgenda] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema "public", now at version v1 (execution time 00:00.022s)
+2026-11-24T18:32:14.784-05:00  INFO 59 --- [VetAgenda] [           main] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2026-11-24T18:32:15.270-05:00  INFO 59 --- [VetAgenda] [           main] pe.unsa.vetagenda.BusinessTests          : Started BusinessTests in 2.841 seconds (process running for 4.319)
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build what is described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org/mockito/Mockito.html#0.3
+2026-11-24T18:32:26.621-05:00  INFO 59 --- [VetAgenda] [           main] pe.unsa.vetagenda.service.CitaService    : NOTIFICACION_SIMULADA cita=2 accion=RESERVAR
+2026-11-24T18:32:26.630-05:00  INFO 59 --- [VetAgenda] [           main] pe.unsa.vetagenda.service.CitaService    : NOTIFICACION_SIMULADA cita=2 accion=REPROGRAMAR
+2026-11-24T18:32:26.633-05:00  INFO 59 --- [VetAgenda] [           main] pe.unsa.vetagenda.service.CitaService    : NOTIFICACION_SIMULADA cita=2 accion=REPROGRAMAR
+[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 14.94 s <<< FAILURE! -- in pe.unsa.vetagenda.BusinessTests
+[ERROR] pe.unsa.vetagenda.BusinessTests.enforcesTwoReschedules -- Time elapsed: 11.11 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting actual throwable to be an instance of:
+  pe.unsa.vetagenda.domain.Domain.RuleViolation
+but was:
+  org.springframework.dao.DataIntegrityViolationException: PreparedStatementCallback; SQL [update appointment set vet_id=?,service_id=?,starts_at=?,reschedules=reschedules+1,updated_at=? where id=?]; Check constraint violation: "CONSTRAINT_A8155B: "; SQL statement:
+update appointment set vet_id=?,service_id=?,starts_at=?,reschedules=reschedules+1,updated_at=? where id=? [23513-232]
+	at org.springframework.jdbc.support.SQLExceptionSubclassTranslator.doTranslate(SQLExceptionSubclassTranslator.java:106)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:107)
+	at org.springframework.jdbc.core.JdbcTemplate.translateException(JdbcTemplate.java:1556)
+	...(92 remaining lines not displayed - this can be changed with Assertions.setMaxStackTraceElementsDisplayed)
+	at pe.unsa.vetagenda.BusinessTests.rejects(BusinessTests.java:57)
+	at pe.unsa.vetagenda.BusinessTests.enforcesTwoReschedules(BusinessTests.java:207)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+[ERROR] Failures: 
+[ERROR]   BusinessTests.enforcesTwoReschedules:207->rejects:57 
+Expecting actual throwable to be an instance of:
+  pe.unsa.vetagenda.domain.Domain.RuleViolation
+but was:
+  org.springframework.dao.DataIntegrityViolationException: PreparedStatementCallback; SQL [update appointment set vet_id=?,service_id=?,starts_at=?,reschedules=reschedules+1,updated_at=? where id=?]; Check constraint violation: "CONSTRAINT_A8155B: "; SQL statement:
+update appointment set vet_id=?,service_id=?,starts_at=?,reschedules=reschedules+1,updated_at=? where id=? [23513-232]
+	at org.springframework.jdbc.support.SQLExceptionSubclassTranslator.doTranslate(SQLExceptionSubclassTranslator.java:106)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:107)
+	at org.springframework.jdbc.core.JdbcTemplate.translateException(JdbcTemplate.java:1556)
+	...(92 remaining lines not displayed - this can be changed with Assertions.setMaxStackTraceElementsDisplayed)
+[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.4:test (default-test) on project vetagenda: There are test failures.
+[ERROR] 
+[ERROR] See /workspace/scratch/ddd9961fd1d3/vetagenda/target/surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

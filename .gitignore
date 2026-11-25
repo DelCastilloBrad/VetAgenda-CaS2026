@@ -1,0 +1,14 @@
+target/
+data/
+.env
+*.log
+*.dump
+config/theme/custom.css
+__pycache__/
+.pytest_cache/
+tests/selenium/artifacts/
+dist/
+.venv/
+selenium-resultados.xml
+!docs/evidencias/*.log
+!docs/evidencias/**/*.log

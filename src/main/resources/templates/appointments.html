@@ -1,0 +1,39 @@
+<!doctype html>
+<html
+  lang="es"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head th:replace="~{layout :: head('Citas')}"></head>
+  <body class="app-shell">
+    <aside th:replace="~{layout :: sidebar}"></aside>
+    <main id="main" class="workspace">
+      <div th:replace="~{layout :: flash}"></div>
+      <header
+        th:replace="~{layout :: heading('AGENDA DE CUIDADO','Cada cita, en su lugar','Consulta tus citas y acompaña cada etapa de la atención.')}"
+      ></header>
+      <div class="toolbar">
+        <form method="get" th:action="@{/citas}" class="inline-form">
+          <label for="state">Estado</label
+          ><select name="state" id="state">
+            <option value="">Todos</option>
+            <option value="RESERVADA">Reservada</option>
+            <option value="EN_ESPERA">En espera</option>
+            <option value="ATENDIDA">Atendida</option>
+            <option value="CANCELADA">Cancelada</option>
+            <option value="NO_ASISTIO">No asistió</option></select
+          ><button class="btn btn-secondary">Filtrar</button>
+        </form>
+        <a
+          sec:authorize="hasAnyRole('CLIENTE','RECEPCION')"
+          class="btn btn-primary"
+          th:href="@{/reservar}"
+          >Nueva cita ＋</a
+        >
+      </div>
+      <section class="panel">
+        <div th:replace="~{layout :: appointmentTable(${appointments})}"></div>
+      </section>
+    </main>
+  </body>
+</html>

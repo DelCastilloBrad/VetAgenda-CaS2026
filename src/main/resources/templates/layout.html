@@ -1,0 +1,187 @@
+<!doctype html>
+<html
+  lang="es"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head th:fragment="head(title)">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title th:text="${title} + ' · VetAgenda'">VetAgenda</title>
+    <link
+      rel="stylesheet"
+      th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"
+    />
+    <link rel="stylesheet" th:href="@{/css/tokens.css}" />
+    <link rel="stylesheet" th:href="@{/css/app.css}" />
+    <link rel="stylesheet" th:href="@{/theme/settings.css}" />
+    <link rel="stylesheet" th:href="@{/theme/custom.css}" />
+    <script defer th:src="@{/js/app.js}"></script>
+  </head>
+  <body>
+    <aside class="sidebar" th:fragment="sidebar">
+      <a href="#main" class="skip-link">Saltar al contenido</a
+      ><a class="brand" th:href="@{/}"
+        ><span class="brand-icon" aria-hidden="true">✚</span
+        ><span>VetAgenda<small>CUIDAMOS CADA ENCUENTRO</small></span></a
+      >
+      <p class="nav-label">TU ESPACIO</p>
+      <nav aria-label="Navegación principal">
+        <a th:href="@{/}"><span aria-hidden="true">◫</span> Resumen</a
+        ><a th:href="@{/citas}"><span aria-hidden="true">▦</span> Citas</a
+        ><a
+          sec:authorize="hasAnyRole('CLIENTE','RECEPCION')"
+          th:href="@{/mascotas}"
+          ><span aria-hidden="true">♡</span> Mascotas</a
+        ><a th:href="@{/historial}"
+          ><span aria-hidden="true">▤</span> Historial clínico</a
+        ><a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/reportes}"
+          ><span aria-hidden="true">◴</span> Reportes</a
+        ><a sec:authorize="hasRole('ADMIN')" th:href="@{/admin}"
+          ><span aria-hidden="true">⚙</span> Administración</a
+        ><a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/apariencia}"
+          ><span aria-hidden="true">◐</span> Apariencia</a
+        >
+      </nav>
+      <div class="sidebar-note">
+        <span class="live-dot"></span> Un lugar para cuidar
+        <p>Cada cita en su lugar,<br />cada mascota con su historia.</p>
+      </div>
+      <div class="profile" th:if="${actor != null}">
+        <div class="avatar" th:text="${#strings.substring(actor.name,0,1)}">
+          D
+        </div>
+        <div>
+          <strong th:text="${actor.name}">Usuario</strong
+          ><small th:text="${actor.role}">CLIENTE</small>
+        </div>
+      </div>
+      <form th:action="@{/logout}" method="post">
+        <button class="logout" id="logout" type="submit">
+          Cerrar sesión ↗
+        </button>
+      </form>
+    </aside>
+    <div th:fragment="flash" class="flash-wrap">
+      <div
+        th:if="${success}"
+        class="alert alert-success"
+        role="status"
+        id="success-message"
+        th:text="${success}"
+      ></div>
+    </div>
+    <header th:fragment="heading(kicker,title,subtitle)" class="page-heading">
+      <div>
+        <p class="eyebrow" th:text="${kicker}"></p>
+        <h1 th:text="${title}"></h1>
+        <p class="subtitle" th:text="${subtitle}"></p>
+      </div>
+      <span
+        class="date-pill"
+        th:text="${#temporals.format(today,'dd MMM yyyy')}"
+      ></span>
+    </header>
+    <div th:fragment="appointmentTable(rows)">
+      <div class="empty-state" th:if="${#lists.isEmpty(rows)}">
+        <span aria-hidden="true">♡</span>
+        <h3>La agenda está tranquila</h3>
+        <p>Las citas aparecerán aquí cuando se registren.</p>
+      </div>
+      <div class="table-responsive" th:unless="${#lists.isEmpty(rows)}">
+        <table class="va-table">
+          <thead>
+            <tr>
+              <th>Paciente</th>
+              <th>Fecha y hora</th>
+              <th>Servicio / profesional</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="c : ${rows}" th:attr="data-appointment-id=${c.id}">
+              <td>
+                <strong th:text="${c.pet_name}"></strong
+                ><small th:text="${c.owner_name}"></small>
+              </td>
+              <td>
+                <strong
+                  th:text="${#dates.format(c.starts_at,'dd/MM/yyyy')}"
+                ></strong
+                ><small th:text="${#dates.format(c.starts_at,'HH:mm')}"></small>
+              </td>
+              <td>
+                <span th:text="${c.service_name}"></span
+                ><small th:text="${c.vet_name}"></small>
+              </td>
+              <td>
+                <span
+                  class="status"
+                  th:classappend="${c.status}"
+                  th:text="${#strings.replace(c.status,'_',' ')}"
+                ></span
+                ><small
+                  th:if="${c.reschedules > 0}"
+                  th:text="${c.reschedules} + '/2 reprogramaciones'"
+                ></small>
+              </td>
+              <td>
+                <div class="row-actions">
+                  <th:block
+                    th:if="${c.status == 'RESERVADA'}"
+                    sec:authorize="hasAnyRole('CLIENTE','RECEPCION')"
+                    ><a
+                      class="text-link"
+                      th:href="@{/reservar(appointmentId=${c.id})}"
+                      >Reprogramar</a
+                    >
+                    <form
+                      th:action="@{/citas/{id}/cancelar(id=${c.id})}"
+                      method="post"
+                      data-confirm="¿Cancelar esta cita?"
+                    >
+                      <button class="text-link danger" type="submit">
+                        Cancelar
+                      </button>
+                    </form></th:block
+                  ><th:block
+                    th:if="${c.status == 'RESERVADA'}"
+                    sec:authorize="hasRole('RECEPCION')"
+                    ><form
+                      th:action="@{/citas/{id}/llegada(id=${c.id})}"
+                      method="post"
+                    >
+                      <button class="text-link" type="submit">
+                        Confirmar llegada
+                      </button>
+                    </form>
+                    <form
+                      th:action="@{/citas/{id}/inasistencia(id=${c.id})}"
+                      method="post"
+                      data-confirm="¿Registrar inasistencia?"
+                    >
+                      <button class="text-link danger" type="submit">
+                        No asistió
+                      </button>
+                    </form></th:block
+                  ><a
+                    class="text-link"
+                    sec:authorize="hasRole('VETERINARIO')"
+                    th:if="${c.status == 'EN_ESPERA'}"
+                    th:href="@{/citas/{id}/atender(id=${c.id})}"
+                    >Atender →</a
+                  ><a
+                    class="text-link"
+                    th:href="@{/historial(petId=${c.pet_id})}"
+                    >Historial</a
+                  >
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

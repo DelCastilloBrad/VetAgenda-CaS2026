@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UsuarioService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">VetAgenda</a> &gt; <a href="index.source.html" class="el_package">pe.unsa.vetagenda.service</a> &gt; <span class="el_source">UsuarioService.java</span></div><h1>UsuarioService.java</h1><pre class="source lang-java linenums">package pe.unsa.vetagenda.service;
+
+import java.time.*;
+import java.util.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import pe.unsa.vetagenda.domain.Domain.*;
+
+@Service
+public class UsuarioService {
+  private final Store s;
+  private final PasswordEncoder encoder;
+  private final Clock clock;
+
+<span class="fc" id="L16">  public UsuarioService(Store s, PasswordEncoder encoder, Clock clock) {</span>
+<span class="fc" id="L17">    this.s = s;</span>
+<span class="fc" id="L18">    this.encoder = encoder;</span>
+<span class="fc" id="L19">    this.clock = clock;</span>
+<span class="fc" id="L20">  }</span>
+
+  @Transactional
+  public long register(
+      String name,
+      String email,
+      String password,
+      String dni,
+      String phone,
+      boolean consent,
+      String role) {
+<span class="pc bpc" id="L31" title="1 of 2 branches missed.">    s.require(</span>
+<span class="pc bpc" id="L32" title="2 of 4 branches missed.">        name != null &amp;&amp; !name.isBlank() &amp;&amp; name.length() &lt;= 100,</span>
+        &quot;El nombre es obligatorio (máximo 100 caracteres).&quot;);
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">    s.require(</span>
+<span class="pc bpc" id="L35" title="1 of 4 branches missed.">        email != null &amp;&amp; email.length() &lt;= 150 &amp;&amp; email.matches(&quot;^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$&quot;),</span>
+        &quot;Ingresa un correo válido.&quot;);
+<span class="pc bpc" id="L37" title="1 of 2 branches missed.">    s.require(</span>
+        password != null
+<span class="fc bfc" id="L39" title="All 2 branches covered.">            &amp;&amp; password.length() &gt;= 10</span>
+<span class="pc bpc" id="L40" title="1 of 2 branches missed.">            &amp;&amp; password.getBytes(java.nio.charset.StandardCharsets.UTF_8).length &lt;= 72,</span>
+        &quot;Usa una contraseña de 10 a 72 bytes.&quot;);
+<span class="pc bpc" id="L42" title="1 of 4 branches missed.">    s.require(dni != null &amp;&amp; dni.matches(&quot;[0-9]{8}&quot;), &quot;El DNI debe tener 8 dígitos.&quot;);</span>
+<span class="pc bpc" id="L43" title="2 of 4 branches missed.">    s.require(phone != null &amp;&amp; phone.matches(&quot;[0-9]{9}&quot;), &quot;El teléfono debe tener 9 dígitos.&quot;);</span>
+<span class="fc" id="L44">    s.require(consent, &quot;Debes aceptar el uso de datos para gestionar tus citas.&quot;);</span>
+<span class="fc" id="L45">    s.require(</span>
+<span class="fc" id="L46">        Set.of(&quot;CLIENTE&quot;, &quot;RECEPCION&quot;, &quot;VETERINARIO&quot;, &quot;ADMIN&quot;).contains(role), &quot;Rol inválido.&quot;);</span>
+<span class="fc" id="L47">    s.require(</span>
+<span class="fc" id="L48">        s.jdbc()</span>
+<span class="fc bfc" id="L49" title="All 2 branches covered.">                .queryForObject(</span>
+                    &quot;select count(*) from app_user where email=? or dni=?&quot;,
+                    Integer.class,
+<span class="fc" id="L52">                    email.strip().toLowerCase(Locale.ROOT),</span>
+                    dni)
+            == 0,
+        &quot;El correo o DNI ya está registrado.&quot;);
+<span class="fc" id="L56">    return s.insertId(</span>
+        &quot;insert into app_user(name,email,password,dni,phone,role,consent) values (?,?,?,?,?,?,?)&quot;,
+<span class="fc" id="L58">        name.strip(),</span>
+<span class="fc" id="L59">        email.strip().toLowerCase(Locale.ROOT),</span>
+<span class="fc" id="L60">        encoder.encode(password),</span>
+        dni,
+        phone,
+        role,
+<span class="fc" id="L64">        true);</span>
+  }
+
+  @Transactional
+  public long savePet(
+      Actor actor,
+      Long id,
+      long owner,
+      String name,
+      String species,
+      String breed,
+      LocalDate birth) {
+<span class="pc bpc" id="L76" title="3 of 4 branches missed.">    s.require(actor.client() || actor.reception(), &quot;Tu rol no permite editar mascotas.&quot;);</span>
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">    if (actor.client()) owner = actor.id();</span>
+<span class="fc" id="L78">    s.require(</span>
+<span class="fc" id="L79">        s.jdbc()</span>
+<span class="pc bpc" id="L80" title="1 of 2 branches missed.">                .queryForObject(</span>
+                    &quot;select count(*) from app_user where id=? and role='CLIENTE' and active=true&quot;,
+                    Integer.class,
+<span class="fc" id="L83">                    owner)</span>
+            == 1,
+        &quot;Selecciona un cliente activo.&quot;);
+<span class="pc bpc" id="L86" title="1 of 2 branches missed.">    s.require(</span>
+<span class="pc bpc" id="L87" title="2 of 4 branches missed.">        name != null &amp;&amp; !name.isBlank() &amp;&amp; name.length() &lt;= 80,</span>
+        &quot;El nombre de la mascota es obligatorio (máximo 80).&quot;);
+<span class="fc" id="L89">    s.require(</span>
+<span class="fc" id="L90">        Set.of(&quot;Perro&quot;, &quot;Gato&quot;, &quot;Ave&quot;, &quot;Otro&quot;).contains(species), &quot;Selecciona una especie válida.&quot;);</span>
+<span class="pc bpc" id="L91" title="2 of 4 branches missed.">    s.require(breed != null &amp;&amp; breed.length() &lt;= 80, &quot;La raza admite hasta 80 caracteres.&quot;);</span>
+<span class="pc bpc" id="L92" title="1 of 2 branches missed.">    s.require(</span>
+<span class="fc bfc" id="L93" title="All 2 branches covered.">        birth == null || !birth.isAfter(LocalDate.now(clock)),</span>
+        &quot;La fecha de nacimiento no puede estar en el futuro.&quot;);
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">    if (id == null) {</span>
+<span class="fc" id="L96">      long result =</span>
+<span class="fc" id="L97">          s.insertId(</span>
+              &quot;insert into pet(owner_id,name,species,breed,birth_date) values (?,?,?,?,?)&quot;,
+<span class="fc" id="L99">              owner,</span>
+<span class="fc" id="L100">              name.strip(),</span>
+              species,
+<span class="fc" id="L102">              breed.strip(),</span>
+              birth);
+<span class="fc" id="L104">      s.audit(actor, &quot;CREAR_MASCOTA&quot;, result, clock);</span>
+<span class="fc" id="L105">      return result;</span>
+    }
+<span class="nc" id="L107">    var old = s.one(&quot;select * from pet where id=? for update&quot;, id);</span>
+<span class="nc bnc" id="L108" title="All 2 branches missed.">    s.require(s.number(old, &quot;owner_id&quot;) == owner, &quot;El propietario de la mascota no puede cambiar.&quot;);</span>
+<span class="nc" id="L109">    s.jdbc()</span>
+<span class="nc" id="L110">        .update(</span>
+            &quot;update pet set name=?,species=?,breed=?,birth_date=? where id=?&quot;,
+<span class="nc" id="L112">            name.strip(),</span>
+            species,
+<span class="nc" id="L114">            breed.strip(),</span>
+            birth,
+            id);
+<span class="nc" id="L117">    s.audit(actor, &quot;EDITAR_MASCOTA&quot;, id, clock);</span>
+<span class="nc" id="L118">    return id;</span>
+  }
+
+  @Transactional
+  public void setActive(Actor actor, long id, boolean active) {
+<span class="fc" id="L123">    s.require(actor.admin(), &quot;Solo administración gestiona usuarios.&quot;);</span>
+<span class="pc bpc" id="L124" title="1 of 2 branches missed.">    s.require(actor.id() != id, &quot;No puedes desactivar tu propia cuenta.&quot;);</span>
+<span class="nc" id="L125">    s.one(&quot;select id from app_user where id=?&quot;, id);</span>
+<span class="nc" id="L126">    s.jdbc().update(&quot;update app_user set active=? where id=?&quot;, active, id);</span>
+<span class="nc bnc" id="L127" title="All 2 branches missed.">    s.audit(actor, active ? &quot;ACTIVAR_USUARIO&quot; : &quot;DESACTIVAR_USUARIO&quot;, id, clock);</span>
+<span class="nc" id="L128">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

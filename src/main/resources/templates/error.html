@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{layout :: head('No pudimos abrir esta página')}"></head>
+  <body class="problem-page">
+    <main class="panel form-panel" id="main">
+      <p class="eyebrow" th:text="${status}"></p>
+      <h1
+        th:text="${status == 403 ? 'Este espacio tiene otro permiso' : 'No pudimos abrir esta página'}"
+      ></h1>
+      <p
+        th:text="${status == 403 ? 'Tu rol no permite realizar esta acción.' : 'Vuelve al resumen o revisa la dirección.'}"
+      ></p>
+      <a class="btn btn-primary" th:href="@{/}">Ir al resumen</a>
+    </main>
+  </body>
+</html>

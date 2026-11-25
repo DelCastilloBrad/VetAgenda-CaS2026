@@ -1,0 +1,71 @@
+<!doctype html>
+<html
+  lang="es"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head th:replace="~{layout :: head('Resumen')}"></head>
+  <body class="app-shell">
+    <aside th:replace="~{layout :: sidebar}"></aside>
+    <main id="main" class="workspace">
+      <div th:replace="~{layout :: flash}"></div>
+      <header
+        th:replace="~{layout :: heading('UN BUEN DÍA PARA CUIDAR','Todo listo para cuidarlos','Tu agenda y el bienestar de tus pacientes, en un solo lugar.')}"
+      ></header>
+      <section class="welcome-banner">
+        <div>
+          <span class="eyebrow">CADA ENCUENTRO CUENTA</span>
+          <h2>El cuidado empieza<br />con una buena cita.</h2>
+          <p>Organiza la próxima visita y deja espacio para lo que importa.</p>
+          <a
+            sec:authorize="hasAnyRole('CLIENTE','RECEPCION')"
+            class="btn btn-primary"
+            th:href="@{/reservar}"
+            id="new-appointment"
+            >Reservar una cita <span aria-hidden="true">＋</span></a
+          ><a
+            sec:authorize="hasAnyRole('VETERINARIO','ADMIN')"
+            class="btn btn-primary"
+            th:href="@{/citas}"
+            >Ver agenda →</a
+          >
+        </div>
+        <div class="banner-art" aria-hidden="true">
+          <div class="care-circle">
+            <span>♡</span><small>SIEMPRE CERCA</small>
+          </div>
+          <span class="tiny-cross">✚</span>
+        </div>
+      </section>
+      <section class="metric-grid" aria-label="Resumen de actividad">
+        <article class="metric">
+          <span>Citas registradas</span><strong th:text="${total}">0</strong
+          ><small>En tu espacio de trabajo</small>
+        </article>
+        <article class="metric">
+          <span>En espera</span><strong th:text="${waiting}">0</strong
+          ><small>Listas para recibir atención</small>
+        </article>
+        <article class="metric">
+          <span>Atenciones completadas</span
+          ><strong th:text="${attended}">0</strong
+          ><small>Historias que seguimos cuidando</small>
+        </article>
+      </section>
+      <div th:if="${misses >= 3}" class="alert alert-warning">
+        Tienes 3 o más inasistencias en 90 días. Comunícate con recepción para
+        tu próxima reserva.
+      </div>
+      <section class="panel">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">HOY EN LA CLÍNICA</p>
+            <h2>Encuentros del día</h2>
+          </div>
+          <a th:href="@{/citas}" class="text-link">Ver todas las citas →</a>
+        </div>
+        <div th:replace="~{layout :: appointmentTable(${appointments})}"></div>
+      </section>
+    </main>
+  </body>
+</html>

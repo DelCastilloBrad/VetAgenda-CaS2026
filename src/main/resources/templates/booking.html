@@ -1,0 +1,147 @@
+<!doctype html>
+<html
+  lang="es"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head th:replace="~{layout :: head('Reservar cita')}"></head>
+  <body class="app-shell">
+    <aside th:replace="~{layout :: sidebar}"></aside>
+    <main id="main" class="workspace">
+      <div th:replace="~{layout :: flash}"></div>
+      <header
+        th:replace="~{layout :: heading('EL PRÓXIMO ENCUENTRO','Un momento para su bienestar','Elige un paciente, profesional y horario disponible.')}"
+      ></header>
+      <div class="booking-steps">
+        <span class="active">1. Elige la visita</span
+        ><span>2. Encuentra tu horario</span><span>3. Confirma</span>
+      </div>
+      <div class="alert alert-info" th:if="${rescheduling != null}">
+        Estás reprogramando una cita. La mascota se conserva y puedes cambiar de
+        horario o profesional.
+      </div>
+      <div class="alert alert-warning" th:if="${#lists.isEmpty(pets)}">
+        Primero <a th:href="@{/mascotas}">registra una mascota</a> para
+        reservar.
+      </div>
+      <section class="panel">
+        <form
+          th:action="@{/disponibilidad}"
+          method="get"
+          class="form-grid booking-form"
+        >
+          <input
+            th:if="${appointmentId != null}"
+            type="hidden"
+            name="appointmentId"
+            th:value="${appointmentId}"
+          />
+          <div>
+            <label for="petId">¿A quién vamos a cuidar?</label
+            ><select name="petId" id="petId" required>
+              <option value="">Selecciona una mascota</option>
+              <option
+                th:each="p : ${pets}"
+                th:value="${p.id}"
+                th:text="${p.name} + ' · ' + ${p.owner_name}"
+                th:selected="${p.id == selectedPet}"
+              ></option>
+            </select>
+          </div>
+          <div>
+            <label for="serviceId">Servicio</label
+            ><select name="serviceId" id="serviceId" required>
+              <option value="">Selecciona un servicio</option>
+              <option
+                th:each="s : ${services}"
+                th:value="${s.id}"
+                th:text="${s.name}"
+                th:selected="${s.id == selectedService}"
+              ></option>
+            </select>
+          </div>
+          <div>
+            <label for="vetId">Profesional</label
+            ><select name="vetId" id="vetId" required>
+              <option value="">Selecciona un veterinario</option>
+              <option
+                th:each="v : ${vets}"
+                th:value="${v.id}"
+                th:text="${v.name}"
+                th:selected="${v.id == selectedVet}"
+              ></option>
+            </select>
+          </div>
+          <div>
+            <label for="date">Fecha de la visita</label
+            ><input
+              id="date"
+              name="date"
+              type="date"
+              th:value="${date}"
+              th:min="${today}"
+              th:max="${today.plusDays(30)}"
+              required
+            />
+          </div>
+          <div>
+            <button class="btn btn-primary" id="search-slots">
+              Buscar horarios →
+            </button>
+          </div>
+        </form>
+      </section>
+      <section class="panel" th:if="${slots != null}">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">UN ESPACIO PARA TI</p>
+            <h2>Horarios disponibles</h2>
+          </div>
+          <span class="date-pill">Bloques de 30 minutos</span>
+        </div>
+        <p th:if="${#lists.isEmpty(slots)}" class="empty-state">
+          No hay bloques disponibles. Prueba otra fecha o profesional.
+        </p>
+        <form
+          method="post"
+          th:action="${appointmentId == null ? '/reservar' : '/citas/' + appointmentId + '/reprogramar'}"
+          th:unless="${#lists.isEmpty(slots)}"
+          class="stack"
+        >
+          <input type="hidden" name="petId" th:value="${selectedPet}" /><input
+            type="hidden"
+            name="vetId"
+            th:value="${selectedVet}"
+          /><input
+            type="hidden"
+            name="serviceId"
+            th:value="${selectedService}"
+          />
+          <fieldset>
+            <legend class="visually-hidden">Selecciona un horario</legend>
+            <div class="slot-grid">
+              <label class="slot" th:each="slot : ${slots}"
+                ><input
+                  type="radio"
+                  name="startsAt"
+                  th:value="${slot}"
+                  required /><span
+                  th:text="${#temporals.format(slot,'HH:mm')}"
+                ></span
+              ></label>
+            </div>
+          </fieldset>
+          <p class="fineprint">
+            Reserva con 2 horas de anticipación y hasta 30 días antes. Puedes
+            reprogramar hasta 2 veces.
+          </p>
+          <button
+            class="btn btn-primary"
+            id="confirm-booking"
+            th:text="${appointmentId == null ? 'Confirmar reserva' : 'Confirmar reprogramación'}"
+          ></button>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

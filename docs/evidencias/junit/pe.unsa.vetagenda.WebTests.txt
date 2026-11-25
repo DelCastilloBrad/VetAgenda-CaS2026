@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: pe.unsa.vetagenda.WebTests
+-------------------------------------------------------------------------------
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.650 s -- in pe.unsa.vetagenda.WebTests

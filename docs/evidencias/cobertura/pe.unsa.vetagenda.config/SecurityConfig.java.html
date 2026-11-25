@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SecurityConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">VetAgenda</a> &gt; <a href="index.source.html" class="el_package">pe.unsa.vetagenda.config</a> &gt; <span class="el_source">SecurityConfig.java</span></div><h1>SecurityConfig.java</h1><pre class="source lang-java linenums">package pe.unsa.vetagenda.config;
+
+import java.sql.Timestamp;
+import java.time.*;
+import java.util.*;
+import org.springframework.context.annotation.*;
+import org.springframework.security.authentication.*;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.*;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import pe.unsa.vetagenda.service.Store;
+
+@Configuration
+<span class="fc" id="L16">public class SecurityConfig {</span>
+  @Bean
+  public AuthenticationProvider authenticationProvider(
+      Store s, PasswordEncoder encoder, Clock clock) {
+<span class="fc" id="L20">    return new AuthenticationProvider() {</span>
+<span class="fc" id="L21">      private final String dummy = encoder.encode(&quot;constant-time-unknown-account&quot;);</span>
+
+      public Authentication authenticate(Authentication request) {
+<span class="fc" id="L24">        String email = request.getName().strip().toLowerCase(Locale.ROOT);</span>
+<span class="fc" id="L25">        var rows = s.jdbc().queryForList(&quot;select * from app_user where email=?&quot;, email);</span>
+<span class="pc bpc" id="L26" title="1 of 2 branches missed.">        if (rows.isEmpty()) {</span>
+<span class="nc" id="L27">          encoder.matches(request.getCredentials().toString(), dummy);</span>
+<span class="nc" id="L28">          throw new BadCredentialsException(&quot;Credenciales inválidas&quot;);</span>
+        }
+<span class="fc" id="L30">        var u = rows.getFirst();</span>
+<span class="fc" id="L31">        long id = s.number(u, &quot;id&quot;);</span>
+<span class="fc" id="L32">        var now = LocalDateTime.now(clock);</span>
+<span class="fc" id="L33">        var until = (Timestamp) u.get(&quot;locked_until&quot;);</span>
+<span class="pc bpc" id="L34" title="2 of 6 branches missed.">        if (!(Boolean) u.get(&quot;active&quot;) || (until != null &amp;&amp; until.toLocalDateTime().isAfter(now)))</span>
+<span class="fc" id="L35">          throw new BadCredentialsException(&quot;Credenciales inválidas o cuenta bloqueada&quot;);</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">        if (!encoder.matches(request.getCredentials().toString(), (String) u.get(&quot;password&quot;))) {</span>
+<span class="fc" id="L37">          s.jdbc()</span>
+<span class="fc" id="L38">              .update(</span>
+                  &quot;update app_user set failed_attempts=case when locked_until is not null and&quot;
+                      + &quot; locked_until&lt;=? then 1 else failed_attempts+1 end,locked_until=case when&quot;
+                      + &quot; failed_attempts&gt;=4 and (locked_until is null or locked_until&gt;?) then ?&quot;
+                      + &quot; else null end where id=?&quot;,
+                  now,
+                  now,
+<span class="fc" id="L45">                  now.plusMinutes(15),</span>
+<span class="fc" id="L46">                  id);</span>
+<span class="fc" id="L47">          throw new BadCredentialsException(&quot;Credenciales inválidas&quot;);</span>
+        }
+<span class="fc" id="L49">        s.jdbc().update(&quot;update app_user set failed_attempts=0,locked_until=null where id=?&quot;, id);</span>
+<span class="fc" id="L50">        return new UsernamePasswordAuthenticationToken(</span>
+<span class="fc" id="L51">            email, null, List.of(new SimpleGrantedAuthority(&quot;ROLE_&quot; + u.get(&quot;role&quot;))));</span>
+      }
+
+      public boolean supports(Class&lt;?&gt; c) {
+<span class="fc" id="L55">        return UsernamePasswordAuthenticationToken.class.isAssignableFrom(c);</span>
+      }
+    };
+  }
+
+  @Bean
+  public SecurityFilterChain security(
+      HttpSecurity http, AuthenticationProvider provider, Store store) throws Exception {
+<span class="fc" id="L63">    return http.authenticationProvider(provider)</span>
+<span class="fc" id="L64">        .addFilterAfter(</span>
+            new ActiveAccountFilter(store),
+            org.springframework.security.web.context.SecurityContextHolderFilter.class)
+<span class="fc" id="L67">        .authorizeHttpRequests(</span>
+            a -&gt;
+<span class="fc" id="L69">                a.requestMatchers(</span>
+                        &quot;/login&quot;, &quot;/registro&quot;, &quot;/css/**&quot;, &quot;/js/**&quot;, &quot;/webjars/**&quot;, &quot;/theme/**&quot;)
+<span class="fc" id="L71">                    .permitAll()</span>
+<span class="fc" id="L72">                    .requestMatchers(&quot;/admin/**&quot;)</span>
+<span class="fc" id="L73">                    .hasRole(&quot;ADMIN&quot;)</span>
+<span class="fc" id="L74">                    .requestMatchers(</span>
+                        &quot;/mascotas/**&quot;,
+                        &quot;/reservar&quot;,
+                        &quot;/disponibilidad&quot;,
+                        &quot;/citas/*/cancelar&quot;,
+                        &quot;/citas/*/reprogramar&quot;)
+<span class="fc" id="L80">                    .hasAnyRole(&quot;CLIENTE&quot;, &quot;RECEPCION&quot;)</span>
+<span class="fc" id="L81">                    .requestMatchers(&quot;/citas/*/llegada&quot;, &quot;/citas/*/inasistencia&quot;)</span>
+<span class="fc" id="L82">                    .hasRole(&quot;RECEPCION&quot;)</span>
+<span class="fc" id="L83">                    .requestMatchers(&quot;/citas/*/atender&quot;)</span>
+<span class="fc" id="L84">                    .hasRole(&quot;VETERINARIO&quot;)</span>
+<span class="fc" id="L85">                    .anyRequest()</span>
+<span class="fc" id="L86">                    .authenticated())</span>
+<span class="fc" id="L87">        .formLogin(</span>
+            f -&gt;
+<span class="fc" id="L89">                f.loginPage(&quot;/login&quot;)</span>
+<span class="fc" id="L90">                    .defaultSuccessUrl(&quot;/&quot;, true)</span>
+<span class="fc" id="L91">                    .failureUrl(&quot;/login?error&quot;)</span>
+<span class="fc" id="L92">                    .permitAll())</span>
+<span class="fc" id="L93">        .logout(l -&gt; l.logoutSuccessUrl(&quot;/login?logout&quot;))</span>
+<span class="fc" id="L94">        .headers(</span>
+            h -&gt;
+<span class="fc" id="L96">                h.contentSecurityPolicy(</span>
+                    c -&gt;
+<span class="fc" id="L98">                        c.policyDirectives(</span>
+                            &quot;default-src 'self'; style-src 'self'; script-src 'self'; img-src&quot;
+                                + &quot; 'self' data:; font-src 'self'; form-action 'self';&quot;
+                                + &quot; frame-ancestors 'none'; base-uri 'self'&quot;)))
+<span class="fc" id="L102">        .build();</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

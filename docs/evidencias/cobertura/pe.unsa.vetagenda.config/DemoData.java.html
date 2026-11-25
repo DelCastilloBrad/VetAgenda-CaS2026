@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DemoData.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">VetAgenda</a> &gt; <a href="index.source.html" class="el_package">pe.unsa.vetagenda.config</a> &gt; <span class="el_source">DemoData.java</span></div><h1>DemoData.java</h1><pre class="source lang-java linenums">package pe.unsa.vetagenda.config;
+
+import java.time.*;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.*;
+import org.springframework.stereotype.Component;
+import pe.unsa.vetagenda.service.*;
+
+@Component
+public class DemoData implements ApplicationRunner {
+  private final Store s;
+  private final UsuarioService users;
+  private final boolean enabled;
+  private final Clock clock;
+
+  public DemoData(
+      Store s,
+      UsuarioService users,
+      @Value(&quot;${vetagenda.demo.enabled:false}&quot;) boolean enabled,
+<span class="fc" id="L20">      Clock clock) {</span>
+<span class="fc" id="L21">    this.s = s;</span>
+<span class="fc" id="L22">    this.users = users;</span>
+<span class="fc" id="L23">    this.enabled = enabled;</span>
+<span class="fc" id="L24">    this.clock = clock;</span>
+<span class="fc" id="L25">  }</span>
+
+  public void run(ApplicationArguments args) {
+<span class="pc bpc" id="L28" title="1 of 4 branches missed.">    if (!enabled || s.jdbc().queryForObject(&quot;select count(*) from app_user&quot;, Integer.class) &gt; 0)</span>
+<span class="fc" id="L29">      return;</span>
+<span class="fc" id="L30">    String[] roles = {&quot;ADMIN&quot;, &quot;RECEPCION&quot;, &quot;VETERINARIO&quot;, &quot;CLIENTE&quot;};</span>
+<span class="fc" id="L31">    String[] names = {</span>
+      &quot;Administración Demo&quot;, &quot;Lucía · Recepción&quot;, &quot;Dra. Camila Torres&quot;, &quot;Daniela Flores&quot;
+    };
+<span class="fc" id="L34">    String[] emails = {</span>
+      &quot;admin@vetagenda.test&quot;,
+      &quot;recepcion@vetagenda.test&quot;,
+      &quot;vet@vetagenda.test&quot;,
+      &quot;cliente@vetagenda.test&quot;
+    };
+<span class="fc" id="L40">    long[] ids = new long[4];</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">    for (int i = 0; i &lt; 4; i++)</span>
+<span class="fc" id="L42">      ids[i] =</span>
+<span class="fc" id="L43">          users.register(</span>
+              names[i], emails[i], &quot;DemoVet2026!&quot;, &quot;1000000&quot; + i, &quot;90000000&quot; + i, true, roles[i]);
+<span class="fc" id="L45">    var client = s.actor(emails[3]);</span>
+<span class="fc" id="L46">    long pet =</span>
+<span class="fc" id="L47">        users.savePet(</span>
+<span class="fc" id="L48">            client, null, ids[3], &quot;Luna&quot;, &quot;Perro&quot;, &quot;Mestiza&quot;, LocalDate.now(clock).minusYears(3));</span>
+<span class="fc" id="L49">    users.savePet(</span>
+<span class="fc" id="L50">        client, null, ids[3], &quot;Milo&quot;, &quot;Gato&quot;, &quot;Europeo&quot;, LocalDate.now(clock).minusYears(1));</span>
+<span class="fc" id="L51">    var now = LocalDateTime.now(clock);</span>
+<span class="fc" id="L52">    var at = LocalDate.now(clock).atTime(10, 0);</span>
+<span class="fc" id="L53">    s.jdbc()</span>
+<span class="fc" id="L54">        .update(</span>
+            &quot;insert into&quot;
+                + &quot; appointment(pet_id,vet_id,service_id,starts_at,status,created_at,updated_at)&quot;
+                + &quot; values (?,?,1,?,'RESERVADA',?,?)&quot;,
+<span class="fc" id="L58">            pet,</span>
+<span class="fc" id="L59">            ids[2],</span>
+            at,
+            now,
+            now);
+<span class="fc" id="L63">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

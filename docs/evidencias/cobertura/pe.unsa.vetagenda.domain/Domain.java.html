@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Domain.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">VetAgenda</a> &gt; <a href="index.source.html" class="el_package">pe.unsa.vetagenda.domain</a> &gt; <span class="el_source">Domain.java</span></div><h1>Domain.java</h1><pre class="source lang-java linenums">package pe.unsa.vetagenda.domain;
+
+import java.time.*;
+
+public final class Domain {
+  private Domain() {}
+
+<span class="fc" id="L8">  public record Actor(long id, String name, String email, String role) {</span>
+    public boolean client() {
+<span class="fc" id="L10">      return role.equals(&quot;CLIENTE&quot;);</span>
+    }
+
+    public boolean reception() {
+<span class="fc" id="L14">      return role.equals(&quot;RECEPCION&quot;);</span>
+    }
+
+    public boolean vet() {
+<span class="fc" id="L18">      return role.equals(&quot;VETERINARIO&quot;);</span>
+    }
+
+    public boolean admin() {
+<span class="fc" id="L22">      return role.equals(&quot;ADMIN&quot;);</span>
+    }
+  }
+
+<span class="fc" id="L26">  public record Slot(long petId, long vetId, long serviceId, LocalDateTime startsAt) {}</span>
+
+<span class="fc" id="L28">  public record Visit(</span>
+      String reason, String diagnosis, String treatment, java.math.BigDecimal weight) {}
+
+  public static class RuleViolation extends RuntimeException {
+    public RuleViolation(String message) {
+<span class="fc" id="L33">      super(message);</span>
+<span class="fc" id="L34">    }</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ThemeService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">VetAgenda</a> &gt; <a href="index.source.html" class="el_package">pe.unsa.vetagenda.service</a> &gt; <span class="el_source">ThemeService.java</span></div><h1>ThemeService.java</h1><pre class="source lang-java linenums">package pe.unsa.vetagenda.service;
+
+import java.util.*;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import pe.unsa.vetagenda.domain.Domain.*;
+
+@Service
+public class ThemeService {
+<span class="fc" id="L10">  public static final Map&lt;String, String&gt; DEFAULTS =</span>
+<span class="fc" id="L11">      Map.of(</span>
+          &quot;primary&quot;,
+          &quot;#157b68&quot;,
+          &quot;background&quot;,
+          &quot;#f5f7f6&quot;,
+          &quot;surface&quot;,
+          &quot;#ffffff&quot;,
+          &quot;text&quot;,
+          &quot;#1e3430&quot;,
+          &quot;radius&quot;,
+          &quot;16&quot;,
+          &quot;scale&quot;,
+          &quot;100&quot;,
+          &quot;font&quot;,
+          &quot;system&quot;);
+  private final Store s;
+
+<span class="fc" id="L28">  public ThemeService(Store s) {</span>
+<span class="fc" id="L29">    this.s = s;</span>
+<span class="fc" id="L30">  }</span>
+
+  public Map&lt;String, String&gt; current() {
+<span class="fc" id="L33">    var map = new HashMap&lt;&gt;(DEFAULTS);</span>
+<span class="fc" id="L34">    s.jdbc()</span>
+<span class="fc" id="L35">        .queryForList(&quot;select * from theme_setting&quot;)</span>
+<span class="fc" id="L36">        .forEach(r -&gt; map.put((String) r.get(&quot;setting_key&quot;), (String) r.get(&quot;setting_value&quot;)));</span>
+<span class="fc" id="L37">    return map;</span>
+  }
+
+  @Transactional
+  public void save(Actor actor, Map&lt;String, String&gt; input) {
+<span class="fc" id="L42">    s.require(actor.admin(), &quot;Solo administración puede personalizar el tema.&quot;);</span>
+<span class="fc" id="L43">    var values = new HashMap&lt;String, String&gt;();</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">    for (var key : DEFAULTS.keySet()) {</span>
+<span class="fc" id="L45">      String value = input.getOrDefault(key, DEFAULTS.get(key));</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">      if (Set.of(&quot;primary&quot;, &quot;background&quot;, &quot;surface&quot;, &quot;text&quot;).contains(key))</span>
+<span class="fc" id="L47">        s.require(value.matches(&quot;#[0-9a-fA-F]{6}&quot;), &quot;Usa colores hexadecimales válidos.&quot;);</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">      if (key.equals(&quot;radius&quot;))</span>
+<span class="fc" id="L49">        s.require(</span>
+<span class="fc" id="L50">            Set.of(&quot;0&quot;, &quot;8&quot;, &quot;16&quot;, &quot;24&quot;).contains(value), &quot;Selecciona un redondeado permitido.&quot;);</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">      if (key.equals(&quot;scale&quot;))</span>
+<span class="fc" id="L52">        s.require(Set.of(&quot;100&quot;, &quot;110&quot;, &quot;120&quot;).contains(value), &quot;Selecciona un tamaño permitido.&quot;);</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">      if (key.equals(&quot;font&quot;))</span>
+<span class="fc" id="L54">        s.require(</span>
+<span class="fc" id="L55">            Set.of(&quot;system&quot;, &quot;serif&quot;, &quot;mono&quot;).contains(value),</span>
+            &quot;Selecciona una tipografía permitida.&quot;);
+<span class="fc" id="L57">      values.put(key, value);</span>
+<span class="fc" id="L58">    }</span>
+<span class="fc" id="L59">    s.jdbc().update(&quot;delete from theme_setting&quot;);</span>
+<span class="fc" id="L60">    values.forEach((k, v) -&gt; s.jdbc().update(&quot;insert into theme_setting values (?,?)&quot;, k, v));</span>
+<span class="fc" id="L61">  }</span>
+
+  public String css() {
+<span class="fc" id="L64">    var t = current();</span>
+<span class="fc" id="L65">    String primary = t.get(&quot;primary&quot;),</span>
+<span class="fc" id="L66">        text = t.get(&quot;text&quot;),</span>
+<span class="fc" id="L67">        surface = t.get(&quot;surface&quot;),</span>
+<span class="fc" id="L68">        background = t.get(&quot;background&quot;);</span>
+<span class="fc" id="L69">    return &quot;:root{--va-primary:&quot;</span>
+        + primary
+        + &quot;;--va-on-primary:&quot;
+<span class="pc bpc" id="L72" title="1 of 2 branches missed.">        + (luminance(primary) &gt; .4 ? &quot;#10251e&quot; : &quot;#ffffff&quot;)</span>
+        + &quot;;--va-bg:&quot;
+        + background
+        + &quot;;--va-surface:&quot;
+        + surface
+        + &quot;;--va-text:&quot;
+        + text
+        + &quot;;--va-muted:&quot;
+        + text
+        + &quot;;--va-radius:&quot;
+<span class="fc" id="L82">        + t.get(&quot;radius&quot;)</span>
+        + &quot;px;--va-font-scale:&quot;
+<span class="fc" id="L84">        + t.get(&quot;scale&quot;)</span>
+        + &quot;%;--va-font:&quot;
+<span class="pc bpc" id="L86" title="2 of 3 branches missed.">        + switch (t.get(&quot;font&quot;)) {</span>
+<span class="nc" id="L87">          case &quot;serif&quot; -&gt; &quot;Georgia,serif&quot;;</span>
+<span class="nc" id="L88">          case &quot;mono&quot; -&gt; &quot;ui-monospace,monospace&quot;;</span>
+<span class="fc" id="L89">          default -&gt; &quot;Inter,system-ui,sans-serif&quot;;</span>
+        }
+        + &quot;;}&quot;;
+  }
+
+  private double luminance(String h) {
+<span class="fc" id="L95">    double r = Integer.parseInt(h.substring(1, 3), 16) / 255.0,</span>
+<span class="fc" id="L96">        g = Integer.parseInt(h.substring(3, 5), 16) / 255.0,</span>
+<span class="fc" id="L97">        b = Integer.parseInt(h.substring(5, 7), 16) / 255.0;</span>
+<span class="fc" id="L98">    return .2126 * r + .7152 * g + .0722 * b;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

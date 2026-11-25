@@ -1,0 +1,99 @@
+<!doctype html>
+<html
+  lang="es"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head th:replace="~{layout :: head('Apariencia')}"></head>
+  <body class="app-shell">
+    <aside th:replace="~{layout :: sidebar}"></aside>
+    <main id="main" class="workspace">
+      <div th:replace="~{layout :: flash}"></div>
+      <header
+        th:replace="~{layout :: heading('A TU MANERA','Una clínica con tu estilo','Personaliza la apariencia con opciones fáciles de restablecer.')}"
+      ></header>
+      <div class="two-column">
+        <section class="panel">
+          <h2>Identidad visual</h2>
+          <form th:action="@{/admin/apariencia}" method="post" class="stack">
+            <div class="form-grid">
+              <div
+                th:each="key : ${ {'primary','background','surface','text'} }"
+              >
+                <label
+                  th:for="${key}"
+                  th:text="${key == 'primary' ? 'Color principal' : key == 'background' ? 'Fondo general' : key == 'surface' ? 'Tarjetas y paneles' : 'Texto'}"
+                ></label
+                ><input
+                  th:id="${key}"
+                  th:name="${key}"
+                  type="color"
+                  th:value="${theme.get(key)}"
+                />
+              </div>
+            </div>
+            <label for="font">Tipografía</label
+            ><select id="font" name="font">
+              <option value="system" th:selected="${theme.font == 'system'}">
+                Sistema · sin descargas
+              </option>
+              <option value="serif" th:selected="${theme.font == 'serif'}">
+                Clásica · Georgia
+              </option>
+              <option value="mono" th:selected="${theme.font == 'mono'}">
+                Monoespaciada
+              </option></select
+            ><label for="scale">Tamaño de texto</label
+            ><select id="scale" name="scale">
+              <option
+                th:each="v : ${ {'100','110','120'} }"
+                th:value="${v}"
+                th:text="${v} + '%'"
+                th:selected="${theme.scale == v}"
+              ></option></select
+            ><label for="radius">Redondeado de bordes</label
+            ><select name="radius" id="radius">
+              <option
+                th:each="v : ${ {'0','8','16','24'} }"
+                th:value="${v}"
+                th:text="${v} + ' px'"
+                th:selected="${theme.radius == v}"
+              ></option></select
+            ><button class="btn btn-primary" id="save-theme">
+              Guardar apariencia
+            </button>
+          </form>
+        </section>
+        <section>
+          <article class="panel">
+            <p class="eyebrow">VISTA DEL ESTILO ACTUAL</p>
+            <h2>El cuidado, con tu identidad</h2>
+            <p>
+              Los cambios se aplican a todas las pantallas. Elige colores con
+              buen contraste para leer cómodamente.
+            </p>
+            <span class="status ATENDIDA">ATENDIDA</span>
+            <p class="preview-action">
+              <button class="btn btn-primary" type="button">
+                Botón de ejemplo
+              </button>
+            </p>
+          </article>
+          <article class="panel">
+            <h2>Volver al inicio</h2>
+            <p>Restaura los colores, tipografía y bordes originales.</p>
+            <form
+              th:action="@{/admin/apariencia/restablecer}"
+              method="post"
+              data-confirm="¿Restaurar la apariencia original?"
+            >
+              <button class="btn btn-secondary" id="reset-theme">
+                Restablecer diseño
+              </button>
+            </form>
+          </article>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

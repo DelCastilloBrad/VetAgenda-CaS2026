@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>WebController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">VetAgenda</a> &gt; <a href="index.source.html" class="el_package">pe.unsa.vetagenda.web</a> &gt; <span class="el_source">WebController.java</span></div><h1>WebController.java</h1><pre class="source lang-java linenums">package pe.unsa.vetagenda.web;
+
+import java.math.BigDecimal;
+import java.security.Principal;
+import java.time.*;
+import java.util.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import pe.unsa.vetagenda.domain.Domain.*;
+import pe.unsa.vetagenda.service.*;
+
+@Controller
+public class WebController {
+  private final Store s;
+  private final UsuarioService users;
+  private final CitaService citas;
+  private final AgendaService agenda;
+  private final InasistenciaService misses;
+  private final ThemeService themes;
+  private final Clock clock;
+
+  public WebController(
+      Store s,
+      UsuarioService users,
+      CitaService citas,
+      AgendaService agenda,
+      InasistenciaService misses,
+      ThemeService themes,
+<span class="fc" id="L31">      Clock clock) {</span>
+<span class="fc" id="L32">    this.s = s;</span>
+<span class="fc" id="L33">    this.users = users;</span>
+<span class="fc" id="L34">    this.citas = citas;</span>
+<span class="fc" id="L35">    this.agenda = agenda;</span>
+<span class="fc" id="L36">    this.misses = misses;</span>
+<span class="fc" id="L37">    this.themes = themes;</span>
+<span class="fc" id="L38">    this.clock = clock;</span>
+<span class="fc" id="L39">  }</span>
+
+  @ModelAttribute
+  public void common(Principal p, Model m) {
+<span class="fc bfc" id="L43" title="All 2 branches covered.">    if (p != null) m.addAttribute(&quot;actor&quot;, s.actor(p.getName()));</span>
+<span class="fc" id="L44">    m.addAttribute(&quot;today&quot;, LocalDate.now(clock));</span>
+<span class="fc" id="L45">  }</span>
+
+  private Actor actor(Principal p) {
+<span class="fc" id="L48">    return s.actor(p.getName());</span>
+  }
+
+  private String ok(RedirectAttributes r, String message, String path) {
+<span class="nc" id="L52">    r.addFlashAttribute(&quot;success&quot;, message);</span>
+<span class="nc" id="L53">    return &quot;redirect:&quot; + path;</span>
+  }
+
+  @GetMapping(&quot;/login&quot;)
+  public String login() {
+<span class="fc" id="L58">    return &quot;login&quot;;</span>
+  }
+
+  @GetMapping(&quot;/registro&quot;)
+  public String register() {
+<span class="fc" id="L63">    return &quot;register&quot;;</span>
+  }
+
+  @PostMapping(&quot;/registro&quot;)
+  public String register(
+      @RequestParam String name,
+      @RequestParam String email,
+      @RequestParam String password,
+      @RequestParam String dni,
+      @RequestParam String phone,
+      @RequestParam(defaultValue = &quot;false&quot;) boolean consent,
+      RedirectAttributes r) {
+<span class="nc" id="L75">    users.register(name, email, password, dni, phone, consent, &quot;CLIENTE&quot;);</span>
+<span class="nc" id="L76">    return ok(r, &quot;Cuenta creada. Ya puedes iniciar sesión.&quot;, &quot;/login&quot;);</span>
+  }
+
+  @GetMapping(&quot;/&quot;)
+  public String dashboard(Principal p, Model m) {
+<span class="fc" id="L81">    var a = actor(p);</span>
+<span class="fc" id="L82">    var rows = s.appointments(a);</span>
+<span class="fc" id="L83">    var today = LocalDate.now(clock);</span>
+<span class="fc" id="L84">    m.addAttribute(</span>
+        &quot;appointments&quot;,
+<span class="fc" id="L86">        rows.stream()</span>
+<span class="fc" id="L87">            .filter(</span>
+                x -&gt;
+<span class="fc" id="L89">                    ((java.sql.Timestamp) x.get(&quot;starts_at&quot;))</span>
+<span class="fc" id="L90">                        .toLocalDateTime()</span>
+<span class="fc" id="L91">                        .toLocalDate()</span>
+<span class="fc" id="L92">                        .equals(today))</span>
+<span class="pc" id="L93">            .sorted(Comparator.comparing(x -&gt; ((java.sql.Timestamp) x.get(&quot;starts_at&quot;))))</span>
+<span class="fc" id="L94">            .toList());</span>
+<span class="fc" id="L95">    m.addAttribute(&quot;total&quot;, rows.size());</span>
+<span class="fc" id="L96">    m.addAttribute(</span>
+<span class="fc" id="L97">        &quot;waiting&quot;, rows.stream().filter(x -&gt; x.get(&quot;status&quot;).equals(&quot;EN_ESPERA&quot;)).count());</span>
+<span class="fc" id="L98">    m.addAttribute(</span>
+<span class="fc" id="L99">        &quot;attended&quot;, rows.stream().filter(x -&gt; x.get(&quot;status&quot;).equals(&quot;ATENDIDA&quot;)).count());</span>
+<span class="fc bfc" id="L100" title="All 2 branches covered.">    m.addAttribute(&quot;misses&quot;, a.client() ? misses.count(a.id()) : 0);</span>
+<span class="fc" id="L101">    return &quot;dashboard&quot;;</span>
+  }
+
+  @GetMapping(&quot;/citas&quot;)
+  public String appointments(Principal p, Model m, @RequestParam(required = false) String state) {
+<span class="fc" id="L106">    var rows = s.appointments(actor(p));</span>
+<span class="pc bpc" id="L107" title="3 of 4 branches missed.">    if (state != null &amp;&amp; !state.isBlank())</span>
+<span class="nc" id="L108">      rows = rows.stream().filter(x -&gt; x.get(&quot;status&quot;).equals(state)).toList();</span>
+<span class="fc" id="L109">    m.addAttribute(&quot;appointments&quot;, rows);</span>
+<span class="fc" id="L110">    return &quot;appointments&quot;;</span>
+  }
+
+  @GetMapping(&quot;/mascotas&quot;)
+  public String pets(Principal p, Model m, @RequestParam(required = false) Long edit) {
+<span class="fc" id="L115">    var a = actor(p);</span>
+<span class="fc" id="L116">    m.addAttribute(&quot;pets&quot;, s.pets(a));</span>
+<span class="fc" id="L117">    m.addAttribute(&quot;clients&quot;, s.clients());</span>
+<span class="pc bpc" id="L118" title="1 of 2 branches missed.">    if (edit != null) {</span>
+<span class="nc" id="L119">      var pet = s.one(&quot;select * from pet where id=?&quot;, edit);</span>
+<span class="nc" id="L120">      s.require(</span>
+<span class="nc bnc" id="L121" title="All 4 branches missed.">          !a.client() || s.number(pet, &quot;owner_id&quot;) == a.id(),</span>
+          &quot;Esta mascota no pertenece a tu cuenta.&quot;);
+<span class="nc" id="L123">      m.addAttribute(&quot;editing&quot;, pet);</span>
+    }
+<span class="fc" id="L125">    return &quot;pets&quot;;</span>
+  }
+
+  @PostMapping(&quot;/mascotas&quot;)
+  public String pet(
+      Principal p,
+      @RequestParam(required = false) Long id,
+      @RequestParam(defaultValue = &quot;0&quot;) long ownerId,
+      @RequestParam String name,
+      @RequestParam String species,
+      @RequestParam(defaultValue = &quot;&quot;) String breed,
+      @RequestParam(required = false) LocalDate birth,
+      RedirectAttributes r) {
+<span class="nc" id="L138">    users.savePet(actor(p), id, ownerId, name, species, breed, birth);</span>
+<span class="nc" id="L139">    return ok(r, &quot;Mascota guardada.&quot;, &quot;/mascotas&quot;);</span>
+  }
+
+  @GetMapping({&quot;/reservar&quot;, &quot;/disponibilidad&quot;})
+  public String booking(
+      Principal p,
+      Model m,
+      @RequestParam(required = false) Long petId,
+      @RequestParam(required = false) Long vetId,
+      @RequestParam(required = false) Long serviceId,
+      @RequestParam(required = false) LocalDate date,
+      @RequestParam(required = false) Long appointmentId) {
+<span class="fc" id="L151">    var a = actor(p);</span>
+<span class="fc" id="L152">    var pets = s.pets(a);</span>
+<span class="pc bpc" id="L153" title="1 of 2 branches missed.">    if (appointmentId != null) {</span>
+<span class="nc" id="L154">      var c =</span>
+<span class="nc" id="L155">          s.one(</span>
+              &quot;select a.*,p.owner_id from appointment a join pet p on p.id=a.pet_id where a.id=?&quot;,
+              appointmentId);
+<span class="nc" id="L158">      s.require(</span>
+<span class="nc bnc" id="L159" title="All 4 branches missed.">          !a.client() || s.number(c, &quot;owner_id&quot;) == a.id(), &quot;La cita no pertenece a tu cuenta.&quot;);</span>
+<span class="nc" id="L160">      s.require(c.get(&quot;status&quot;).equals(&quot;RESERVADA&quot;), &quot;Solo puedes reprogramar citas reservadas.&quot;);</span>
+<span class="nc" id="L161">      petId = s.number(c, &quot;pet_id&quot;);</span>
+<span class="nc" id="L162">      m.addAttribute(&quot;rescheduling&quot;, c);</span>
+    }
+<span class="fc" id="L164">    m.addAttribute(&quot;pets&quot;, pets);</span>
+<span class="fc" id="L165">    m.addAttribute(&quot;vets&quot;, s.vets());</span>
+<span class="fc" id="L166">    m.addAttribute(&quot;services&quot;, s.services());</span>
+<span class="fc bfc" id="L167" title="All 2 branches covered.">    m.addAttribute(&quot;date&quot;, date == null ? LocalDate.now(clock).plusDays(1) : date);</span>
+<span class="fc" id="L168">    m.addAttribute(&quot;selectedPet&quot;, petId);</span>
+<span class="fc" id="L169">    m.addAttribute(&quot;selectedVet&quot;, vetId);</span>
+<span class="fc" id="L170">    m.addAttribute(&quot;selectedService&quot;, serviceId);</span>
+<span class="fc" id="L171">    m.addAttribute(&quot;appointmentId&quot;, appointmentId);</span>
+<span class="pc bpc" id="L172" title="3 of 8 branches missed.">    if (petId != null &amp;&amp; vetId != null &amp;&amp; serviceId != null &amp;&amp; date != null) {</span>
+<span class="fc" id="L173">      long selected = petId;</span>
+<span class="fc" id="L174">      s.require(</span>
+<span class="pc bpc" id="L175" title="1 of 2 branches missed.">          pets.stream().anyMatch(x -&gt; s.number(x, &quot;id&quot;) == selected),</span>
+          &quot;Selecciona una mascota de tu cuenta.&quot;);
+<span class="fc" id="L177">      m.addAttribute(&quot;slots&quot;, agenda.available(date, petId, vetId, serviceId));</span>
+    }
+<span class="fc" id="L179">    return &quot;booking&quot;;</span>
+  }
+
+  @PostMapping(&quot;/reservar&quot;)
+  public String reserve(
+      Principal p,
+      @RequestParam long petId,
+      @RequestParam long vetId,
+      @RequestParam long serviceId,
+      @RequestParam LocalDateTime startsAt,
+      RedirectAttributes r) {
+<span class="nc" id="L190">    citas.reserve(actor(p), new Slot(petId, vetId, serviceId, startsAt));</span>
+<span class="nc" id="L191">    return ok(r, &quot;Cita reservada. Te esperamos en la clínica.&quot;, &quot;/citas&quot;);</span>
+  }
+
+  @PostMapping(&quot;/citas/{id}/reprogramar&quot;)
+  public String reschedule(
+      Principal p,
+      @PathVariable long id,
+      @RequestParam long petId,
+      @RequestParam long vetId,
+      @RequestParam long serviceId,
+      @RequestParam LocalDateTime startsAt,
+      RedirectAttributes r) {
+<span class="nc" id="L203">    citas.reschedule(actor(p), id, new Slot(petId, vetId, serviceId, startsAt));</span>
+<span class="nc" id="L204">    return ok(r, &quot;Cita reprogramada.&quot;, &quot;/citas&quot;);</span>
+  }
+
+  @PostMapping(&quot;/citas/{id}/cancelar&quot;)
+  public String cancel(Principal p, @PathVariable long id, RedirectAttributes r) {
+<span class="nc" id="L209">    citas.cancel(actor(p), id);</span>
+<span class="nc" id="L210">    return ok(r, &quot;Cita cancelada.&quot;, &quot;/citas&quot;);</span>
+  }
+
+  @PostMapping(&quot;/citas/{id}/llegada&quot;)
+  public String checkin(Principal p, @PathVariable long id, RedirectAttributes r) {
+<span class="nc" id="L215">    citas.checkin(actor(p), id);</span>
+<span class="nc" id="L216">    return ok(r, &quot;Llegada confirmada. La cita está en espera.&quot;, &quot;/citas&quot;);</span>
+  }
+
+  @PostMapping(&quot;/citas/{id}/inasistencia&quot;)
+  public String noShow(Principal p, @PathVariable long id, RedirectAttributes r) {
+<span class="nc" id="L221">    citas.noShow(actor(p), id);</span>
+<span class="nc" id="L222">    return ok(r, &quot;Inasistencia registrada.&quot;, &quot;/citas&quot;);</span>
+  }
+
+  @GetMapping(&quot;/citas/{id}/atender&quot;)
+  public String attend(Principal p, @PathVariable long id, Model m) {
+<span class="nc" id="L227">    var a = actor(p);</span>
+<span class="nc" id="L228">    var c =</span>
+<span class="nc" id="L229">        s.one(</span>
+            &quot;select a.*,p.name pet_name from appointment a join pet p on p.id=a.pet_id where&quot;
+                + &quot; a.id=?&quot;,
+<span class="nc" id="L232">            id);</span>
+<span class="nc" id="L233">    s.require(</span>
+<span class="nc bnc" id="L234" title="All 4 branches missed.">        a.vet() &amp;&amp; a.id() == s.number(c, &quot;vet_id&quot;), &quot;La cita está asignada a otro veterinario.&quot;);</span>
+<span class="nc" id="L235">    s.require(c.get(&quot;status&quot;).equals(&quot;EN_ESPERA&quot;), &quot;La cita debe estar en espera.&quot;);</span>
+<span class="nc" id="L236">    m.addAttribute(&quot;appointment&quot;, c);</span>
+<span class="nc" id="L237">    return &quot;attend&quot;;</span>
+  }
+
+  @PostMapping(&quot;/citas/{id}/atender&quot;)
+  public String attend(
+      Principal p,
+      @PathVariable long id,
+      @RequestParam String reason,
+      @RequestParam String diagnosis,
+      @RequestParam String treatment,
+      @RequestParam BigDecimal weight,
+      RedirectAttributes r) {
+<span class="nc" id="L249">    citas.attend(actor(p), id, new Visit(reason, diagnosis, treatment, weight));</span>
+<span class="nc" id="L250">    return ok(r, &quot;Atención registrada e historial actualizado.&quot;, &quot;/citas&quot;);</span>
+  }
+
+  @GetMapping(&quot;/historial&quot;)
+  public String history(Principal p, Model m, @RequestParam(required = false) Long petId) {
+<span class="fc" id="L255">    var a = actor(p);</span>
+<span class="fc" id="L256">    var pets = s.pets(a);</span>
+<span class="pc bpc" id="L257" title="1 of 2 branches missed.">    if (a.vet())</span>
+<span class="nc" id="L258">      pets =</span>
+<span class="nc" id="L259">          pets.stream()</span>
+<span class="nc" id="L260">              .filter(</span>
+                  x -&gt;
+<span class="nc" id="L262">                      s.jdbc()</span>
+<span class="nc bnc" id="L263" title="All 2 branches missed.">                              .queryForObject(</span>
+                                  &quot;select count(*) from appointment where pet_id=? and vet_id=?&quot;,
+                                  Integer.class,
+<span class="nc" id="L266">                                  s.number(x, &quot;id&quot;),</span>
+<span class="nc" id="L267">                                  a.id())</span>
+                          &gt; 0)
+<span class="nc" id="L269">              .toList();</span>
+<span class="fc" id="L270">    m.addAttribute(&quot;pets&quot;, pets);</span>
+<span class="fc" id="L271">    m.addAttribute(&quot;selectedPet&quot;, petId);</span>
+<span class="pc bpc" id="L272" title="1 of 2 branches missed.">    if (petId != null) m.addAttribute(&quot;records&quot;, citas.history(a, petId));</span>
+<span class="fc" id="L273">    return &quot;history&quot;;</span>
+  }
+
+  @GetMapping(&quot;/admin&quot;)
+  public String admin(Model m) {
+<span class="fc" id="L278">    m.addAttribute(</span>
+        &quot;users&quot;,
+<span class="fc" id="L280">        s.jdbc().queryForList(&quot;select id,name,email,role,active from app_user order by id&quot;));</span>
+<span class="fc" id="L281">    m.addAttribute(&quot;services&quot;, s.jdbc().queryForList(&quot;select * from clinical_service order by id&quot;));</span>
+<span class="fc" id="L282">    m.addAttribute(</span>
+<span class="fc" id="L283">        &quot;hours&quot;, s.jdbc().queryForList(&quot;select * from business_hours order by day_of_week&quot;));</span>
+<span class="fc" id="L284">    m.addAttribute(</span>
+<span class="fc" id="L285">        &quot;holidays&quot;, s.jdbc().queryForList(&quot;select * from holiday order by holiday_date&quot;));</span>
+<span class="fc" id="L286">    m.addAttribute(</span>
+        &quot;audit&quot;,
+<span class="fc" id="L288">        s.jdbc()</span>
+<span class="fc" id="L289">            .queryForList(</span>
+                &quot;select e.*,u.name actor_name from audit_event e left join app_user u on&quot;
+                    + &quot; u.id=e.actor_id order by e.id desc limit 25&quot;));
+<span class="fc" id="L292">    return &quot;admin&quot;;</span>
+  }
+
+  @PostMapping(&quot;/admin/usuarios&quot;)
+  public String user(
+      Principal p,
+      @RequestParam String name,
+      @RequestParam String email,
+      @RequestParam String password,
+      @RequestParam String dni,
+      @RequestParam String phone,
+      @RequestParam String role,
+      RedirectAttributes r) {
+<span class="nc" id="L305">    s.require(</span>
+<span class="nc" id="L306">        Set.of(&quot;ADMIN&quot;, &quot;RECEPCION&quot;, &quot;VETERINARIO&quot;).contains(role), &quot;Selecciona un rol interno.&quot;);</span>
+<span class="nc" id="L307">    long id = users.register(name, email, password, dni, phone, true, role);</span>
+<span class="nc" id="L308">    s.audit(actor(p), &quot;CREAR_USUARIO&quot;, id, clock);</span>
+<span class="nc" id="L309">    return ok(r, &quot;Usuario interno creado.&quot;, &quot;/admin&quot;);</span>
+  }
+
+  @PostMapping(&quot;/admin/usuarios/{id}&quot;)
+  public String active(
+      Principal p, @PathVariable long id, @RequestParam boolean active, RedirectAttributes r) {
+<span class="nc" id="L315">    users.setActive(actor(p), id, active);</span>
+<span class="nc" id="L316">    return ok(r, &quot;Estado del usuario actualizado.&quot;, &quot;/admin&quot;);</span>
+  }
+
+  @PostMapping(&quot;/admin/servicios&quot;)
+  public String service(
+      @RequestParam(required = false) Long id,
+      @RequestParam String name,
+      @RequestParam(defaultValue = &quot;false&quot;) boolean active,
+      RedirectAttributes r) {
+<span class="nc" id="L325">    s.require(</span>
+<span class="nc bnc" id="L326" title="All 4 branches missed.">        !name.isBlank() &amp;&amp; name.length() &lt;= 80, &quot;El servicio admite entre 1 y 80 caracteres.&quot;);</span>
+<span class="nc bnc" id="L327" title="All 2 branches missed.">    if (id == null)</span>
+<span class="nc" id="L328">      s.jdbc()</span>
+<span class="nc" id="L329">          .update(&quot;insert into clinical_service(name,active) values (?,?)&quot;, name.strip(), active);</span>
+    else
+<span class="nc" id="L331">      s.jdbc()</span>
+<span class="nc" id="L332">          .update(</span>
+<span class="nc" id="L333">              &quot;update clinical_service set name=?,active=? where id=?&quot;, name.strip(), active, id);</span>
+<span class="nc" id="L334">    return ok(r, &quot;Servicio guardado.&quot;, &quot;/admin&quot;);</span>
+  }
+
+  @PostMapping(&quot;/admin/horarios&quot;)
+  public String hours(
+      @RequestParam int day,
+      @RequestParam LocalTime opening,
+      @RequestParam LocalTime closing,
+      @RequestParam(defaultValue = &quot;false&quot;) boolean active,
+      RedirectAttributes r) {
+<span class="nc bnc" id="L344" title="All 4 branches missed.">    s.require(</span>
+        day &gt;= 1
+            &amp;&amp; day &lt;= 7
+<span class="nc bnc" id="L347" title="All 2 branches missed.">            &amp;&amp; opening.isBefore(closing)</span>
+<span class="nc bnc" id="L348" title="All 2 branches missed.">            &amp;&amp; opening.getMinute() % 30 == 0</span>
+<span class="nc bnc" id="L349" title="All 2 branches missed.">            &amp;&amp; closing.getMinute() % 30 == 0</span>
+<span class="nc bnc" id="L350" title="All 2 branches missed.">            &amp;&amp; opening.getSecond() == 0</span>
+<span class="nc bnc" id="L351" title="All 2 branches missed.">            &amp;&amp; closing.getSecond() == 0,</span>
+        &quot;El horario debe tener bloques de 30 minutos y apertura anterior al cierre.&quot;);
+<span class="nc" id="L353">    s.jdbc()</span>
+<span class="nc" id="L354">        .update(</span>
+            &quot;update business_hours set opening=?,closing=?,active=? where day_of_week=?&quot;,
+            opening,
+            closing,
+<span class="nc" id="L358">            active,</span>
+<span class="nc" id="L359">            day);</span>
+<span class="nc" id="L360">    return ok(r, &quot;Horario actualizado; las citas existentes se conservan.&quot;, &quot;/admin&quot;);</span>
+  }
+
+  @PostMapping(&quot;/admin/feriados&quot;)
+  public String holiday(
+      @RequestParam LocalDate day, @RequestParam String description, RedirectAttributes r) {
+<span class="nc" id="L366">    s.require(</span>
+<span class="nc bnc" id="L367" title="All 4 branches missed.">        !description.isBlank() &amp;&amp; description.length() &lt;= 120,</span>
+        &quot;Describe el feriado (máximo 120 caracteres).&quot;);
+<span class="nc" id="L369">    s.jdbc().update(&quot;insert into holiday values (?,?)&quot;, day, description.strip());</span>
+<span class="nc" id="L370">    return ok(r, &quot;Feriado registrado; las citas existentes se conservan.&quot;, &quot;/admin&quot;);</span>
+  }
+
+  @PostMapping(&quot;/admin/feriados/eliminar&quot;)
+  public String holidayDelete(@RequestParam LocalDate day, RedirectAttributes r) {
+<span class="nc" id="L375">    s.jdbc().update(&quot;delete from holiday where holiday_date=?&quot;, day);</span>
+<span class="nc" id="L376">    return ok(r, &quot;Feriado eliminado.&quot;, &quot;/admin&quot;);</span>
+  }
+
+  @GetMapping(&quot;/admin/apariencia&quot;)
+  public String appearance(Model m) {
+<span class="fc" id="L381">    m.addAttribute(&quot;theme&quot;, themes.current());</span>
+<span class="fc" id="L382">    return &quot;appearance&quot;;</span>
+  }
+
+  @PostMapping(&quot;/admin/apariencia&quot;)
+  public String appearance(
+      Principal p, @RequestParam Map&lt;String, String&gt; input, RedirectAttributes r) {
+<span class="nc" id="L388">    themes.save(actor(p), input);</span>
+<span class="nc" id="L389">    return ok(r, &quot;Apariencia guardada para toda la clínica.&quot;, &quot;/admin/apariencia&quot;);</span>
+  }
+
+  @PostMapping(&quot;/admin/apariencia/restablecer&quot;)
+  public String reset(Principal p, RedirectAttributes r) {
+<span class="nc" id="L394">    themes.save(actor(p), ThemeService.DEFAULTS);</span>
+<span class="nc" id="L395">    return ok(r, &quot;Apariencia original restaurada.&quot;, &quot;/admin/apariencia&quot;);</span>
+  }
+
+  @GetMapping(&quot;/admin/reportes&quot;)
+  public String reports(
+      Model m,
+      @RequestParam(required = false) LocalDate from,
+      @RequestParam(required = false) LocalDate to,
+      @RequestParam(defaultValue = &quot;&quot;) String state,
+      @RequestParam(defaultValue = &quot;0&quot;) long vetId,
+      @RequestParam(defaultValue = &quot;0&quot;) long serviceId) {
+<span class="pc bpc" id="L406" title="1 of 2 branches missed.">    if (from == null) from = LocalDate.now(clock).withDayOfMonth(1);</span>
+<span class="pc bpc" id="L407" title="1 of 2 branches missed.">    if (to == null) to = LocalDate.now(clock).withDayOfMonth(LocalDate.now(clock).lengthOfMonth());</span>
+<span class="fc" id="L408">    s.require(</span>
+<span class="pc bpc" id="L409" title="2 of 4 branches missed.">        !to.isBefore(from) &amp;&amp; java.time.temporal.ChronoUnit.DAYS.between(from, to) &lt;= 366,</span>
+        &quot;Selecciona un rango de hasta 366 días.&quot;);
+<span class="fc" id="L411">    var rows =</span>
+<span class="fc" id="L412">        s.jdbc()</span>
+<span class="fc" id="L413">            .queryForList(</span>
+                &quot;select a.status,count(*) total from appointment a where starts_at&gt;=? and&quot;
+                    + &quot; starts_at&lt;? and (?='' or a.status=?) and (?=0 or a.vet_id=?) and (?=0 or&quot;
+                    + &quot; a.service_id=?) group by a.status order by a.status&quot;,
+<span class="fc" id="L417">                from.atStartOfDay(),</span>
+<span class="fc" id="L418">                to.plusDays(1).atStartOfDay(),</span>
+                state,
+                state,
+<span class="fc" id="L421">                vetId,</span>
+<span class="fc" id="L422">                vetId,</span>
+<span class="fc" id="L423">                serviceId,</span>
+<span class="fc" id="L424">                serviceId);</span>
+<span class="fc" id="L425">    long total = rows.stream().mapToLong(x -&gt; s.number(x, &quot;total&quot;)).sum();</span>
+<span class="fc" id="L426">    long noShows =</span>
+<span class="fc" id="L427">        rows.stream()</span>
+<span class="fc" id="L428">            .filter(x -&gt; x.get(&quot;status&quot;).equals(&quot;NO_ASISTIO&quot;))</span>
+<span class="pc" id="L429">            .mapToLong(x -&gt; s.number(x, &quot;total&quot;))</span>
+<span class="fc" id="L430">            .sum();</span>
+<span class="fc" id="L431">    m.addAttribute(&quot;rows&quot;, rows);</span>
+<span class="fc" id="L432">    m.addAttribute(&quot;total&quot;, total);</span>
+<span class="fc" id="L433">    m.addAttribute(</span>
+<span class="pc bpc" id="L434" title="1 of 2 branches missed.">        &quot;rate&quot;, total == 0 ? &quot;0.0&quot; : String.format(Locale.ROOT, &quot;%.1f&quot;, 100.0 * noShows / total));</span>
+<span class="fc" id="L435">    m.addAttribute(&quot;from&quot;, from);</span>
+<span class="fc" id="L436">    m.addAttribute(&quot;to&quot;, to);</span>
+<span class="fc" id="L437">    m.addAttribute(&quot;vets&quot;, s.vets());</span>
+<span class="fc" id="L438">    m.addAttribute(&quot;services&quot;, s.services());</span>
+<span class="fc" id="L439">    return &quot;reports&quot;;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

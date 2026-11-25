@@ -1,0 +1,20 @@
+/* Public theme contract. Override only these properties in config/theme/custom.css. */
+:root {
+  --va-primary: #157b68;
+  --va-on-primary: #fff;
+  --va-bg: #f5f7f6;
+  --va-surface: #fff;
+  --va-text: #1e3430;
+  --va-muted: #647770;
+  --va-line: #e0e8e3;
+  --va-radius: 16px;
+  --va-font:
+    Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --va-font-scale: 100%;
+  --va-space: 1rem;
+  --va-sidebar: 250px;
+  --va-success: #176448;
+  --va-warning: #835b15;
+  --va-danger: #a82c39;
+  --va-shadow: 0 4px 22px #243b2d05;
+}

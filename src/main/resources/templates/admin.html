@@ -1,0 +1,231 @@
+<!doctype html>
+<html
+  lang="es"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head th:replace="~{layout :: head('Administración')}"></head>
+  <body class="app-shell">
+    <aside th:replace="~{layout :: sidebar}"></aside>
+    <main id="main" class="workspace">
+      <div th:replace="~{layout :: flash}"></div>
+      <header
+        th:replace="~{layout :: heading('TODO EN ORDEN','El espacio de la clínica','Gestiona el equipo, los servicios y los días de atención.')}"
+      ></header>
+      <section class="panel">
+        <div class="section-heading">
+          <h2>Equipo y usuarios</h2>
+          <a class="text-link" th:href="@{/admin/apariencia}"
+            >Personalizar apariencia →</a
+          >
+        </div>
+        <div class="table-responsive">
+          <table class="va-table">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Rol</th>
+                <th>Acceso</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="u : ${users}">
+                <td th:text="${u.name}"></td>
+                <td th:text="${u.email}"></td>
+                <td th:text="${u.role}"></td>
+                <td>
+                  <form
+                    th:if="${u.id != actor.id}"
+                    th:action="@{/admin/usuarios/{id}(id=${u.id})}"
+                    method="post"
+                  >
+                    <input
+                      type="hidden"
+                      name="active"
+                      th:value="${!u.active}"
+                    /><button
+                      class="text-link"
+                      th:text="${u.active ? 'Desactivar' : 'Activar'}"
+                    ></button>
+                  </form>
+                  <span th:if="${u.id == actor.id}">Tu cuenta</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <details>
+          <summary>Agregar usuario interno</summary>
+          <form th:action="@{/admin/usuarios}" method="post" class="form-grid">
+            <div>
+              <label for="name">Nombre</label
+              ><input id="name" name="name" maxlength="100" required />
+            </div>
+            <div>
+              <label for="email">Correo</label
+              ><input id="email" name="email" type="email" required />
+            </div>
+            <div>
+              <label for="dni">DNI</label
+              ><input id="dni" name="dni" pattern="[0-9]{8}" required />
+            </div>
+            <div>
+              <label for="phone">Celular</label
+              ><input id="phone" name="phone" pattern="[0-9]{9}" required />
+            </div>
+            <div>
+              <label for="password">Contraseña inicial</label
+              ><input
+                id="password"
+                name="password"
+                type="password"
+                minlength="10"
+                required
+              />
+            </div>
+            <div>
+              <label for="role">Rol</label
+              ><select id="role" name="role">
+                <option value="RECEPCION">Recepción</option>
+                <option value="VETERINARIO">Veterinario</option>
+                <option value="ADMIN">Administrador</option>
+              </select>
+            </div>
+            <div><button class="btn btn-primary">Crear usuario</button></div>
+          </form>
+        </details>
+      </section>
+      <section class="panel">
+        <h2>Servicios</h2>
+        <form
+          th:each="s : ${services}"
+          th:action="@{/admin/servicios}"
+          method="post"
+          class="inline-form"
+        >
+          <input type="hidden" name="id" th:value="${s.id}" /><label
+            class="visually-hidden"
+            th:for="'service-'+${s.id}"
+            >Nombre del servicio</label
+          ><input
+            th:id="'service-'+${s.id}"
+            name="name"
+            th:value="${s.name}"
+            maxlength="80"
+            required
+          /><label class="checkbox-label"
+            ><input
+              name="active"
+              type="checkbox"
+              value="true"
+              th:checked="${s.active}"
+            />
+            Activo</label
+          ><button class="btn btn-secondary">Guardar</button>
+        </form>
+        <form th:action="@{/admin/servicios}" method="post" class="inline-form">
+          <label for="newService">Nuevo servicio</label
+          ><input id="newService" name="name" maxlength="80" required /><input
+            type="hidden"
+            name="active"
+            value="true"
+          /><button class="btn btn-primary">Agregar</button>
+        </form>
+      </section>
+      <section class="panel">
+        <h2>Horarios de atención</h2>
+        <p>
+          Los cambios afectan nuevas reservas. Revisa las citas existentes si
+          cierras una fecha.
+        </p>
+        <form
+          th:each="h : ${hours}"
+          th:action="@{/admin/horarios}"
+          method="post"
+          class="inline-form"
+        >
+          <input type="hidden" name="day" th:value="${h.day_of_week}" /><strong
+            class="weekday"
+            th:text="${ {'Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'}[h.day_of_week - 1]}"
+          ></strong
+          ><label class="visually-hidden" th:for="'open-'+${h.day_of_week}"
+            >Apertura</label
+          ><input
+            th:id="'open-'+${h.day_of_week}"
+            name="opening"
+            type="time"
+            step="1800"
+            th:value="${h.opening}"
+            required
+          /><label class="visually-hidden" th:for="'close-'+${h.day_of_week}"
+            >Cierre</label
+          ><input
+            th:id="'close-'+${h.day_of_week}"
+            name="closing"
+            type="time"
+            step="1800"
+            th:value="${h.closing}"
+            required
+          /><label class="checkbox-label"
+            ><input
+              type="checkbox"
+              name="active"
+              value="true"
+              th:checked="${h.active}"
+            />
+            Abierto</label
+          ><button class="btn btn-secondary">Guardar</button>
+        </form>
+      </section>
+      <section class="panel">
+        <h2>Feriados y cierres</h2>
+        <div th:each="h : ${holidays}" class="inline-form">
+          <span th:text="${h.holiday_date} + ' · ' + ${h.description}"></span>
+          <form th:action="@{/admin/feriados/eliminar}" method="post">
+            <input
+              type="hidden"
+              name="day"
+              th:value="${h.holiday_date}"
+            /><button class="text-link danger">Eliminar</button>
+          </form>
+        </div>
+        <form th:action="@{/admin/feriados}" method="post" class="inline-form">
+          <label for="holiday">Fecha</label
+          ><input type="date" id="holiday" name="day" required /><label
+            for="description"
+            >Descripción</label
+          ><input
+            id="description"
+            name="description"
+            maxlength="120"
+            required
+          /><button class="btn btn-primary">Agregar cierre</button>
+        </form>
+      </section>
+      <section class="panel">
+        <h2>Actividad reciente</h2>
+        <div class="table-responsive">
+          <table class="va-table">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Usuario</th>
+                <th>Acción</th>
+                <th>Registro</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="e : ${audit}">
+                <td th:text="${e.created_at}"></td>
+                <td th:text="${e.actor_name}"></td>
+                <td th:text="${e.action}"></td>
+                <td th:text="${e.entity_id}"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,102 @@
+<!doctype html>
+<html
+  lang="es"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head th:replace="~{layout :: head('Reportes')}"></head>
+  <body class="app-shell">
+    <aside th:replace="~{layout :: sidebar}"></aside>
+    <main id="main" class="workspace">
+      <div th:replace="~{layout :: flash}"></div>
+      <header
+        th:replace="~{layout :: heading('DECISIONES CON INFORMACIÓN','El pulso de la clínica','Consulta las citas por periodo, estado, servicio y profesional.')}"
+      ></header>
+      <section class="panel">
+        <form th:action="@{/admin/reportes}" method="get" class="form-grid">
+          <div>
+            <label for="from">Desde</label
+            ><input
+              type="date"
+              id="from"
+              name="from"
+              th:value="${from}"
+              required
+            />
+          </div>
+          <div>
+            <label for="to">Hasta</label
+            ><input type="date" id="to" name="to" th:value="${to}" required />
+          </div>
+          <div>
+            <label for="vetId">Profesional</label
+            ><select id="vetId" name="vetId">
+              <option value="0">Todos</option>
+              <option
+                th:each="v : ${vets}"
+                th:value="${v.id}"
+                th:text="${v.name}"
+              ></option>
+            </select>
+          </div>
+          <div>
+            <label for="serviceId">Servicio</label
+            ><select id="serviceId" name="serviceId">
+              <option value="0">Todos</option>
+              <option
+                th:each="s : ${services}"
+                th:value="${s.id}"
+                th:text="${s.name}"
+              ></option>
+            </select>
+          </div>
+          <div>
+            <label for="state">Estado</label
+            ><select id="state" name="state">
+              <option value="">Todos</option>
+              <option
+                th:each="v : ${ {'RESERVADA','EN_ESPERA','ATENDIDA','CANCELADA','NO_ASISTIO'} }"
+                th:value="${v}"
+                th:text="${v}"
+              ></option>
+            </select>
+          </div>
+          <div class="align-end">
+            <button class="btn btn-primary" id="generate-report">
+              Generar reporte
+            </button>
+          </div>
+        </form>
+      </section>
+      <div class="metric-grid">
+        <article class="metric">
+          <span>Citas en el periodo</span><strong th:text="${total}"></strong
+          ><small>Con los filtros seleccionados</small>
+        </article>
+        <article class="metric">
+          <span>Tasa de inasistencia</span
+          ><strong th:text="${rate} + '%'"></strong
+          ><small>No asistió / total de citas filtradas</small>
+        </article>
+      </div>
+      <section class="panel">
+        <h2>Distribución por estado</h2>
+        <table class="va-table">
+          <thead>
+            <tr>
+              <th>Estado</th>
+              <th>Citas</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="row : ${rows}">
+              <td th:text="${row.status}"></td>
+              <td th:text="${row.total}"></td>
+            </tr>
+          </tbody>
+        </table>
+        <p th:if="${total == 0}">No hay citas en este rango.</p>
+      </section>
+    </main>
+  </body>
+</html>

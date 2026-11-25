@@ -1,0 +1,58 @@
+<!doctype html>
+<html
+  lang="es"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head th:replace="~{layout :: head('Historial clínico')}"></head>
+  <body class="app-shell">
+    <aside th:replace="~{layout :: sidebar}"></aside>
+    <main id="main" class="workspace">
+      <div th:replace="~{layout :: flash}"></div>
+      <header
+        th:replace="~{layout :: heading('SU HISTORIA IMPORTA','Un cuidado que deja huella','Consulta las atenciones registradas de cada mascota.')}"
+      ></header>
+      <section class="panel">
+        <form th:action="@{/historial}" method="get" class="inline-form">
+          <label for="petId">Paciente</label
+          ><select id="petId" name="petId" required>
+            <option value="">Selecciona una mascota</option>
+            <option
+              th:each="p : ${pets}"
+              th:value="${p.id}"
+              th:text="${p.name}"
+              th:selected="${p.id == selectedPet}"
+            ></option></select
+          ><button class="btn btn-primary" id="search-history">
+            Consultar historial
+          </button>
+        </form>
+      </section>
+      <th:block th:if="${records != null}"
+        ><article class="panel clinical-card" th:each="r : ${records}">
+          <div class="section-heading">
+            <h2
+              th:text="${#dates.format(r.starts_at,'dd/MM/yyyy · HH:mm')}"
+            ></h2>
+            <span class="status ATENDIDA">ATENDIDA</span>
+          </div>
+          <p th:text="${r.vet_name}"></p>
+          <dl>
+            <dt>Motivo</dt>
+            <dd th:text="${r.reason}"></dd>
+            <dt>Diagnóstico</dt>
+            <dd th:text="${r.diagnosis}"></dd>
+            <dt>Tratamiento</dt>
+            <dd th:text="${r.treatment}"></dd>
+            <dt>Peso</dt>
+            <dd th:text="${r.weight} + ' kg'"></dd>
+          </dl>
+        </article>
+        <section class="panel empty-state" th:if="${#lists.isEmpty(records)}">
+          <h2>Su historia está por comenzar</h2>
+          <p>Aún no hay atenciones registradas para esta mascota.</p>
+        </section></th:block
+      >
+    </main>
+  </body>
+</html>

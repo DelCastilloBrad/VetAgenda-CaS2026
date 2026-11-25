@@ -1,0 +1,166 @@
+18:32:30.539 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [pe.unsa.vetagenda.ConcurrencyTests]: ConcurrencyTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+18:32:30.704 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration pe.unsa.vetagenda.VetAgendaApplication for test class pe.unsa.vetagenda.ConcurrencyTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.4.13)
+
+2026-11-24T18:32:31.152-05:00  INFO 189 --- [VetAgenda] [           main] pe.unsa.vetagenda.ConcurrencyTests       : Starting ConcurrencyTests using Java 21.0.13.1 with PID 189 (started by agent in /workspace/scratch/ddd9961fd1d3/vetagenda)
+2026-11-24T18:32:31.153-05:00  INFO 189 --- [VetAgenda] [           main] pe.unsa.vetagenda.ConcurrencyTests       : The following 1 profile is active: "test"
+2026-11-24T18:32:32.193-05:00  INFO 189 --- [VetAgenda] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-11-24T18:32:32.451-05:00  INFO 189 --- [VetAgenda] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:vetagenda user=SA
+2026-11-24T18:32:32.453-05:00  INFO 189 --- [VetAgenda] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-11-24T18:32:32.516-05:00  INFO 189 --- [VetAgenda] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:h2:mem:vetagenda (H2 2.3)
+2026-11-24T18:32:32.527-05:00  WARN 189 --- [VetAgenda] [           main] o.f.c.internal.database.base.Database    : Flyway upgrade recommended: H2 2.3.232 is newer than this version of Flyway and support has not been tested. The latest supported version of H2 is 2.2.224.
+2026-11-24T18:32:32.551-05:00  INFO 189 --- [VetAgenda] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-11-24T18:32:32.554-05:00  INFO 189 --- [VetAgenda] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.014s)
+2026-11-24T18:32:32.564-05:00  INFO 189 --- [VetAgenda] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-11-24T18:32:32.596-05:00  INFO 189 --- [VetAgenda] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-11-24T18:32:32.606-05:00  INFO 189 --- [VetAgenda] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - schema"
+2026-11-24T18:32:32.638-05:00  INFO 189 --- [VetAgenda] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema "public", now at version v1 (execution time 00:00.021s)
+2026-11-24T18:32:32.852-05:00  INFO 189 --- [VetAgenda] [           main] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2026-11-24T18:32:33.459-05:00  INFO 189 --- [VetAgenda] [           main] pe.unsa.vetagenda.ConcurrencyTests       : Started ConcurrencyTests in 2.595 seconds (process running for 3.786)
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build what is described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org/mockito/Mockito.html#0.3
+2026-11-24T18:32:44.787-05:00  INFO 189 --- [VetAgenda] [pool-3-thread-1] pe.unsa.vetagenda.service.CitaService    : NOTIFICACION_SIMULADA cita=2 accion=RESERVAR
+2026-11-24T18:32:44.875-05:00  INFO 189 --- [VetAgenda] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration pe.unsa.vetagenda.VetAgendaApplication for test class pe.unsa.vetagenda.BusinessTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.4.13)
+
+2026-11-24T18:32:44.898-05:00  INFO 189 --- [VetAgenda] [           main] pe.unsa.vetagenda.BusinessTests          : Starting BusinessTests using Java 21.0.13.1 with PID 189 (started by agent in /workspace/scratch/ddd9961fd1d3/vetagenda)
+2026-11-24T18:32:44.898-05:00  INFO 189 --- [VetAgenda] [           main] pe.unsa.vetagenda.BusinessTests          : The following 1 profile is active: "test"
+2026-11-24T18:32:45.061-05:00  INFO 189 --- [VetAgenda] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2026-11-24T18:32:45.062-05:00  INFO 189 --- [VetAgenda] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection conn10: url=jdbc:h2:mem:vetagenda user=SA
+2026-11-24T18:32:45.063-05:00  INFO 189 --- [VetAgenda] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2026-11-24T18:32:45.064-05:00  INFO 189 --- [VetAgenda] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:h2:mem:vetagenda (H2 2.3)
+2026-11-24T18:32:45.066-05:00  WARN 189 --- [VetAgenda] [           main] o.f.c.internal.database.base.Database    : Flyway upgrade recommended: H2 2.3.232 is newer than this version of Flyway and support has not been tested. The latest supported version of H2 is 2.2.224.
+2026-11-24T18:32:45.069-05:00  INFO 189 --- [VetAgenda] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.002s)
+2026-11-24T18:32:45.072-05:00  INFO 189 --- [VetAgenda] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": 1
+2026-11-24T18:32:45.072-05:00  INFO 189 --- [VetAgenda] [           main] o.f.core.internal.command.DbMigrate      : Schema "public" is up to date. No migration necessary.
+2026-11-24T18:32:45.164-05:00  INFO 189 --- [VetAgenda] [           main] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2026-11-24T18:32:45.266-05:00  INFO 189 --- [VetAgenda] [           main] pe.unsa.vetagenda.BusinessTests          : Started BusinessTests in 0.387 seconds (process running for 15.593)
+2026-11-24T18:32:45.357-05:00  INFO 189 --- [VetAgenda] [           main] pe.unsa.vetagenda.service.CitaService    : NOTIFICACION_SIMULADA cita=3 accion=RESERVAR
+2026-11-24T18:32:45.375-05:00  INFO 189 --- [VetAgenda] [           main] pe.unsa.vetagenda.service.CitaService    : NOTIFICACION_SIMULADA cita=7 accion=RESERVAR
+2026-11-24T18:32:45.394-05:00  INFO 189 --- [VetAgenda] [           main] pe.unsa.vetagenda.service.CitaService    : NOTIFICACION_SIMULADA cita=8 accion=RESERVAR
+2026-11-24T18:32:45.405-05:00  INFO 189 --- [VetAgenda] [           main] pe.unsa.vetagenda.service.CitaService    : NOTIFICACION_SIMULADA cita=9 estado=CANCELADA
+2026-11-24T18:32:45.414-05:00  INFO 189 --- [VetAgenda] [           main] pe.unsa.vetagenda.service.CitaService    : NOTIFICACION_SIMULADA cita=10 estado=EN_ESPERA
+2026-11-24T18:32:45.429-05:00  INFO 189 --- [VetAgenda] [           main] pe.unsa.vetagenda.service.CitaService    : NOTIFICACION_SIMULADA cita=11 accion=RESERVAR
+2026-11-24T18:32:45.444-05:00  INFO 189 --- [VetAgenda] [           main] pe.unsa.vetagenda.service.CitaService    : NOTIFICACION_SIMULADA cita=12 accion=RESERVAR
+2026-11-24T18:32:45.477-05:00  INFO 189 --- [VetAgenda] [           main] pe.unsa.vetagenda.service.CitaService    : NOTIFICACION_SIMULADA cita=15 accion=RESERVAR
+2026-11-24T18:32:45.507-05:00  INFO 189 --- [VetAgenda] [           main] pe.unsa.vetagenda.service.CitaService    : NOTIFICACION_SIMULADA cita=16 accion=RESERVAR
+2026-11-24T18:32:45.526-05:00  INFO 189 --- [VetAgenda] [           main] pe.unsa.vetagenda.service.CitaService    : NOTIFICACION_SIMULADA cita=18 accion=RESERVAR
+2026-11-24T18:32:45.693-05:00  INFO 189 --- [VetAgenda] [           main] pe.unsa.vetagenda.service.CitaService    : NOTIFICACION_SIMULADA cita=20 accion=RESERVAR
+2026-11-24T18:32:45.694-05:00  INFO 189 --- [VetAgenda] [           main] pe.unsa.vetagenda.service.CitaService    : NOTIFICACION_SIMULADA cita=20 estado=CANCELADA
+2026-11-24T18:32:45.696-05:00  INFO 189 --- [VetAgenda] [           main] pe.unsa.vetagenda.service.CitaService    : NOTIFICACION_SIMULADA cita=21 accion=RESERVAR
+2026-11-24T18:32:45.703-05:00  INFO 189 --- [VetAgenda] [           main] pe.unsa.vetagenda.service.CitaService    : NOTIFICACION_SIMULADA cita=22 accion=RESERVAR
+2026-11-24T18:32:45.707-05:00  INFO 189 --- [VetAgenda] [           main] pe.unsa.vetagenda.service.CitaService    : NOTIFICACION_SIMULADA cita=22 accion=REPROGRAMAR
+2026-11-24T18:32:45.709-05:00  INFO 189 --- [VetAgenda] [           main] pe.unsa.vetagenda.service.CitaService    : NOTIFICACION_SIMULADA cita=22 accion=REPROGRAMAR
+2026-11-24T18:32:45.722-05:00  INFO 189 --- [VetAgenda] [           main] pe.unsa.vetagenda.service.CitaService    : NOTIFICACION_SIMULADA cita=26 accion=RESERVAR
+2026-11-24T18:32:45.728-05:00  INFO 189 --- [VetAgenda] [           main] pe.unsa.vetagenda.service.CitaService    : NOTIFICACION_SIMULADA cita=27 estado=NO_ASISTIO
+2026-11-24T18:32:45.735-05:00  INFO 189 --- [VetAgenda] [           main] pe.unsa.vetagenda.service.CitaService    : NOTIFICACION_SIMULADA cita=28 estado=ATENDIDA
+2026-11-24T18:32:45.749-05:00  INFO 189 --- [VetAgenda] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [pe.unsa.vetagenda.WebTests]: WebTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-24T18:32:45.757-05:00  INFO 189 --- [VetAgenda] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration pe.unsa.vetagenda.VetAgendaApplication for test class pe.unsa.vetagenda.WebTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.4.13)
+
+2026-11-24T18:32:45.773-05:00  INFO 189 --- [VetAgenda] [           main] pe.unsa.vetagenda.WebTests               : Starting WebTests using Java 21.0.13.1 with PID 189 (started by agent in /workspace/scratch/ddd9961fd1d3/vetagenda)
+2026-11-24T18:32:45.774-05:00  INFO 189 --- [VetAgenda] [           main] pe.unsa.vetagenda.WebTests               : The following 1 profile is active: "test"
+2026-11-24T18:32:45.913-05:00  INFO 189 --- [VetAgenda] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2026-11-24T18:32:45.914-05:00  INFO 189 --- [VetAgenda] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection conn20: url=jdbc:h2:mem:vetagenda user=SA
+2026-11-24T18:32:45.914-05:00  INFO 189 --- [VetAgenda] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2026-11-24T18:32:45.915-05:00  INFO 189 --- [VetAgenda] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:h2:mem:vetagenda (H2 2.3)
+2026-11-24T18:32:45.916-05:00  WARN 189 --- [VetAgenda] [           main] o.f.c.internal.database.base.Database    : Flyway upgrade recommended: H2 2.3.232 is newer than this version of Flyway and support has not been tested. The latest supported version of H2 is 2.2.224.
+2026-11-24T18:32:45.918-05:00  INFO 189 --- [VetAgenda] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.001s)
+2026-11-24T18:32:45.920-05:00  INFO 189 --- [VetAgenda] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": 1
+2026-11-24T18:32:45.921-05:00  INFO 189 --- [VetAgenda] [           main] o.f.core.internal.command.DbMigrate      : Schema "public" is up to date. No migration necessary.
+2026-11-24T18:32:46.005-05:00  INFO 189 --- [VetAgenda] [           main] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2026-11-24T18:32:46.118-05:00  INFO 189 --- [VetAgenda] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-11-24T18:32:46.118-05:00  INFO 189 --- [VetAgenda] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-11-24T18:32:46.119-05:00  INFO 189 --- [VetAgenda] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-11-24T18:32:46.125-05:00  INFO 189 --- [VetAgenda] [           main] pe.unsa.vetagenda.WebTests               : Started WebTests in 0.365 seconds (process running for 16.453)
+2026-11-24T18:32:47.423-05:00  INFO 189 --- [VetAgenda] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [pe.unsa.vetagenda.PostgresTests]: PostgresTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-24T18:32:47.425-05:00  INFO 189 --- [VetAgenda] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration pe.unsa.vetagenda.VetAgendaApplication for test class pe.unsa.vetagenda.PostgresTests
+2026-11-24T18:32:47.450-05:00  INFO 189 --- [VetAgenda] [           main] i.z.t.d.p.embedded.EmbeddedPostgres      : Detected a Linux x86_64 system
+2026-11-24T18:32:47.457-05:00  INFO 189 --- [VetAgenda] [           main] .z.t.d.p.e.DefaultPostgresBinaryResolver : Detected distribution: 'Debian'
+2026-11-24T18:32:47.461-05:00  INFO 189 --- [VetAgenda] [           main] .z.t.d.p.e.DefaultPostgresBinaryResolver : System specific postgres binaries found: 'postgres-linux-x86_64.txz'
+2026-11-24T18:32:47.541-05:00  INFO 189 --- [VetAgenda] [           main] i.z.t.d.p.embedded.EmbeddedPostgres      : Postgres binaries at /tmp/embedded-pg/PG-3f56119e081746ae724788ccb91a76e2
+2026-11-24T18:32:47.553-05:00  INFO 189 --- [VetAgenda] [initdb:pid(278)] i.z.t.d.p.embedded.EmbeddedPostgres      : The files belonging to this database system will be owned by user "agent".
+2026-11-24T18:32:47.554-05:00  INFO 189 --- [VetAgenda] [initdb:pid(278)] i.z.t.d.p.embedded.EmbeddedPostgres      : This user must also own the server process.
+2026-11-24T18:32:47.554-05:00  INFO 189 --- [VetAgenda] [initdb:pid(278)] i.z.t.d.p.embedded.EmbeddedPostgres      : 
+2026-11-24T18:32:47.554-05:00  INFO 189 --- [VetAgenda] [initdb:pid(278)] i.z.t.d.p.embedded.EmbeddedPostgres      : The database cluster will be initialized with locale "C.UTF-8".
+2026-11-24T18:32:47.554-05:00  INFO 189 --- [VetAgenda] [initdb:pid(278)] i.z.t.d.p.embedded.EmbeddedPostgres      : The default text search configuration will be set to "english".
+2026-11-24T18:32:47.554-05:00  INFO 189 --- [VetAgenda] [initdb:pid(278)] i.z.t.d.p.embedded.EmbeddedPostgres      : 
+2026-11-24T18:32:47.554-05:00  INFO 189 --- [VetAgenda] [initdb:pid(278)] i.z.t.d.p.embedded.EmbeddedPostgres      : Data page checksums are disabled.
+2026-11-24T18:32:47.554-05:00  INFO 189 --- [VetAgenda] [initdb:pid(278)] i.z.t.d.p.embedded.EmbeddedPostgres      : 
+2026-11-24T18:32:47.554-05:00  INFO 189 --- [VetAgenda] [initdb:pid(278)] i.z.t.d.p.embedded.EmbeddedPostgres      : fixing permissions on existing directory /tmp/epg17784896072056823609 ... ok
+2026-11-24T18:32:47.554-05:00  INFO 189 --- [VetAgenda] [initdb:pid(278)] i.z.t.d.p.embedded.EmbeddedPostgres      : creating subdirectories ... ok
+2026-11-24T18:32:47.554-05:00  INFO 189 --- [VetAgenda] [initdb:pid(278)] i.z.t.d.p.embedded.EmbeddedPostgres      : selecting dynamic shared memory implementation ... posix
+2026-11-24T18:32:47.569-05:00  INFO 189 --- [VetAgenda] [initdb:pid(278)] i.z.t.d.p.embedded.EmbeddedPostgres      : selecting default max_connections ... 100
+2026-11-24T18:32:47.602-05:00  INFO 189 --- [VetAgenda] [initdb:pid(278)] i.z.t.d.p.embedded.EmbeddedPostgres      : selecting default shared_buffers ... 128MB
+2026-11-24T18:32:47.609-05:00  INFO 189 --- [VetAgenda] [initdb:pid(278)] i.z.t.d.p.embedded.EmbeddedPostgres      : selecting default time zone ... America/Lima
+2026-11-24T18:32:47.610-05:00  INFO 189 --- [VetAgenda] [initdb:pid(278)] i.z.t.d.p.embedded.EmbeddedPostgres      : creating configuration files ... ok
+2026-11-24T18:32:47.741-05:00  INFO 189 --- [VetAgenda] [initdb:pid(278)] i.z.t.d.p.embedded.EmbeddedPostgres      : running bootstrap script ... ok
+2026-11-24T18:32:48.134-05:00  INFO 189 --- [VetAgenda] [initdb:pid(278)] i.z.t.d.p.embedded.EmbeddedPostgres      : performing post-bootstrap initialization ... ok
+2026-11-24T18:32:48.136-05:00  INFO 189 --- [VetAgenda] [initdb:pid(278)] i.z.t.d.p.embedded.EmbeddedPostgres      : syncing data to disk ... ok
+2026-11-24T18:32:48.136-05:00  INFO 189 --- [VetAgenda] [initdb:pid(278)] i.z.t.d.p.embedded.EmbeddedPostgres      : 
+2026-11-24T18:32:48.136-05:00  INFO 189 --- [VetAgenda] [initdb:pid(278)] i.z.t.d.p.embedded.EmbeddedPostgres      : Success. You can now start the database server using:
+2026-11-24T18:32:48.136-05:00  INFO 189 --- [VetAgenda] [initdb:pid(278)] i.z.t.d.p.embedded.EmbeddedPostgres      : 
+2026-11-24T18:32:48.136-05:00  INFO 189 --- [VetAgenda] [initdb:pid(278)] i.z.t.d.p.embedded.EmbeddedPostgres      :     /tmp/embedded-pg/PG-3f56119e081746ae724788ccb91a76e2/bin/pg_ctl -D /tmp/epg17784896072056823609 -l logfile start
+2026-11-24T18:32:48.136-05:00  INFO 189 --- [VetAgenda] [initdb:pid(278)] i.z.t.d.p.embedded.EmbeddedPostgres      : 
+2026-11-24T18:32:48.136-05:00  INFO 189 --- [VetAgenda] [           main] i.z.t.d.p.embedded.EmbeddedPostgres      : 58b97cf6-5bb3-4a86-a629-70658fb1b9fc initdb completed in 00:00:00.592
+2026-11-24T18:32:48.156-05:00  INFO 189 --- [VetAgenda] [           main] i.z.t.d.p.embedded.EmbeddedPostgres      : 58b97cf6-5bb3-4a86-a629-70658fb1b9fc postmaster started as Process[pid=292, exitValue="not exited"] on port 42109.  Waiting up to PT10S for server startup to finish.
+2026-11-24T18:32:48.171-05:00  INFO 189 --- [VetAgenda] [stgres:pid(292)] i.z.t.d.p.embedded.EmbeddedPostgres      : waiting for server to start....2026-11-24 18:32:48.170 -05 [296] LOG:  starting PostgreSQL 14.22 on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0, 64-bit
+2026-11-24T18:32:48.171-05:00  INFO 189 --- [VetAgenda] [stgres:pid(292)] i.z.t.d.p.embedded.EmbeddedPostgres      : 2026-11-24 18:32:48.171 -05 [296] LOG:  listening on IPv6 address "::1", port 42109
+2026-11-24T18:32:48.171-05:00  INFO 189 --- [VetAgenda] [stgres:pid(292)] i.z.t.d.p.embedded.EmbeddedPostgres      : 2026-11-24 18:32:48.171 -05 [296] LOG:  listening on IPv4 address "127.0.0.1", port 42109
+2026-11-24T18:32:48.172-05:00  INFO 189 --- [VetAgenda] [stgres:pid(292)] i.z.t.d.p.embedded.EmbeddedPostgres      : 2026-11-24 18:32:48.172 -05 [297] LOG:  database system was shut down at 2026-11-24 18:32:48 -05
+2026-11-24T18:32:48.176-05:00  INFO 189 --- [VetAgenda] [stgres:pid(292)] i.z.t.d.p.embedded.EmbeddedPostgres      : 2026-11-24 18:32:48.176 -05 [296] LOG:  database system is ready to accept connections
+2026-11-24T18:32:48.261-05:00  INFO 189 --- [VetAgenda] [stgres:pid(292)] i.z.t.d.p.embedded.EmbeddedPostgres      :  done
+2026-11-24T18:32:48.261-05:00  INFO 189 --- [VetAgenda] [stgres:pid(292)] i.z.t.d.p.embedded.EmbeddedPostgres      : server started
+2026-11-24T18:32:48.377-05:00  INFO 189 --- [VetAgenda] [           main] i.z.t.d.p.embedded.EmbeddedPostgres      : 58b97cf6-5bb3-4a86-a629-70658fb1b9fc postmaster startup finished in 00:00:00.236
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.4.13)
+
+2026-11-24T18:32:48.397-05:00  INFO 189 --- [VetAgenda] [           main] pe.unsa.vetagenda.PostgresTests          : Starting PostgresTests using Java 21.0.13.1 with PID 189 (started by agent in /workspace/scratch/ddd9961fd1d3/vetagenda)
+2026-11-24T18:32:48.397-05:00  INFO 189 --- [VetAgenda] [           main] pe.unsa.vetagenda.PostgresTests          : The following 1 profile is active: "test"
+2026-11-24T18:32:48.520-05:00  INFO 189 --- [VetAgenda] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Starting...
+2026-11-24T18:32:48.524-05:00  INFO 189 --- [VetAgenda] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-4 - Added connection org.postgresql.jdbc.PgConnection@7e14cc79
+2026-11-24T18:32:48.525-05:00  INFO 189 --- [VetAgenda] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Start completed.
+2026-11-24T18:32:48.539-05:00  INFO 189 --- [VetAgenda] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:42109/postgres (PostgreSQL 14.22)
+2026-11-24T18:32:48.551-05:00  INFO 189 --- [VetAgenda] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-11-24T18:32:48.551-05:00  INFO 189 --- [VetAgenda] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.005s)
+2026-11-24T18:32:48.558-05:00  INFO 189 --- [VetAgenda] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-11-24T18:32:48.577-05:00  INFO 189 --- [VetAgenda] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-11-24T18:32:48.583-05:00  INFO 189 --- [VetAgenda] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - schema"
+2026-11-24T18:32:48.610-05:00  INFO 189 --- [VetAgenda] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema "public", now at version v1 (execution time 00:00.020s)
+2026-11-24T18:32:48.696-05:00  INFO 189 --- [VetAgenda] [           main] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2026-11-24T18:32:48.768-05:00  INFO 189 --- [VetAgenda] [           main] pe.unsa.vetagenda.PostgresTests          : Started PostgresTests in 0.389 seconds (process running for 19.095)
+2026-11-24T18:32:49.059-05:00  INFO 189 --- [VetAgenda] [           main] pe.unsa.vetagenda.service.CitaService    : NOTIFICACION_SIMULADA cita=2 accion=RESERVAR
+2026-11-24T18:32:49.061-05:00  INFO 189 --- [VetAgenda] [           main] pe.unsa.vetagenda.service.CitaService    : NOTIFICACION_SIMULADA cita=2 estado=CANCELADA
+2026-11-24T18:32:49.168-05:00  INFO 189 --- [VetAgenda] [pg_ctl:pid(322)] i.z.t.d.p.embedded.EmbeddedPostgres      : waiting for server to shut down.... done
+2026-11-24T18:32:49.168-05:00  INFO 189 --- [VetAgenda] [pg_ctl:pid(322)] i.z.t.d.p.embedded.EmbeddedPostgres      : server stopped
+2026-11-24T18:32:49.169-05:00  INFO 189 --- [VetAgenda] [           main] i.z.t.d.p.embedded.EmbeddedPostgres      : 58b97cf6-5bb3-4a86-a629-70658fb1b9fc shut down postmaster in 00:00:00.104

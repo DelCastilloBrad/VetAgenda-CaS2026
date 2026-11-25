@@ -1,0 +1,8 @@
+/* Copy to custom.css. Loaded last; only trusted local maintainers should edit it.
+   Keep form IDs, data attributes, and structural classes unchanged. */
+:root {
+  --va-primary: #315e9d;
+  --va-on-primary: #ffffff;
+  --va-bg: #f4f6fb;
+  --va-radius: 8px;
+}

@@ -1,0 +1,6 @@
+{
+  "cambio_temporal": "Aceptar 3 reprogramaciones en lugar de 2",
+  "prueba": "BusinessTests#enforcesTwoReschedules",
+  "codigo_salida_maven": 1,
+  "fuente_restaurado": true
+}

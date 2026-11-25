@@ -1,0 +1,67 @@
+<!doctype html>
+<html
+  lang="es"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head th:replace="~{layout :: head('Registrar atención')}"></head>
+  <body class="app-shell">
+    <aside th:replace="~{layout :: sidebar}"></aside>
+    <main id="main" class="workspace">
+      <div th:replace="~{layout :: flash}"></div>
+      <header
+        th:replace="~{layout :: heading('UNA HISTORIA QUE CONTINÚA','Registrar atención','Completa la ficha clínica para cerrar esta visita.')}"
+      ></header>
+      <section class="panel form-panel">
+        <h2 th:text="${appointment.pet_name}"></h2>
+        <form
+          th:action="@{/citas/{id}/atender(id=${appointment.id})}"
+          method="post"
+          class="stack"
+        >
+          <label for="reason">Motivo de consulta</label
+          ><textarea
+            id="reason"
+            name="reason"
+            maxlength="1000"
+            rows="3"
+            required
+          ></textarea
+          ><label for="diagnosis">Diagnóstico</label
+          ><textarea
+            id="diagnosis"
+            name="diagnosis"
+            maxlength="2000"
+            rows="4"
+            required
+          ></textarea
+          ><label for="treatment">Tratamiento e indicaciones</label
+          ><textarea
+            id="treatment"
+            name="treatment"
+            maxlength="2000"
+            rows="4"
+            required
+          ></textarea
+          ><label for="weight">Peso (kg)</label
+          ><input
+            id="weight"
+            name="weight"
+            type="number"
+            step="0.01"
+            min="0.01"
+            max="500"
+            required
+          />
+          <p class="fineprint">
+            Al guardar, la cita quedará atendida y la ficha será de solo
+            consulta.
+          </p>
+          <button class="btn btn-primary" id="save-attention">
+            Guardar y cerrar atención
+          </button>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

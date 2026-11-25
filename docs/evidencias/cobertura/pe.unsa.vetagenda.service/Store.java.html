@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Store.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">VetAgenda</a> &gt; <a href="index.source.html" class="el_package">pe.unsa.vetagenda.service</a> &gt; <span class="el_source">Store.java</span></div><h1>Store.java</h1><pre class="source lang-java linenums">package pe.unsa.vetagenda.service;
+
+import java.time.*;
+import java.util.*;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+import pe.unsa.vetagenda.domain.Domain.*;
+
+@Repository
+public class Store {
+  private final JdbcTemplate db;
+
+  public JdbcTemplate jdbc() {
+<span class="fc" id="L14">    return db;</span>
+  }
+
+<span class="fc" id="L17">  public Store(JdbcTemplate db) {</span>
+<span class="fc" id="L18">    this.db = db;</span>
+<span class="fc" id="L19">  }</span>
+
+  public Map&lt;String, Object&gt; one(String sql, Object... args) {
+<span class="fc" id="L22">    var rows = db.queryForList(sql, args);</span>
+<span class="pc bpc" id="L23" title="1 of 2 branches missed.">    if (rows.isEmpty()) throw new RuleViolation(&quot;El registro solicitado no existe.&quot;);</span>
+<span class="fc" id="L24">    return rows.getFirst();</span>
+  }
+
+  public long number(Map&lt;String, Object&gt; row, String key) {
+<span class="fc" id="L28">    return ((Number) row.get(key)).longValue();</span>
+  }
+
+  public Actor actor(String email) {
+<span class="fc" id="L32">    var u = one(&quot;select * from app_user where email=?&quot;, email);</span>
+<span class="fc" id="L33">    return new Actor(number(u, &quot;id&quot;), (String) u.get(&quot;name&quot;), email, (String) u.get(&quot;role&quot;));</span>
+  }
+
+  public void audit(Actor a, String action, long entity, Clock clock) {
+<span class="fc" id="L37">    db.update(</span>
+        &quot;insert into audit_event(actor_id,action,entity_id,created_at) values (?,?,?,?)&quot;,
+<span class="fc" id="L39">        a.id(),</span>
+        action,
+<span class="fc" id="L41">        entity,</span>
+<span class="fc" id="L42">        LocalDateTime.now(clock));</span>
+<span class="fc" id="L43">  }</span>
+
+  public long insertId(String sql, Object... args) {
+<span class="fc" id="L46">    var holder = new org.springframework.jdbc.support.GeneratedKeyHolder();</span>
+<span class="fc" id="L47">    db.update(</span>
+        c -&gt; {
+<span class="fc" id="L49">          var s = c.prepareStatement(sql, new String[] {&quot;id&quot;});</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">          for (int i = 0; i &lt; args.length; i++) s.setObject(i + 1, args[i]);</span>
+<span class="fc" id="L51">          return s;</span>
+        },
+        holder);
+<span class="fc" id="L54">    return Objects.requireNonNull(holder.getKey()).longValue();</span>
+  }
+
+  public List&lt;Map&lt;String, Object&gt;&gt; pets(Actor a) {
+<span class="fc" id="L58">    return db.queryForList(</span>
+        &quot;select p.*,u.name owner_name from pet p join app_user u on u.id=p.owner_id &quot;
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">            + (a.client() ? &quot;where p.owner_id=?&quot; : &quot;&quot;)</span>
+            + &quot; order by p.name&quot;,
+<span class="pc bpc" id="L62" title="1 of 2 branches missed.">        a.client() ? new Object[] {a.id()} : new Object[] {});</span>
+  }
+
+  public List&lt;Map&lt;String, Object&gt;&gt; appointments(Actor a) {
+<span class="pc bpc" id="L66" title="1 of 4 branches missed.">    String filter = a.client() ? &quot;where p.owner_id=?&quot; : a.vet() ? &quot;where a.vet_id=?&quot; : &quot;&quot;;</span>
+<span class="fc" id="L67">    return db.queryForList(</span>
+        &quot;select a.*,p.name pet_name,u.name owner_name,v.name vet_name,s.name service_name from&quot;
+            + &quot; appointment a join pet p on p.id=a.pet_id join app_user u on u.id=p.owner_id join&quot;
+            + &quot; app_user v on v.id=a.vet_id join clinical_service s on s.id=a.service_id &quot;
+            + filter
+            + &quot; order by a.starts_at desc&quot;,
+<span class="fc bfc" id="L73" title="All 2 branches covered.">        filter.isEmpty() ? new Object[] {} : new Object[] {a.id()});</span>
+  }
+
+  public List&lt;Map&lt;String, Object&gt;&gt; vets() {
+<span class="fc" id="L77">    return db.queryForList(</span>
+        &quot;select id,name from app_user where role='VETERINARIO' and active=true order by name&quot;);
+  }
+
+  public List&lt;Map&lt;String, Object&gt;&gt; services() {
+<span class="fc" id="L82">    return db.queryForList(&quot;select * from clinical_service where active=true order by name&quot;);</span>
+  }
+
+  public List&lt;Map&lt;String, Object&gt;&gt; clients() {
+<span class="fc" id="L86">    return db.queryForList(</span>
+        &quot;select id,name,email from app_user where role='CLIENTE' and active=true order by name&quot;);
+  }
+
+  public void require(boolean condition, String message) {
+<span class="fc bfc" id="L91" title="All 2 branches covered.">    if (!condition) throw new RuleViolation(message);</span>
+<span class="fc" id="L92">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

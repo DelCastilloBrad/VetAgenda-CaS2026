@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CitaService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">VetAgenda</a> &gt; <a href="index.source.html" class="el_package">pe.unsa.vetagenda.service</a> &gt; <span class="el_source">CitaService.java</span></div><h1>CitaService.java</h1><pre class="source lang-java linenums">package pe.unsa.vetagenda.service;
+
+import java.sql.Timestamp;
+import java.time.*;
+import java.util.*;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import pe.unsa.vetagenda.domain.Domain.*;
+
+@Service
+public class CitaService {
+  private final Store s;
+  private final AgendaService agenda;
+  private final InasistenciaService misses;
+  private final Clock clock;
+<span class="fc" id="L16">  private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(CitaService.class);</span>
+
+<span class="fc" id="L18">  public CitaService(Store s, AgendaService agenda, InasistenciaService misses, Clock clock) {</span>
+<span class="fc" id="L19">    this.s = s;</span>
+<span class="fc" id="L20">    this.agenda = agenda;</span>
+<span class="fc" id="L21">    this.misses = misses;</span>
+<span class="fc" id="L22">    this.clock = clock;</span>
+<span class="fc" id="L23">  }</span>
+
+  private void role(Actor a) {
+<span class="pc bpc" id="L26" title="1 of 4 branches missed.">    s.require(a.client() || a.reception(), &quot;Tu rol no permite gestionar reservas.&quot;);</span>
+<span class="fc" id="L27">  }</span>
+
+  private Map&lt;String, Object&gt; pet(Actor a, long id) {
+<span class="fc" id="L30">    var p = s.one(&quot;select * from pet where id=?&quot;, id);</span>
+<span class="fc" id="L31">    s.require(</span>
+<span class="fc bfc" id="L32" title="All 4 branches covered.">        !a.client() || s.number(p, &quot;owner_id&quot;) == a.id(), &quot;Esta mascota no pertenece a tu cuenta.&quot;);</span>
+<span class="fc" id="L33">    return p;</span>
+  }
+
+  private Map&lt;String, Object&gt; appointment(Actor a, long id) {
+<span class="fc" id="L37">    var c = s.one(&quot;select * from appointment where id=? for update&quot;, id);</span>
+<span class="fc" id="L38">    pet(a, s.number(c, &quot;pet_id&quot;));</span>
+<span class="fc" id="L39">    return c;</span>
+  }
+
+  // Lock the veterinarian, then the pet: every reservation follows the same order.
+  // This serializes concurrent writes for either resource, including different veterinarians for
+  // one pet.
+  private void lock(Slot slot) {
+<span class="fc" id="L46">    s.one(&quot;select id from app_user where id=? for update&quot;, slot.vetId());</span>
+<span class="fc" id="L47">    s.one(&quot;select id from pet where id=? for update&quot;, slot.petId());</span>
+<span class="fc" id="L48">  }</span>
+
+  @Transactional
+  public long reserve(Actor a, Slot slot) {
+<span class="fc" id="L52">    role(a);</span>
+<span class="fc" id="L53">    var p = pet(a, slot.petId());</span>
+<span class="fc" id="L54">    lock(slot);</span>
+<span class="fc" id="L55">    agenda.validate(slot);</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">    if (a.client()) misses.checkOnline(s.number(p, &quot;owner_id&quot;));</span>
+<span class="fc" id="L57">    s.require(agenda.free(slot, 0), &quot;Ese horario acaba de ocuparse. Selecciona otro bloque.&quot;);</span>
+<span class="fc" id="L58">    var now = LocalDateTime.now(clock);</span>
+<span class="fc" id="L59">    long id =</span>
+<span class="fc" id="L60">        s.insertId(</span>
+            &quot;insert into&quot;
+                + &quot; appointment(pet_id,vet_id,service_id,starts_at,status,created_at,updated_at)&quot;
+                + &quot; values (?,?,?,?,'RESERVADA',?,?)&quot;,
+<span class="fc" id="L64">            slot.petId(),</span>
+<span class="fc" id="L65">            slot.vetId(),</span>
+<span class="fc" id="L66">            slot.serviceId(),</span>
+<span class="fc" id="L67">            slot.startsAt(),</span>
+            now,
+            now);
+<span class="fc" id="L70">    s.audit(a, &quot;RESERVAR&quot;, id, clock);</span>
+<span class="fc" id="L71">    log.info(&quot;NOTIFICACION_SIMULADA cita={} accion=RESERVAR&quot;, id);</span>
+<span class="fc" id="L72">    return id;</span>
+  }
+
+  private void mutable(Map&lt;String, Object&gt; c) {
+<span class="fc" id="L76">    s.require(c.get(&quot;status&quot;).equals(&quot;RESERVADA&quot;), &quot;Solo se puede modificar una cita reservada.&quot;);</span>
+<span class="fc" id="L77">  }</span>
+
+  private void deadline(Actor a, Map&lt;String, Object&gt; c) {
+<span class="fc" id="L80">    s.require(</span>
+<span class="fc bfc" id="L81" title="All 2 branches covered.">        !a.client()</span>
+<span class="fc" id="L82">            || !((Timestamp) c.get(&quot;starts_at&quot;))</span>
+<span class="fc" id="L83">                .toLocalDateTime()</span>
+<span class="fc bfc" id="L84" title="All 2 branches covered.">                .isBefore(LocalDateTime.now(clock).plusHours(2)),</span>
+        &quot;El plazo de 2 horas venció. Comunícate con recepción.&quot;);
+<span class="fc" id="L86">  }</span>
+
+  @Transactional
+  public void cancel(Actor a, long id) {
+<span class="fc" id="L90">    role(a);</span>
+<span class="fc" id="L91">    var c = appointment(a, id);</span>
+<span class="fc" id="L92">    mutable(c);</span>
+<span class="fc" id="L93">    deadline(a, c);</span>
+<span class="fc" id="L94">    state(a, id, &quot;CANCELADA&quot;);</span>
+<span class="fc" id="L95">  }</span>
+
+  @Transactional
+  public void reschedule(Actor a, long id, Slot slot) {
+<span class="fc" id="L99">    role(a);</span>
+<span class="fc" id="L100">    var c = appointment(a, id);</span>
+<span class="fc" id="L101">    mutable(c);</span>
+<span class="fc" id="L102">    deadline(a, c);</span>
+<span class="pc bpc" id="L103" title="1 of 2 branches missed.">    s.require(slot.petId() == s.number(c, &quot;pet_id&quot;), &quot;La mascota de la cita no puede cambiar.&quot;);</span>
+<span class="fc bfc" id="L104" title="All 2 branches covered.">    s.require(s.number(c, &quot;reschedules&quot;) &lt; 2, &quot;La cita alcanzó el límite de 2 reprogramaciones.&quot;);</span>
+<span class="fc" id="L105">    lock(slot);</span>
+<span class="fc" id="L106">    agenda.validate(slot);</span>
+<span class="fc" id="L107">    s.require(agenda.free(slot, id), &quot;El nuevo horario no está disponible.&quot;);</span>
+<span class="fc" id="L108">    s.require(</span>
+<span class="pc bpc" id="L109" title="1 of 2 branches missed.">        !((Timestamp) c.get(&quot;starts_at&quot;)).toLocalDateTime().equals(slot.startsAt())</span>
+<span class="pc bnc" id="L110" title="All 2 branches missed.">            || s.number(c, &quot;vet_id&quot;) != slot.vetId(),</span>
+        &quot;Selecciona un horario distinto.&quot;);
+<span class="fc" id="L112">    s.jdbc()</span>
+<span class="fc" id="L113">        .update(</span>
+            &quot;update appointment set&quot;
+                + &quot; vet_id=?,service_id=?,starts_at=?,reschedules=reschedules+1,updated_at=? where&quot;
+                + &quot; id=?&quot;,
+<span class="fc" id="L117">            slot.vetId(),</span>
+<span class="fc" id="L118">            slot.serviceId(),</span>
+<span class="fc" id="L119">            slot.startsAt(),</span>
+<span class="fc" id="L120">            LocalDateTime.now(clock),</span>
+<span class="fc" id="L121">            id);</span>
+<span class="fc" id="L122">    s.audit(a, &quot;REPROGRAMAR&quot;, id, clock);</span>
+<span class="fc" id="L123">    log.info(&quot;NOTIFICACION_SIMULADA cita={} accion=REPROGRAMAR&quot;, id);</span>
+<span class="fc" id="L124">  }</span>
+
+  @Transactional
+  public void checkin(Actor a, long id) {
+<span class="fc" id="L128">    s.require(a.reception(), &quot;Solo recepción puede confirmar la llegada.&quot;);</span>
+<span class="fc" id="L129">    var c = appointment(a, id);</span>
+<span class="fc" id="L130">    mutable(c);</span>
+<span class="fc" id="L131">    s.require(</span>
+<span class="fc" id="L132">        ((Timestamp) c.get(&quot;starts_at&quot;))</span>
+<span class="fc" id="L133">            .toLocalDateTime()</span>
+<span class="fc" id="L134">            .toLocalDate()</span>
+<span class="fc" id="L135">            .equals(LocalDate.now(clock)),</span>
+        &quot;Confirma la llegada el día de la cita.&quot;);
+<span class="fc" id="L137">    state(a, id, &quot;EN_ESPERA&quot;);</span>
+<span class="fc" id="L138">  }</span>
+
+  @Transactional
+  public void noShow(Actor a, long id) {
+<span class="fc" id="L142">    s.require(a.reception(), &quot;Solo recepción puede registrar inasistencias.&quot;);</span>
+<span class="fc" id="L143">    var c = appointment(a, id);</span>
+<span class="fc" id="L144">    mutable(c);</span>
+<span class="fc" id="L145">    s.require(</span>
+<span class="fc" id="L146">        !LocalDateTime.now(clock)</span>
+<span class="fc bfc" id="L147" title="All 2 branches covered.">            .isBefore(((Timestamp) c.get(&quot;starts_at&quot;)).toLocalDateTime().plusMinutes(15)),</span>
+        &quot;Espera al menos 15 minutos después de la hora de la cita.&quot;);
+<span class="fc" id="L149">    state(a, id, &quot;NO_ASISTIO&quot;);</span>
+<span class="fc" id="L150">  }</span>
+
+  @Transactional
+  public void attend(Actor a, long id, Visit visit) {
+<span class="fc" id="L154">    s.require(a.vet(), &quot;Solo el veterinario asignado puede registrar la atención.&quot;);</span>
+<span class="fc" id="L155">    var c = appointment(a, id);</span>
+<span class="fc bfc" id="L156" title="All 2 branches covered.">    s.require(a.id() == s.number(c, &quot;vet_id&quot;), &quot;La cita está asignada a otro veterinario.&quot;);</span>
+<span class="fc" id="L157">    s.require(c.get(&quot;status&quot;).equals(&quot;EN_ESPERA&quot;), &quot;La cita debe estar en espera.&quot;);</span>
+<span class="fc" id="L158">    text(visit.reason(), 1000, &quot;motivo&quot;);</span>
+<span class="fc" id="L159">    text(visit.diagnosis(), 2000, &quot;diagnóstico&quot;);</span>
+<span class="fc" id="L160">    text(visit.treatment(), 2000, &quot;tratamiento&quot;);</span>
+<span class="fc" id="L161">    s.require(</span>
+<span class="pc bpc" id="L162" title="1 of 2 branches missed.">        visit.weight() != null</span>
+<span class="fc bfc" id="L163" title="All 2 branches covered.">            &amp;&amp; visit.weight().signum() &gt; 0</span>
+<span class="pc bpc" id="L164" title="1 of 2 branches missed.">            &amp;&amp; visit.weight().compareTo(new java.math.BigDecimal(&quot;500&quot;)) &lt;= 0,</span>
+        &quot;El peso debe ser mayor que 0 y menor o igual a 500 kg.&quot;);
+<span class="fc" id="L166">    s.jdbc()</span>
+<span class="fc" id="L167">        .update(</span>
+            &quot;insert into&quot;
+                + &quot; clinical_record(appointment_id,reason,diagnosis,treatment,weight,created_at)&quot;
+                + &quot; values (?,?,?,?,?,?)&quot;,
+<span class="fc" id="L171">            id,</span>
+<span class="fc" id="L172">            visit.reason().strip(),</span>
+<span class="fc" id="L173">            visit.diagnosis().strip(),</span>
+<span class="fc" id="L174">            visit.treatment().strip(),</span>
+<span class="fc" id="L175">            visit.weight(),</span>
+<span class="fc" id="L176">            LocalDateTime.now(clock));</span>
+<span class="fc" id="L177">    state(a, id, &quot;ATENDIDA&quot;);</span>
+<span class="fc" id="L178">  }</span>
+
+  private void text(String v, int max, String field) {
+<span class="pc bpc" id="L181" title="1 of 2 branches missed.">    s.require(</span>
+<span class="pc bpc" id="L182" title="2 of 4 branches missed.">        v != null &amp;&amp; !v.isBlank() &amp;&amp; v.length() &lt;= max,</span>
+        &quot;Completa el &quot; + field + &quot; dentro del límite permitido.&quot;);
+<span class="fc" id="L184">  }</span>
+
+  private void state(Actor a, long id, String status) {
+<span class="fc" id="L187">    s.jdbc()</span>
+<span class="fc" id="L188">        .update(</span>
+            &quot;update appointment set status=?,updated_at=? where id=?&quot;,
+            status,
+<span class="fc" id="L191">            LocalDateTime.now(clock),</span>
+<span class="fc" id="L192">            id);</span>
+<span class="fc" id="L193">    s.audit(a, status, id, clock);</span>
+<span class="fc" id="L194">    log.info(&quot;NOTIFICACION_SIMULADA cita={} estado={}&quot;, id, status);</span>
+<span class="fc" id="L195">  }</span>
+
+  public List&lt;Map&lt;String, Object&gt;&gt; history(Actor a, long petId) {
+<span class="fc" id="L198">    pet(a, petId);</span>
+<span class="pc bpc" id="L199" title="1 of 2 branches missed.">    if (a.vet())</span>
+<span class="nc" id="L200">      s.require(</span>
+<span class="nc" id="L201">          s.jdbc()</span>
+<span class="nc bnc" id="L202" title="All 2 branches missed.">                  .queryForObject(</span>
+                      &quot;select count(*) from appointment where pet_id=? and vet_id=?&quot;,
+                      Integer.class,
+<span class="nc" id="L205">                      petId,</span>
+<span class="nc" id="L206">                      a.id())</span>
+              &gt; 0,
+          &quot;Solo puedes consultar mascotas de tus citas.&quot;);
+<span class="fc" id="L209">    return s.jdbc()</span>
+<span class="fc" id="L210">        .queryForList(</span>
+            &quot;select r.*,a.starts_at,v.name vet_name from clinical_record r join appointment a on&quot;
+                + &quot; a.id=r.appointment_id join app_user v on v.id=a.vet_id where a.pet_id=? order&quot;
+                + &quot; by a.starts_at desc&quot;,
+<span class="fc" id="L214">            petId);</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

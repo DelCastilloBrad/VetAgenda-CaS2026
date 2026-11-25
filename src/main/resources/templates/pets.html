@@ -1,0 +1,95 @@
+<!doctype html>
+<html
+  lang="es"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head th:replace="~{layout :: head('Mascotas')}"></head>
+  <body class="app-shell">
+    <aside th:replace="~{layout :: sidebar}"></aside>
+    <main id="main" class="workspace">
+      <div th:replace="~{layout :: flash}"></div>
+      <header
+        th:replace="~{layout :: heading('COMPAÑEROS DE VIDA','Sus pequeños perfiles','Mantén sus datos al día para acompañarlos mejor.')}"
+      ></header>
+      <div class="two-column">
+        <section>
+          <div class="pet-grid">
+            <article class="panel pet-card" th:each="p : ${pets}">
+              <span
+                class="pet-avatar"
+                aria-hidden="true"
+                th:text="${p.species == 'Gato' ? '♧' : '♡'}"
+              ></span>
+              <h2 th:text="${p.name}"></h2>
+              <p th:text="${p.species} + ' · ' + ${p.breed}"></p>
+              <small th:text="${p.owner_name}"></small>
+              <div class="row-actions">
+                <a th:href="@{/mascotas(edit=${p.id})}" class="text-link"
+                  >Editar perfil</a
+                ><a th:href="@{/historial(petId=${p.id})}" class="text-link"
+                  >Ver historial →</a
+                >
+              </div>
+            </article>
+          </div>
+          <p class="empty-state" th:if="${#lists.isEmpty(pets)}">
+            Tu primera mascota está por llegar. Regístrala aquí.
+          </p>
+        </section>
+        <section class="panel">
+          <h2
+            th:text="${editing != null ? 'Editar mascota' : 'Una nueva compañía'}"
+          ></h2>
+          <form th:action="@{/mascotas}" method="post" class="stack">
+            <input
+              th:if="${editing != null}"
+              type="hidden"
+              name="id"
+              th:value="${editing.id}"
+            /><th:block sec:authorize="hasRole('RECEPCION')"
+              ><label for="ownerId">Propietario</label
+              ><select name="ownerId" id="ownerId" required>
+                <option
+                  th:each="c : ${clients}"
+                  th:value="${c.id}"
+                  th:text="${c.name}"
+                  th:selected="${editing != null and editing.owner_id == c.id}"
+                ></option></select></th:block
+            ><label for="name">Nombre</label
+            ><input
+              id="name"
+              name="name"
+              maxlength="80"
+              th:value="${editing != null ? editing.name : ''}"
+              required
+            /><label for="species">Especie</label
+            ><select name="species" id="species">
+              <option
+                th:each="v : ${ {'Perro','Gato','Ave','Otro'} }"
+                th:value="${v}"
+                th:text="${v}"
+                th:selected="${editing != null and editing.species == v}"
+              ></option></select
+            ><label for="breed">Raza o descripción</label
+            ><input
+              id="breed"
+              name="breed"
+              maxlength="80"
+              th:value="${editing != null ? editing.breed : ''}"
+            /><label for="birth">Fecha de nacimiento (opcional)</label
+            ><input
+              id="birth"
+              name="birth"
+              type="date"
+              th:max="${today}"
+              th:value="${editing != null ? editing.birth_date : ''}"
+            /><button class="btn btn-primary" id="save-pet">
+              Guardar mascota
+            </button>
+          </form>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

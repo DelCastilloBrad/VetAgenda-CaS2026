@@ -1,0 +1,47 @@
+{
+  "version": "0.1.0",
+  "date": "2026-11-24",
+  "timezone": "America/Lima",
+  "junit": [
+    {
+      "name": "pe.unsa.vetagenda.BusinessTests",
+      "tests": "31",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.875"
+    },
+    {
+      "name": "pe.unsa.vetagenda.ConcurrencyTests",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "14.509"
+    },
+    {
+      "name": "pe.unsa.vetagenda.PostgresTests",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "1.808"
+    },
+    {
+      "name": "pe.unsa.vetagenda.WebTests",
+      "tests": "10",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "1.65"
+    }
+  ],
+  "service_coverage": {
+    "covered": 310,
+    "missed": 19,
+    "percent": 94.22
+  },
+  "postgres_version": "14.22 (temporal real)",
+  "selenium": "11 casos preparados; intento bloqueado antes de iniciar navegador, ninguno aprobado",
+  "jar_sha256": "ceb10595d8647d3439929ce5239a5631d7a010660bb56283fec2833b9f6631bb"
+}

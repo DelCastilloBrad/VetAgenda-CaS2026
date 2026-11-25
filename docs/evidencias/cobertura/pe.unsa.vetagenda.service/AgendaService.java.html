@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AgendaService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">VetAgenda</a> &gt; <a href="index.source.html" class="el_package">pe.unsa.vetagenda.service</a> &gt; <span class="el_source">AgendaService.java</span></div><h1>AgendaService.java</h1><pre class="source lang-java linenums">package pe.unsa.vetagenda.service;
+
+import java.sql.Time;
+import java.time.*;
+import java.util.*;
+import org.springframework.stereotype.Service;
+import pe.unsa.vetagenda.domain.Domain.*;
+
+@Service
+public class AgendaService {
+  private final Store s;
+  private final Clock clock;
+
+<span class="fc" id="L14">  public AgendaService(Store s, Clock clock) {</span>
+<span class="fc" id="L15">    this.s = s;</span>
+<span class="fc" id="L16">    this.clock = clock;</span>
+<span class="fc" id="L17">  }</span>
+
+  public void validate(Slot slot) {
+<span class="pc bpc" id="L20" title="1 of 2 branches missed.">    s.require(slot.startsAt() != null, &quot;Selecciona una fecha y hora.&quot;);</span>
+<span class="fc" id="L21">    var at = slot.startsAt();</span>
+<span class="fc" id="L22">    var now = LocalDateTime.now(clock);</span>
+<span class="fc bfc" id="L23" title="All 2 branches covered.">    s.require(!at.isBefore(now.plusHours(2)), &quot;Reserva con al menos 2 horas de anticipación.&quot;);</span>
+<span class="fc" id="L24">    s.require(</span>
+<span class="fc bfc" id="L25" title="All 2 branches covered.">        !at.isAfter(now.plusDays(30)), &quot;Solo se admiten reservas hasta 30 días de anticipación.&quot;);</span>
+<span class="fc" id="L26">    s.require(</span>
+<span class="pc bpc" id="L27" title="2 of 6 branches missed.">        at.getSecond() == 0 &amp;&amp; at.getNano() == 0 &amp;&amp; at.getMinute() % 30 == 0,</span>
+        &quot;Selecciona un bloque de 30 minutos.&quot;);
+<span class="fc" id="L29">    var hours =</span>
+<span class="fc" id="L30">        s.one(&quot;select * from business_hours where day_of_week=?&quot;, at.getDayOfWeek().getValue());</span>
+<span class="fc" id="L31">    s.require((Boolean) hours.get(&quot;active&quot;), &quot;La clínica no atiende ese día.&quot;);</span>
+<span class="fc" id="L32">    var opening = ((Time) hours.get(&quot;opening&quot;)).toLocalTime();</span>
+<span class="fc" id="L33">    var closing = ((Time) hours.get(&quot;closing&quot;)).toLocalTime();</span>
+<span class="fc" id="L34">    s.require(</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">        !at.toLocalTime().isBefore(opening)</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">            &amp;&amp; !at.toLocalTime().plusMinutes(30).isAfter(closing)</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">            &amp;&amp; at.toLocalTime().isBefore(closing),</span>
+        &quot;El bloque está fuera del horario de atención.&quot;);
+<span class="fc" id="L39">    s.require(</span>
+<span class="fc" id="L40">        s.jdbc()</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">                .queryForObject(</span>
+                    &quot;select count(*) from holiday where holiday_date=?&quot;,
+                    Integer.class,
+<span class="fc" id="L44">                    at.toLocalDate())</span>
+            == 0,
+        &quot;La clínica no atiende en el feriado seleccionado.&quot;);
+<span class="fc" id="L47">    var vet = s.one(&quot;select role,active from app_user where id=?&quot;, slot.vetId());</span>
+<span class="fc" id="L48">    s.require(</span>
+<span class="pc bpc" id="L49" title="2 of 4 branches missed.">        vet.get(&quot;role&quot;).equals(&quot;VETERINARIO&quot;) &amp;&amp; (Boolean) vet.get(&quot;active&quot;),</span>
+        &quot;Selecciona un veterinario activo.&quot;);
+<span class="fc" id="L51">    s.require(</span>
+<span class="fc" id="L52">        s.jdbc()</span>
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">                .queryForObject(</span>
+                    &quot;select count(*) from clinical_service where id=? and active=true&quot;,
+                    Integer.class,
+<span class="fc" id="L56">                    slot.serviceId())</span>
+            == 1,
+        &quot;Selecciona un servicio activo.&quot;);
+<span class="fc" id="L59">  }</span>
+
+  public boolean free(Slot slot, long exclude) {
+<span class="fc" id="L62">    return s.jdbc()</span>
+<span class="fc bfc" id="L63" title="All 2 branches covered.">            .queryForObject(</span>
+                &quot;select count(*) from appointment where id&lt;&gt;? and status in&quot;
+                    + &quot; ('RESERVADA','EN_ESPERA') and starts_at=? and (vet_id=? or pet_id=?)&quot;,
+                Integer.class,
+<span class="fc" id="L67">                exclude,</span>
+<span class="fc" id="L68">                slot.startsAt(),</span>
+<span class="fc" id="L69">                slot.vetId(),</span>
+<span class="fc" id="L70">                slot.petId())</span>
+        == 0;
+  }
+
+  public List&lt;LocalDateTime&gt; available(LocalDate date, long pet, long vet, long service) {
+<span class="fc" id="L75">    List&lt;LocalDateTime&gt; slots = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">    for (int minute = 0; minute &lt; 24 * 60; minute += 30) {</span>
+<span class="fc" id="L77">      var at = date.atStartOfDay().plusMinutes(minute);</span>
+<span class="fc" id="L78">      var slot = new Slot(pet, vet, service, at);</span>
+      try {
+<span class="fc" id="L80">        validate(slot);</span>
+<span class="pc bpc" id="L81" title="1 of 2 branches missed.">        if (free(slot, 0)) slots.add(at);</span>
+<span class="fc" id="L82">      } catch (RuleViolation ignored) {</span>
+        /* An unavailable block is excluded. */
+<span class="fc" id="L84">      }</span>
+    }
+<span class="fc" id="L86">    return slots;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
