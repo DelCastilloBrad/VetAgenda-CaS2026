@@ -8,20 +8,13 @@ Definir una especificación de requisitos verificable para los tres procesos de 
 
 ## Herramienta, versión y requisitos vinculados
 
-GitHub Issues y Markdown. La versión del producto es 0.1.0; la ERS usa IEEE 830 como referencia académica de estructura, sin declarar certificación.
+GitHub Issues y Markdown. La versión del producto es 0.1.0; la ERS usa IEEE 830 como referencia académica de estructura.
 
 RF-01 a RF-12, RNF-01 a RNF-06 y reglas de negocio de agenda y acceso.
 
-## Qué exige el trabajo final
-
-- Identificar cliente, usuarios e interesados y aplicar al menos dos técnicas de elicitación, conservando instrumentos y resultados.
-- Especificar al menos 10 RF y 5 RNF con ID, descripción, fuente, prioridad y aceptación observable.
-- Documentar contexto, interfaces, supuestos, restricciones e indicadores medibles.
-- Incluir roles, cronograma, comparación de herramientas y revisión de claridad, consistencia, completitud y verificabilidad.
-
 ## Procedimiento realizado
 
-Se concretó una línea base técnica desde el primer entregable y las aclaraciones del usuario. Se registraron cuatro roles (CLIENTE, RECEPCION, VETERINARIO y ADMIN), criterios de aceptación y exclusiones. El documento se relacionó con Issues y con la trazabilidad del código.
+Se definió una línea base técnica a partir del alcance del primer entregable. Se registraron cuatro roles (CLIENTE, RECEPCION, VETERINARIO y ADMIN), criterios de aceptación y exclusiones. El documento se relacionó con Issues y con la trazabilidad del código.
 
 ## Resultados obtenidos
 
@@ -33,7 +26,7 @@ La cantidad de requisitos supera el mínimo del trabajo, pero eso no acredita el
 
 ## Conclusiones
 
-Existe una ERS de trabajo utilizable para diseño y pruebas. G01 sigue en avance hasta completar y revisar las evidencias de elicitación y organización.
+La ERS proporciona una base para el diseño, las pruebas y la trazabilidad del producto.
 
 ## Ubicación de evidencias
 
@@ -45,14 +38,6 @@ Existe una ERS de trabajo utilizable para diseño y pruebas. G01 sigue en avance
 
 - [ ] Aplicar y documentar dos técnicas de elicitación; declarar si el usuario es representado.
 - [ ] Completar roles y cronograma con información real y realizar la revisión formal de la ERS.
-- [ ] Mantener fuente, prioridad y criterio verificable en cada requisito.
+- [ ] Mantener fuente, prioridad y criterio verificable en cada requisito, con su vínculo a una prueba.
 
-## Criterio de cierre
-
-Cada requisito tiene una condición observable y se vincula con una prueba; instrumentos y revisión quedan disponibles.
-
-## Cuestionarios y referencias
-
-Los cuestionarios específicos de PRAC01–PRAC09 deben contrastarse con cada guía original. Esta página organiza la aplicación al producto desde la consigna integradora; no declara resueltos cuestionarios cuyo texto no se ha verificado. Véase [Fuentes y criterios](Fuentes-y-criterios).
-
-[Inicio](Home) · [Evidencias y entregables](Evidencias-y-entregables) · [Trazabilidad y resultados](Trazabilidad-y-resultados)
+[Inicio](Home) · [Evidencias y entregables](Evidencias-y-entregables) · [Trazabilidad y resultados](Trazabilidad-y-resultados) · [Fuentes técnicas](Fuentes-y-criterios)

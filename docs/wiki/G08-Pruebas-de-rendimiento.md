@@ -12,14 +12,6 @@ Apache JMeter 5.6.3 y Java OpenJDK 21.0.13.1, según el informe y la ejecución 
 
 RF-04 disponibilidad y RF-05 reserva; perfil académico de carga, estrés, pico y estabilidad.
 
-## Qué exige el trabajo final
-
-- Definir al menos dos transacciones, mezcla, autenticación, datos, validaciones y pausas.
-- Registrar equipo, red, base, volumen, versión y configuración del generador.
-- Ejecutar carga de 10 usuarios/5 min/rampa 30 s; estrés 10–25–50 por 3 min/nivel; pico 10→50→10; estabilidad 10/15 min, documentando ajustes.
-- Conservar JMX, JTL y HTML en modo no gráfico y medir percentiles, throughput, errores, CPU y memoria.
-- Justificar una mejora sobre un cuello de botella y comparar antes/después en condiciones equivalentes.
-
 ## Procedimiento realizado
 
 El informe revisó cinco ejecuciones, incluida humo, y recalculó p95 y recuentos desde JTL. Cada ciclo consulta disponibilidad, reserva y cancela; hay 2 s de pausa y una autenticación por hilo. La reserva incluye POST y GET de confirmación.
@@ -34,7 +26,7 @@ La base fue H2 en memoria y la red loopback. Carga excluye los primeros 30 s al 
 
 ## Conclusiones
 
-RNF-01 cumple en el entorno local medido, según el informe. G08 permanece abierto: faltan mejora justificada, repetición equivalente y monitoreo correcto de la JVM de JMeter.
+Los resultados documentados cumplen RNF-01 en el entorno local medido. Su alcance corresponde al equipo, la base y los perfiles utilizados.
 
 ## Ubicación de evidencias
 
@@ -49,12 +41,4 @@ RNF-01 cumple en el entorno local medido, según el informe. G08 permanece abier
 - [ ] Aplicar una mejora sustentada y repetir con entorno, datos, versión y perfil equivalentes.
 - [ ] Actualizar trazabilidad y gestor con el alcance local del resultado.
 
-## Criterio de cierre
-
-Umbrales contrastados por transacción y comparación antes/después verificable; conclusiones limitadas al entorno e intervalo medidos.
-
-## Cuestionarios y referencias
-
-Los cuestionarios específicos de PRAC01–PRAC09 deben contrastarse con cada guía original. Esta página organiza la aplicación al producto desde la consigna integradora; no declara resueltos cuestionarios cuyo texto no se ha verificado. Véase [Fuentes y criterios](Fuentes-y-criterios).
-
-[Inicio](Home) · [Evidencias y entregables](Evidencias-y-entregables) · [Trazabilidad y resultados](Trazabilidad-y-resultados)
+[Inicio](Home) · [Evidencias y entregables](Evidencias-y-entregables) · [Trazabilidad y resultados](Trazabilidad-y-resultados) · [Fuentes técnicas](Fuentes-y-criterios)

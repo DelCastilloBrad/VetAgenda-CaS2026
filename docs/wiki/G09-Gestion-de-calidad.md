@@ -8,16 +8,9 @@ Verificar los tres procesos mediante flujos web y emitir un dictamen sustentado 
 
 ## Herramienta, versión y requisitos vinculados
 
-Selenium 4.54.0 y pytest 9.0.1 fijados en requirements.txt; Chrome 158.0.8127.88 reportado por el usuario. Selenium Manager o controlador local compatible.
+Selenium 4.54.0 y pytest 9.0.1 fijados en requirements.txt; Chrome 158.0.8127.88 en la regresión documentada. Selenium Manager o controlador local compatible.
 
 Acceso, credenciales inválidas, roles, registro, datos inválidos, reserva, llegada/atención, historial, logout, tema, ancho 360 px y reprogramación/cancelación.
-
-## Qué exige el trabajo final
-
-- Automatizar al menos ocho casos web y cubrir los tres procesos del producto.
-- Usar aserciones observables, selectores estables, esperas explícitas y datos aislados.
-- Conservar suite, reportes, capturas de fallos y defectos.
-- Ejecutar regresión final e integrar evidencia en dictamen apto, apto con observaciones o no apto.
 
 ## Procedimiento realizado
 
@@ -33,7 +26,7 @@ La aprobación de Chrome y 360 px no acredita Firefox ni usabilidad con usuarios
 
 ## Conclusiones
 
-Dictamen del avance: apto con observaciones para demostración local de v0.1.0. No implica liberación real ni cierre de las nueve guías; requiere regresión y evidencias coherentes con la versión final.
+Dictamen del avance: apto con observaciones para demostración local de v0.1.0, sustentado en la regresión documentada y sus limitaciones.
 
 ## Ubicación de evidencias
 
@@ -58,12 +51,4 @@ Activar antes un entorno Python e iniciar la aplicación en una base demo desech
 - [ ] Comprobar Firefox para RNF-06 y realizar las otras mediciones pendientes.
 - [ ] Repetir suite sobre la versión etiquetada final y actualizar dictamen integrado.
 
-## Criterio de cierre
-
-Los casos son repetibles y el dictamen refleja resultados observables y limitaciones.
-
-## Cuestionarios y referencias
-
-Los cuestionarios específicos de PRAC01–PRAC09 deben contrastarse con cada guía original. Esta página organiza la aplicación al producto desde la consigna integradora; no declara resueltos cuestionarios cuyo texto no se ha verificado. Véase [Fuentes y criterios](Fuentes-y-criterios).
-
-[Inicio](Home) · [Evidencias y entregables](Evidencias-y-entregables) · [Trazabilidad y resultados](Trazabilidad-y-resultados)
+[Inicio](Home) · [Evidencias y entregables](Evidencias-y-entregables) · [Trazabilidad y resultados](Trazabilidad-y-resultados) · [Fuentes técnicas](Fuentes-y-criterios)
