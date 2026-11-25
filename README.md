@@ -140,3 +140,7 @@ Se utilizó asistencia de IA para la implementación, pruebas y documentación. 
 ## Seguimiento académico
 
 [Issues](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues) contiene requisitos, cambios, defectos y pendientes de G01–G09. Consulta la [ERS de trabajo](docs/ERS.md), el [flujo y comparación de herramientas](docs/GESTION_REQUISITOS.md), las [solicitudes reales de cambio](docs/CAMBIOS.md) y el [índice de seguimiento](docs/SEGUIMIENTO.md). La [propuesta inicial](docs/PROPUESTA_INICIAL.md) se conserva como antecedente.
+
+## Documentación por guías
+
+La [documentación organizada por G01 a G09](docs/wiki/README.md) reúne objetivo, procedimiento, resultados, análisis, conclusiones y evidencias de cada guía, con pendientes reales y criterios de cierre. Incluye fuentes listas para la Wiki y distingue resultados publicados de originales recibidos aún por incorporar.
