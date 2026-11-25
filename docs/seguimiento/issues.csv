@@ -1,0 +1,32 @@
+﻿id,numero,tipo,titulo,estado_proceso,estado_github,responsables,creado_utc,creado_lima,cerrado_utc,url
+RF-01,1,requisito,[RF-01] Autenticación y cierre de sesión,cerrado,closed,DelCastilloBrad,2026-11-25T01:42:16Z,2026-11-24T20:42:16-05:00,2026-11-25T01:43:51Z,https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/1
+RF-02,2,requisito,[RF-02] Autorregistro de clientes,cerrado,closed,DelCastilloBrad,2026-11-25T01:42:29Z,2026-11-24T20:42:29-05:00,2026-11-25T01:44:33Z,https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/2
+RF-03,3,requisito,"[RF-03] Registro, edición y lista de mascotas",implementado,open,DelCastilloBrad,2026-11-25T01:42:30Z,2026-11-24T20:42:30-05:00,,https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/3
+RF-04,4,requisito,[RF-04] Consulta de disponibilidad,cerrado,closed,DelCastilloBrad,2026-11-25T01:42:32Z,2026-11-24T20:42:32-05:00,2026-11-25T01:43:55Z,https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/4
+RF-05,5,requisito,[RF-05] Reserva sin superposición,cerrado,closed,DelCastilloBrad,2026-11-25T01:42:33Z,2026-11-24T20:42:33-05:00,2026-11-25T01:43:59Z,https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/5
+RF-06,6,requisito,[RF-06] Reprogramación y cancelación,cerrado,closed,DelCastilloBrad,2026-11-25T01:42:35Z,2026-11-24T20:42:35-05:00,2026-11-25T01:44:04Z,https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/6
+RF-07,7,requisito,[RF-07] Confirmación de llegada,cerrado,closed,DelCastilloBrad,2026-11-25T01:42:36Z,2026-11-24T20:42:36-05:00,2026-11-25T01:44:36Z,https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/7
+RF-08,8,requisito,[RF-08] Registro de atención clínica,cerrado,closed,DelCastilloBrad,2026-11-25T01:42:38Z,2026-11-24T20:42:38-05:00,2026-11-25T01:44:08Z,https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/8
+RF-09,9,requisito,[RF-09] Inasistencias y restricciones,cerrado,closed,DelCastilloBrad,2026-11-25T01:42:39Z,2026-11-24T20:42:39-05:00,2026-11-25T01:44:38Z,https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/9
+RF-10,10,requisito,[RF-10] Agenda e historial por mascota,cerrado,closed,DelCastilloBrad,2026-11-25T01:42:41Z,2026-11-24T20:42:41-05:00,2026-11-25T01:44:40Z,https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/10
+RF-11,11,requisito,[RF-11] Reporte consolidado de citas,implementado,open,DelCastilloBrad,2026-11-25T01:42:42Z,2026-11-24T20:42:42-05:00,,https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/11
+RF-12,12,requisito,[RF-12] Administración de catálogos y usuarios,implementado,open,DelCastilloBrad,2026-11-25T01:42:44Z,2026-11-24T20:42:44-05:00,,https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/12
+RNF-01,13,requisito no funcional,[RNF-01] Rendimiento,pendiente,open,DelCastilloBrad,2026-11-25T01:42:45Z,2026-11-24T20:42:45-05:00,,https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/13
+RNF-02,14,requisito no funcional,[RNF-02] Seguridad,pendiente,open,DelCastilloBrad,2026-11-25T01:42:47Z,2026-11-24T20:42:47-05:00,,https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/14
+RNF-03,15,requisito no funcional,[RNF-03] Usabilidad,pendiente,open,DelCastilloBrad,2026-11-25T01:42:48Z,2026-11-24T20:42:48-05:00,,https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/15
+RNF-04,16,requisito no funcional,[RNF-04] Persistencia y recuperación,pendiente,open,DelCastilloBrad,2026-11-25T01:42:50Z,2026-11-24T20:42:50-05:00,,https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/16
+RNF-05,17,requisito no funcional,[RNF-05] Mantenibilidad,cerrado,closed,DelCastilloBrad,2026-11-25T01:42:51Z,2026-11-24T20:42:51-05:00,2026-11-25T01:44:42Z,https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/17
+RNF-06,18,requisito no funcional,[RNF-06] Portabilidad,pendiente,open,DelCastilloBrad,2026-11-25T01:42:52Z,2026-11-24T20:42:52-05:00,,https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/18
+CC-03,19,cambio,[CC-03] Estilos reemplazables y personalizables,cerrado,closed,DelCastilloBrad,2026-11-25T01:42:54Z,2026-11-24T20:42:54-05:00,2026-11-25T01:44:12Z,https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/19
+CC-04,20,cambio,[CC-04] Ampliar operaciones de recepción al administrador,diferido,open,DelCastilloBrad,2026-11-25T01:42:56Z,2026-11-24T20:42:56-05:00,,https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/20
+DF-01,21,defecto,[DF-01] El selector pierde el color guardado al recargar,cerrado,closed,DelCastilloBrad,2026-11-25T01:42:57Z,2026-11-24T20:42:57-05:00,2026-11-25T01:44:45Z,https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/21
+DF-02,22,defecto,[DF-02] Clic interceptado en confirmación de reserva Selenium,cerrado,closed,DelCastilloBrad,2026-11-25T01:42:59Z,2026-11-24T20:42:59-05:00,2026-11-25T01:44:47Z,https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/22
+G01,23,entregable,[G01] Elicitación y ERS,pendiente,open,DelCastilloBrad,2026-11-25T01:43:00Z,2026-11-24T20:43:00-05:00,,https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/23
+G02,24,entregable,[G02] Seguimiento de requisitos y cambios,pendiente,open,DelCastilloBrad,2026-11-25T01:43:01Z,2026-11-24T20:43:01-05:00,,https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/24
+G03,25,entregable,[G03] Diseño y modelado,pendiente,open,DelCastilloBrad,2026-11-25T01:43:03Z,2026-11-24T20:43:03-05:00,,https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/25
+G04,26,entregable,[G04] Estimación y costos,pendiente,open,DelCastilloBrad,2026-11-25T01:43:04Z,2026-11-24T20:43:04-05:00,,https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/26
+G05,27,entregable,[G05] Configuración con SVN,pendiente,open,DelCastilloBrad,2026-11-25T01:43:05Z,2026-11-24T20:43:05-05:00,,https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/27
+G06,28,entregable,[G06] Riesgos con MAGERIT/PILAR,pendiente,open,DelCastilloBrad,2026-11-25T01:43:07Z,2026-11-24T20:43:07-05:00,,https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/28
+G07,29,entregable,[G07] Pruebas JUnit y cobertura,pendiente,open,DelCastilloBrad,2026-11-25T01:43:08Z,2026-11-24T20:43:08-05:00,,https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/29
+G08,30,entregable,[G08] Rendimiento con JMeter,pendiente,open,DelCastilloBrad,2026-11-25T01:43:09Z,2026-11-24T20:43:09-05:00,,https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/30
+G09,31,entregable,[G09] Pruebas Selenium y dictamen,pendiente,open,DelCastilloBrad,2026-11-25T01:43:11Z,2026-11-24T20:43:11-05:00,,https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/31

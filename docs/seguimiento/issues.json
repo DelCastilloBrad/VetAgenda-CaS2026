@@ -1,0 +1,819 @@
+{
+  "exported_at": "2026-11-25T01:45:27.978Z",
+  "repository": "DelCastilloBrad/VetAgenda-CaS2026",
+  "source_commit": "990f9bc709997865f7cab9c3590a18c474915ea3",
+  "scope_note": "Instantánea del gestor después de importar trabajo previo. Las fechas UTC son nativas de GitHub; no representan fechas históricas de implementación. Aceptación formal de clínica pendiente.",
+  "issues": [
+    {
+      "id": "RF-01",
+      "kind": "requisito",
+      "process_status": "cerrado",
+      "number": 1,
+      "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/1",
+      "title": "[RF-01] Autenticación y cierre de sesión",
+      "body": "## Fuente y alcance\nERS de trabajo, basada en Entregable 1 tabla 11. Prioridad Alta. Actores: Todos. Responsable: @DelCastilloBrad.\n\n## Criterio de aceptación\nIniciar con correo y contraseña válidos; rechazar credenciales inválidas; bloquear 15 min tras 5 fallos; cerrar sesión y proteger rutas.\n\n## Implementación\nSecurityConfig, ActiveAccountFilter. Versión 0.1.0 importada; véase docs/TRAZABILIDAD.md.\n\n## Evidencia\nWebTests.correctAndIncorrectLogin, locksAfterFiveAttempts; Selenium 01, 02, 03, 08. Reportes en docs/evidencias/DF-01 (44 JUnit); captura Selenium final: docs/evidencias/selenium-consola-usuario.png (11 aprobados, 28,55 s; XML pendiente).\n\n## Estado\ncerrado. Registro retrospectivo de la línea base, sin fechas de desarrollo inventadas. La validación técnica no sustituye aceptación formal del cliente.\n\n## Enlaces permanentes\n- [Versión publicada](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3)\n- [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md)\n- [Flujo del gestor](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/GESTION_REQUISITOS.md)\n- [Validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md)\n",
+      "state": "closed",
+      "state_reason": "completed",
+      "created_at": "2026-11-25T01:42:16Z",
+      "updated_at": "2026-11-25T01:43:51Z",
+      "closed_at": "2026-11-25T01:43:51Z",
+      "author": "DelCastilloBrad",
+      "assignees": [
+        "DelCastilloBrad"
+      ],
+      "comments": [
+        {
+          "id": 7149880792,
+          "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/1#issuecomment-7149880792",
+          "body": "### Analizado — revisión de importación\nSe revisaron criterio, controles y evidencia de RF-01: autenticación, cinco fallos/bloqueo, cierre de sesión y restricciones por rol. No cambia el alcance de la ERS de trabajo. Responsable técnico: @DelCastilloBrad. Este comentario registra la revisión actual de trabajo previo; no una reunión ni una fecha histórica reconstruida.",
+          "author": "DelCastilloBrad",
+          "created_at": "2026-11-25T01:43:25Z",
+          "updated_at": "2026-11-25T01:43:25Z"
+        },
+        {
+          "id": 7149888402,
+          "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/1#issuecomment-7149888402",
+          "body": "### Aprobado para incorporar a la línea base de trabajo → Implementado\nLa publicación y organización fueron autorizadas por el usuario en esta conversación. Se incorpora el alcance ya implementado, sin ampliar permisos de ADMIN (CC-04 diferido). Esta decisión técnica no equivale a firma de aceptación de la clínica.\n\nImplementación disponible en [commit 990f9bc](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3); archivos y pruebas relacionados en [TRAZABILIDAD.md](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/TRAZABILIDAD.md). Para CC-03, la solicitud original de estilos fue aceptada y ejecutada; [análisis y versión](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md). Responsable de importación: @DelCastilloBrad.",
+          "author": "DelCastilloBrad",
+          "created_at": "2026-11-25T01:43:49Z",
+          "updated_at": "2026-11-25T01:43:49Z"
+        },
+        {
+          "id": 7149888712,
+          "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/1#issuecomment-7149888712",
+          "body": "### Verificado — revisión de evidencia\nLa revisión del registro disponible respalda los criterios citados en esta issue:\n- [Reportes de regresión JUnit: 44 casos, sin fallos](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/tree/990f9bc709997865f7cab9c3590a18c474915ea3/docs/evidencias/DF-01).\n- [Captura aportada por el usuario: 11 Selenium aprobados en 28,55 s](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/evidencias/selenium-consola-usuario.png).\n- [Alcance y limitaciones de validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md).\n\nLos reportes corresponden a ejecuciones previas; no se afirma una nueva ejecución al publicar. El XML Selenium final aún no se ha incorporado. Responsable de revisión técnica: @DelCastilloBrad. Procede cerrar esta importación técnica; la aceptación formal y el entregable G02 permanecen pendientes.",
+          "author": "DelCastilloBrad",
+          "created_at": "2026-11-25T01:43:50Z",
+          "updated_at": "2026-11-25T01:43:50Z"
+        }
+      ]
+    },
+    {
+      "id": "RF-02",
+      "kind": "requisito",
+      "process_status": "cerrado",
+      "number": 2,
+      "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/2",
+      "title": "[RF-02] Autorregistro de clientes",
+      "body": "## Fuente y alcance\nERS de trabajo, basada en Entregable 1 tabla 11. Prioridad Alta. Actores: Cliente. Responsable: @DelCastilloBrad.\n\n## Criterio de aceptación\nValidar consentimiento, DNI de 8 dígitos, correo único, teléfono y contraseña de 10 a 72 bytes; almacenar hash BCrypt.\n\n## Implementación\nUsuarioService.register. Versión 0.1.0 importada; véase docs/TRAZABILIDAD.md.\n\n## Evidencia\nBusinessTests.validatesConsentDniAndPassword, duplicateAndInvalidEmailsAreRejected; Selenium 04, 05. Reportes en docs/evidencias/DF-01 (44 JUnit); captura Selenium final: docs/evidencias/selenium-consola-usuario.png (11 aprobados, 28,55 s; XML pendiente).\n\n## Estado\ncerrado. Registro retrospectivo de la línea base, sin fechas de desarrollo inventadas. La validación técnica no sustituye aceptación formal del cliente.\n\n## Enlaces permanentes\n- [Versión publicada](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3)\n- [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md)\n- [Flujo del gestor](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/GESTION_REQUISITOS.md)\n- [Cambios](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md)\n- [Validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md)\n",
+      "state": "closed",
+      "state_reason": "completed",
+      "created_at": "2026-11-25T01:42:29Z",
+      "updated_at": "2026-11-25T01:44:34Z",
+      "closed_at": "2026-11-25T01:44:33Z",
+      "author": "DelCastilloBrad",
+      "assignees": [
+        "DelCastilloBrad"
+      ],
+      "comments": [
+        {
+          "id": 7149902044,
+          "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/2#issuecomment-7149902044",
+          "body": "### Verificado y cierre técnico de importación\nSe revisó la evidencia ya existente para RF-02: [Regresión JUnit: 44 aprobados](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/tree/990f9bc709997865f7cab9c3590a18c474915ea3/docs/evidencias/DF-01), [captura Selenium del usuario: 11 aprobados](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/evidencias/selenium-consola-usuario.png), y [registro de defectos](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/DEFECTOS.md).\n\nCódigo publicado en [990f9bc](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3). XML Selenium final pendiente de incorporar. Cierre técnico de la línea base, sin atribuir ejecución nueva ni aceptación formal del cliente. Responsable: @DelCastilloBrad. Para DF-01, relación con #19 (CC-03); para DF-02, relación con #6 (RF-06).",
+          "author": "DelCastilloBrad",
+          "created_at": "2026-11-25T01:44:32Z",
+          "updated_at": "2026-11-25T01:44:32Z"
+        }
+      ]
+    },
+    {
+      "id": "RF-03",
+      "kind": "requisito",
+      "process_status": "implementado",
+      "number": 3,
+      "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/3",
+      "title": "[RF-03] Registro, edición y lista de mascotas",
+      "body": "## Fuente y alcance\nERS de trabajo, basada en Entregable 1 tabla 11. Prioridad Alta. Actores: Cliente, Recepción. Responsable: @DelCastilloBrad.\n\n## Criterio de aceptación\nGuardar y listar mascotas asociadas al propietario; impedir gestionar mascotas ajenas y fechas de nacimiento futuras; verificar además la edición existente.\n\n## Implementación\nUsuarioService.savePet. Versión 0.1.0 importada; véase docs/TRAZABILIDAD.md.\n\n## Evidencia\nBusinessTests.bcryptAndOwnedPetValidation; Selenium 04 comprueba alta; edición manual pendiente. Reportes en docs/evidencias/DF-01 (44 JUnit); captura Selenium final: docs/evidencias/selenium-consola-usuario.png (11 aprobados, 28,55 s; XML pendiente).\n\n## Estado\nimplementado. Registro retrospectivo de la línea base, sin fechas de desarrollo inventadas. La validación técnica no sustituye aceptación formal del cliente.\n\n## Enlaces permanentes\n- [Versión publicada](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3)\n- [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md)\n- [Flujo del gestor](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/GESTION_REQUISITOS.md)\n- [Cambios](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md)\n- [Validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md)\n",
+      "state": "open",
+      "state_reason": null,
+      "created_at": "2026-11-25T01:42:30Z",
+      "updated_at": "2026-11-25T01:42:30Z",
+      "closed_at": null,
+      "author": "DelCastilloBrad",
+      "assignees": [
+        "DelCastilloBrad"
+      ],
+      "comments": []
+    },
+    {
+      "id": "RF-04",
+      "kind": "requisito",
+      "process_status": "cerrado",
+      "number": 4,
+      "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/4",
+      "title": "[RF-04] Consulta de disponibilidad",
+      "body": "## Fuente y alcance\nERS de trabajo, basada en Entregable 1 tabla 11. Prioridad Alta. Actores: Cliente, Recepción. Responsable: @DelCastilloBrad.\n\n## Criterio de aceptación\nOfrecer bloques válidos de 30 min de lunes a sábado 08–19 h, respetar cierres/feriados y límites inclusivos de 2 h y 30 días en Lima.\n\n## Implementación\nAgendaService. Versión 0.1.0 importada; véase docs/TRAZABILIDAD.md.\n\n## Evidencia\nBusinessTests: acceptsExactTwoHourBoundary, acceptsThirtyDayBoundary, rejectsSunday, rejectsHoliday, rejectsOffGrid, acceptsLastBlock, rejectsClosingTime. Reportes en docs/evidencias/DF-01 (44 JUnit); captura Selenium final: docs/evidencias/selenium-consola-usuario.png (11 aprobados, 28,55 s; XML pendiente).\n\n## Estado\ncerrado. Registro retrospectivo de la línea base, sin fechas de desarrollo inventadas. La validación técnica no sustituye aceptación formal del cliente.\n\n## Enlaces permanentes\n- [Versión publicada](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3)\n- [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md)\n- [Flujo del gestor](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/GESTION_REQUISITOS.md)\n- [Cambios](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md)\n- [Validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md)\n",
+      "state": "closed",
+      "state_reason": "completed",
+      "created_at": "2026-11-25T01:42:32Z",
+      "updated_at": "2026-11-25T01:43:55Z",
+      "closed_at": "2026-11-25T01:43:55Z",
+      "author": "DelCastilloBrad",
+      "assignees": [
+        "DelCastilloBrad"
+      ],
+      "comments": [
+        {
+          "id": 7149889532,
+          "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/4#issuecomment-7149889532",
+          "body": "### Analizado — revisión de importación\nSe revisaron alcance, dependencias y criterios de RF-04 en [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md), [trazabilidad](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/TRAZABILIDAD.md) y, cuando corresponde, [impacto del cambio](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md). Se mantiene la línea base 0.1.0. Responsable: @DelCastilloBrad. Es una revisión técnica actual del trabajo previo, sin reconstruir fechas históricas.",
+          "author": "DelCastilloBrad",
+          "created_at": "2026-11-25T01:43:52Z",
+          "updated_at": "2026-11-25T01:43:52Z"
+        },
+        {
+          "id": 7149889795,
+          "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/4#issuecomment-7149889795",
+          "body": "### Aprobado para incorporar a la línea base de trabajo → Implementado\nLa publicación y organización fueron autorizadas por el usuario en esta conversación. Se incorpora el alcance ya implementado, sin ampliar permisos de ADMIN (CC-04 diferido). Esta decisión técnica no equivale a firma de aceptación de la clínica.\n\nImplementación disponible en [commit 990f9bc](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3); archivos y pruebas relacionados en [TRAZABILIDAD.md](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/TRAZABILIDAD.md). Para CC-03, la solicitud original de estilos fue aceptada y ejecutada; [análisis y versión](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md). Responsable de importación: @DelCastilloBrad.",
+          "author": "DelCastilloBrad",
+          "created_at": "2026-11-25T01:43:53Z",
+          "updated_at": "2026-11-25T01:43:53Z"
+        },
+        {
+          "id": 7149890085,
+          "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/4#issuecomment-7149890085",
+          "body": "### Verificado — revisión de evidencia\nLa revisión del registro disponible respalda los criterios citados en esta issue:\n- [Reportes de regresión JUnit: 44 casos, sin fallos](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/tree/990f9bc709997865f7cab9c3590a18c474915ea3/docs/evidencias/DF-01).\n- [Captura aportada por el usuario: 11 Selenium aprobados en 28,55 s](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/evidencias/selenium-consola-usuario.png).\n- [Alcance y limitaciones de validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md).\n\nLos reportes corresponden a ejecuciones previas; no se afirma una nueva ejecución al publicar. El XML Selenium final aún no se ha incorporado. Responsable de revisión técnica: @DelCastilloBrad. Procede cerrar esta importación técnica; la aceptación formal y el entregable G02 permanecen pendientes.",
+          "author": "DelCastilloBrad",
+          "created_at": "2026-11-25T01:43:54Z",
+          "updated_at": "2026-11-25T01:43:54Z"
+        }
+      ]
+    },
+    {
+      "id": "RF-05",
+      "kind": "requisito",
+      "process_status": "cerrado",
+      "number": 5,
+      "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/5",
+      "title": "[RF-05] Reserva sin superposición",
+      "body": "## Fuente y alcance\nERS de trabajo, basada en Entregable 1 tabla 11. Prioridad Alta. Actores: Cliente, Recepción. Responsable: @DelCastilloBrad.\n\n## Criterio de aceptación\nReservar un bloque válido; impedir citas activas simultáneas del mismo veterinario o mascota; una sola reserva gana ante concurrencia. Aplicar bloqueo de inasistencias al cliente.\n\n## Implementación\nCitaService.reserve. Versión 0.1.0 importada; véase docs/TRAZABILIDAD.md.\n\n## Evidencia\nBusinessTests de reserva; ConcurrencyTests.concurrentReservationsProduceOneWinner; PostgresTests; Selenium 04. Reportes en docs/evidencias/DF-01 (44 JUnit); captura Selenium final: docs/evidencias/selenium-consola-usuario.png (11 aprobados, 28,55 s; XML pendiente).\n\n## Estado\ncerrado. Registro retrospectivo de la línea base, sin fechas de desarrollo inventadas. La validación técnica no sustituye aceptación formal del cliente.\n\n## Enlaces permanentes\n- [Versión publicada](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3)\n- [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md)\n- [Flujo del gestor](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/GESTION_REQUISITOS.md)\n- [Cambios](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md)\n- [Validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md)\n",
+      "state": "closed",
+      "state_reason": "completed",
+      "created_at": "2026-11-25T01:42:33Z",
+      "updated_at": "2026-11-25T01:43:59Z",
+      "closed_at": "2026-11-25T01:43:59Z",
+      "author": "DelCastilloBrad",
+      "assignees": [
+        "DelCastilloBrad"
+      ],
+      "comments": [
+        {
+          "id": 7149890713,
+          "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/5#issuecomment-7149890713",
+          "body": "### Analizado — revisión de importación\nSe revisaron alcance, dependencias y criterios de RF-05 en [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md), [trazabilidad](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/TRAZABILIDAD.md) y, cuando corresponde, [impacto del cambio](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md). Se mantiene la línea base 0.1.0. Responsable: @DelCastilloBrad. Es una revisión técnica actual del trabajo previo, sin reconstruir fechas históricas.",
+          "author": "DelCastilloBrad",
+          "created_at": "2026-11-25T01:43:56Z",
+          "updated_at": "2026-11-25T01:43:56Z"
+        },
+        {
+          "id": 7149891026,
+          "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/5#issuecomment-7149891026",
+          "body": "### Aprobado para incorporar a la línea base de trabajo → Implementado\nLa publicación y organización fueron autorizadas por el usuario en esta conversación. Se incorpora el alcance ya implementado, sin ampliar permisos de ADMIN (CC-04 diferido). Esta decisión técnica no equivale a firma de aceptación de la clínica.\n\nImplementación disponible en [commit 990f9bc](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3); archivos y pruebas relacionados en [TRAZABILIDAD.md](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/TRAZABILIDAD.md). Para CC-03, la solicitud original de estilos fue aceptada y ejecutada; [análisis y versión](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md). Responsable de importación: @DelCastilloBrad.",
+          "author": "DelCastilloBrad",
+          "created_at": "2026-11-25T01:43:57Z",
+          "updated_at": "2026-11-25T01:43:57Z"
+        },
+        {
+          "id": 7149891310,
+          "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/5#issuecomment-7149891310",
+          "body": "### Verificado — revisión de evidencia\nLa revisión del registro disponible respalda los criterios citados en esta issue:\n- [Reportes de regresión JUnit: 44 casos, sin fallos](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/tree/990f9bc709997865f7cab9c3590a18c474915ea3/docs/evidencias/DF-01).\n- [Captura aportada por el usuario: 11 Selenium aprobados en 28,55 s](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/evidencias/selenium-consola-usuario.png).\n- [Alcance y limitaciones de validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md).\n\nLos reportes corresponden a ejecuciones previas; no se afirma una nueva ejecución al publicar. El XML Selenium final aún no se ha incorporado. Responsable de revisión técnica: @DelCastilloBrad. Procede cerrar esta importación técnica; la aceptación formal y el entregable G02 permanecen pendientes.",
+          "author": "DelCastilloBrad",
+          "created_at": "2026-11-25T01:43:58Z",
+          "updated_at": "2026-11-25T01:43:58Z"
+        }
+      ]
+    },
+    {
+      "id": "RF-06",
+      "kind": "requisito",
+      "process_status": "cerrado",
+      "number": 6,
+      "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/6",
+      "title": "[RF-06] Reprogramación y cancelación",
+      "body": "## Fuente y alcance\nERS de trabajo, basada en Entregable 1 tabla 11. Prioridad Alta. Actores: Cliente, Recepción. Responsable: @DelCastilloBrad.\n\n## Criterio de aceptación\nCliente cambia o cancela con al menos 2 h; recepción puede gestionar fuera del plazo original; máximo 2 reprogramaciones, solo RESERVADA; nuevo bloque válido y liberación del anterior.\n\n## Implementación\nCitaService.reschedule/cancel. Versión 0.1.0 importada; véase docs/TRAZABILIDAD.md.\n\n## Evidencia\nBusinessTests.enforcesTwoReschedules, cancelsAndReleasesSlot, rejectsLateClientCancellation; Selenium 11; defecto controlado. Reportes en docs/evidencias/DF-01 (44 JUnit); captura Selenium final: docs/evidencias/selenium-consola-usuario.png (11 aprobados, 28,55 s; XML pendiente).\n\n## Estado\ncerrado. Registro retrospectivo de la línea base, sin fechas de desarrollo inventadas. La validación técnica no sustituye aceptación formal del cliente.\n\n## Enlaces permanentes\n- [Versión publicada](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3)\n- [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md)\n- [Flujo del gestor](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/GESTION_REQUISITOS.md)\n- [Cambios](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md)\n- [Validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md)\n",
+      "state": "closed",
+      "state_reason": "completed",
+      "created_at": "2026-11-25T01:42:35Z",
+      "updated_at": "2026-11-25T01:44:04Z",
+      "closed_at": "2026-11-25T01:44:04Z",
+      "author": "DelCastilloBrad",
+      "assignees": [
+        "DelCastilloBrad"
+      ],
+      "comments": [
+        {
+          "id": 7149892219,
+          "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/6#issuecomment-7149892219",
+          "body": "### Analizado — revisión de importación\nSe revisaron alcance, dependencias y criterios de RF-06 en [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md), [trazabilidad](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/TRAZABILIDAD.md) y, cuando corresponde, [impacto del cambio](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md). Se mantiene la línea base 0.1.0. Responsable: @DelCastilloBrad. Es una revisión técnica actual del trabajo previo, sin reconstruir fechas históricas.",
+          "author": "DelCastilloBrad",
+          "created_at": "2026-11-25T01:44:01Z",
+          "updated_at": "2026-11-25T01:44:01Z"
+        },
+        {
+          "id": 7149892486,
+          "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/6#issuecomment-7149892486",
+          "body": "### Aprobado para incorporar a la línea base de trabajo → Implementado\nLa publicación y organización fueron autorizadas por el usuario en esta conversación. Se incorpora el alcance ya implementado, sin ampliar permisos de ADMIN (CC-04 diferido). Esta decisión técnica no equivale a firma de aceptación de la clínica.\n\nImplementación disponible en [commit 990f9bc](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3); archivos y pruebas relacionados en [TRAZABILIDAD.md](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/TRAZABILIDAD.md). Para CC-03, la solicitud original de estilos fue aceptada y ejecutada; [análisis y versión](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md). Responsable de importación: @DelCastilloBrad.",
+          "author": "DelCastilloBrad",
+          "created_at": "2026-11-25T01:44:02Z",
+          "updated_at": "2026-11-25T01:44:02Z"
+        },
+        {
+          "id": 7149892778,
+          "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/6#issuecomment-7149892778",
+          "body": "### Verificado — revisión de evidencia\nLa revisión del registro disponible respalda los criterios citados en esta issue:\n- [Reportes de regresión JUnit: 44 casos, sin fallos](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/tree/990f9bc709997865f7cab9c3590a18c474915ea3/docs/evidencias/DF-01).\n- [Captura aportada por el usuario: 11 Selenium aprobados en 28,55 s](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/evidencias/selenium-consola-usuario.png).\n- [Alcance y limitaciones de validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md).\n\nLos reportes corresponden a ejecuciones previas; no se afirma una nueva ejecución al publicar. El XML Selenium final aún no se ha incorporado. Responsable de revisión técnica: @DelCastilloBrad. Procede cerrar esta importación técnica; la aceptación formal y el entregable G02 permanecen pendientes.",
+          "author": "DelCastilloBrad",
+          "created_at": "2026-11-25T01:44:03Z",
+          "updated_at": "2026-11-25T01:44:03Z"
+        }
+      ]
+    },
+    {
+      "id": "RF-07",
+      "kind": "requisito",
+      "process_status": "cerrado",
+      "number": 7,
+      "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/7",
+      "title": "[RF-07] Confirmación de llegada",
+      "body": "## Fuente y alcance\nERS de trabajo, basada en Entregable 1 tabla 11. Prioridad Alta. Actores: Recepción. Responsable: @DelCastilloBrad.\n\n## Criterio de aceptación\nCambiar RESERVADA a EN_ESPERA solo por recepción y el día de la cita.\n\n## Implementación\nCitaService.checkin. Versión 0.1.0 importada; véase docs/TRAZABILIDAD.md.\n\n## Evidencia\nBusinessTests.checkinOnlyByReception, checkinOnlyOnAppointmentDay; Selenium 07. Reportes en docs/evidencias/DF-01 (44 JUnit); captura Selenium final: docs/evidencias/selenium-consola-usuario.png (11 aprobados, 28,55 s; XML pendiente).\n\n## Estado\ncerrado. Registro retrospectivo de la línea base, sin fechas de desarrollo inventadas. La validación técnica no sustituye aceptación formal del cliente.\n\n## Enlaces permanentes\n- [Versión publicada](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3)\n- [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md)\n- [Flujo del gestor](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/GESTION_REQUISITOS.md)\n- [Cambios](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md)\n- [Validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md)\n",
+      "state": "closed",
+      "state_reason": "completed",
+      "created_at": "2026-11-25T01:42:36Z",
+      "updated_at": "2026-11-25T01:44:36Z",
+      "closed_at": "2026-11-25T01:44:36Z",
+      "author": "DelCastilloBrad",
+      "assignees": [
+        "DelCastilloBrad"
+      ],
+      "comments": [
+        {
+          "id": 7149902852,
+          "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/7#issuecomment-7149902852",
+          "body": "### Verificado y cierre técnico de importación\nSe revisó la evidencia ya existente para RF-07: [Regresión JUnit: 44 aprobados](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/tree/990f9bc709997865f7cab9c3590a18c474915ea3/docs/evidencias/DF-01), [captura Selenium del usuario: 11 aprobados](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/evidencias/selenium-consola-usuario.png), y [registro de defectos](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/DEFECTOS.md).\n\nCódigo publicado en [990f9bc](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3). XML Selenium final pendiente de incorporar. Cierre técnico de la línea base, sin atribuir ejecución nueva ni aceptación formal del cliente. Responsable: @DelCastilloBrad. Para DF-01, relación con #19 (CC-03); para DF-02, relación con #6 (RF-06).",
+          "author": "DelCastilloBrad",
+          "created_at": "2026-11-25T01:44:35Z",
+          "updated_at": "2026-11-25T01:44:35Z"
+        }
+      ]
+    },
+    {
+      "id": "RF-08",
+      "kind": "requisito",
+      "process_status": "cerrado",
+      "number": 8,
+      "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/8",
+      "title": "[RF-08] Registro de atención clínica",
+      "body": "## Fuente y alcance\nERS de trabajo, basada en Entregable 1 tabla 11. Prioridad Alta. Actores: Veterinario. Responsable: @DelCastilloBrad.\n\n## Criterio de aceptación\nSolo el veterinario asignado atiende una cita EN_ESPERA; validar peso positivo y ficha; cerrar ATENDIDA y conservar historial.\n\n## Implementación\nCitaService.attend. Versión 0.1.0 importada; véase docs/TRAZABILIDAD.md.\n\n## Evidencia\nBusinessTests.attendsAndPreservesHistory, rejectsAttentionBeforeCheckin, rejectsUnassignedVeterinarian, rejectsInvalidClinicalWeight; Selenium 07. Reportes en docs/evidencias/DF-01 (44 JUnit); captura Selenium final: docs/evidencias/selenium-consola-usuario.png (11 aprobados, 28,55 s; XML pendiente).\n\n## Estado\ncerrado. Registro retrospectivo de la línea base, sin fechas de desarrollo inventadas. La validación técnica no sustituye aceptación formal del cliente.\n\n## Enlaces permanentes\n- [Versión publicada](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3)\n- [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md)\n- [Flujo del gestor](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/GESTION_REQUISITOS.md)\n- [Cambios](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md)\n- [Validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md)\n",
+      "state": "closed",
+      "state_reason": "completed",
+      "created_at": "2026-11-25T01:42:38Z",
+      "updated_at": "2026-11-25T01:44:08Z",
+      "closed_at": "2026-11-25T01:44:08Z",
+      "author": "DelCastilloBrad",
+      "assignees": [
+        "DelCastilloBrad"
+      ],
+      "comments": [
+        {
+          "id": 7149893588,
+          "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/8#issuecomment-7149893588",
+          "body": "### Analizado — revisión de importación\nSe revisaron alcance, dependencias y criterios de RF-08 en [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md), [trazabilidad](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/TRAZABILIDAD.md) y, cuando corresponde, [impacto del cambio](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md). Se mantiene la línea base 0.1.0. Responsable: @DelCastilloBrad. Es una revisión técnica actual del trabajo previo, sin reconstruir fechas históricas.",
+          "author": "DelCastilloBrad",
+          "created_at": "2026-11-25T01:44:05Z",
+          "updated_at": "2026-11-25T01:44:05Z"
+        },
+        {
+          "id": 7149893867,
+          "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/8#issuecomment-7149893867",
+          "body": "### Aprobado para incorporar a la línea base de trabajo → Implementado\nLa publicación y organización fueron autorizadas por el usuario en esta conversación. Se incorpora el alcance ya implementado, sin ampliar permisos de ADMIN (CC-04 diferido). Esta decisión técnica no equivale a firma de aceptación de la clínica.\n\nImplementación disponible en [commit 990f9bc](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3); archivos y pruebas relacionados en [TRAZABILIDAD.md](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/TRAZABILIDAD.md). Para CC-03, la solicitud original de estilos fue aceptada y ejecutada; [análisis y versión](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md). Responsable de importación: @DelCastilloBrad.",
+          "author": "DelCastilloBrad",
+          "created_at": "2026-11-25T01:44:06Z",
+          "updated_at": "2026-11-25T01:44:06Z"
+        },
+        {
+          "id": 7149894142,
+          "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/8#issuecomment-7149894142",
+          "body": "### Verificado — revisión de evidencia\nLa revisión del registro disponible respalda los criterios citados en esta issue:\n- [Reportes de regresión JUnit: 44 casos, sin fallos](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/tree/990f9bc709997865f7cab9c3590a18c474915ea3/docs/evidencias/DF-01).\n- [Captura aportada por el usuario: 11 Selenium aprobados en 28,55 s](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/evidencias/selenium-consola-usuario.png).\n- [Alcance y limitaciones de validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md).\n\nLos reportes corresponden a ejecuciones previas; no se afirma una nueva ejecución al publicar. El XML Selenium final aún no se ha incorporado. Responsable de revisión técnica: @DelCastilloBrad. Procede cerrar esta importación técnica; la aceptación formal y el entregable G02 permanecen pendientes.",
+          "author": "DelCastilloBrad",
+          "created_at": "2026-11-25T01:44:07Z",
+          "updated_at": "2026-11-25T01:44:07Z"
+        }
+      ]
+    },
+    {
+      "id": "RF-09",
+      "kind": "requisito",
+      "process_status": "cerrado",
+      "number": 9,
+      "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/9",
+      "title": "[RF-09] Inasistencias y restricciones",
+      "body": "## Fuente y alcance\nERS de trabajo, basada en Entregable 1 tabla 11. Prioridad Media. Actores: Recepción. Responsable: @DelCastilloBrad.\n\n## Criterio de aceptación\nPermitir NO_ASISTIO desde +15 min; 3 faltas en 90 días bloquean reserva en línea; recepción mantiene reserva asistida.\n\n## Implementación\nCitaService.noShow, InasistenciaService. Versión 0.1.0 importada; véase docs/TRAZABILIDAD.md.\n\n## Evidencia\nBusinessTests.noShowAtFifteenMinuteBoundary, rejectsEarlyNoShow, blocksThreeMissesButReceptionMayReserve, ignoresMissesOlderThanNinetyDays. Reportes en docs/evidencias/DF-01 (44 JUnit); captura Selenium final: docs/evidencias/selenium-consola-usuario.png (11 aprobados, 28,55 s; XML pendiente).\n\n## Estado\ncerrado. Registro retrospectivo de la línea base, sin fechas de desarrollo inventadas. La validación técnica no sustituye aceptación formal del cliente.\n\n## Enlaces permanentes\n- [Versión publicada](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3)\n- [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md)\n- [Flujo del gestor](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/GESTION_REQUISITOS.md)\n- [Cambios](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md)\n- [Validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md)\n",
+      "state": "closed",
+      "state_reason": "completed",
+      "created_at": "2026-11-25T01:42:39Z",
+      "updated_at": "2026-11-25T01:44:38Z",
+      "closed_at": "2026-11-25T01:44:38Z",
+      "author": "DelCastilloBrad",
+      "assignees": [
+        "DelCastilloBrad"
+      ],
+      "comments": [
+        {
+          "id": 7149903541,
+          "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/9#issuecomment-7149903541",
+          "body": "### Verificado y cierre técnico de importación\nSe revisó la evidencia ya existente para RF-09: [Regresión JUnit: 44 aprobados](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/tree/990f9bc709997865f7cab9c3590a18c474915ea3/docs/evidencias/DF-01), [captura Selenium del usuario: 11 aprobados](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/evidencias/selenium-consola-usuario.png), y [registro de defectos](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/DEFECTOS.md).\n\nCódigo publicado en [990f9bc](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3). XML Selenium final pendiente de incorporar. Cierre técnico de la línea base, sin atribuir ejecución nueva ni aceptación formal del cliente. Responsable: @DelCastilloBrad. Para DF-01, relación con #19 (CC-03); para DF-02, relación con #6 (RF-06).",
+          "author": "DelCastilloBrad",
+          "created_at": "2026-11-25T01:44:37Z",
+          "updated_at": "2026-11-25T01:44:37Z"
+        }
+      ]
+    },
+    {
+      "id": "RF-10",
+      "kind": "requisito",
+      "process_status": "cerrado",
+      "number": 10,
+      "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/10",
+      "title": "[RF-10] Agenda e historial por mascota",
+      "body": "## Fuente y alcance\nERS de trabajo, basada en Entregable 1 tabla 11. Prioridad Alta. Actores: Veterinario, Recepción, Cliente propio. Responsable: @DelCastilloBrad.\n\n## Criterio de aceptación\nConsultar citas según rol y conservar atención en historial de la mascota; cliente solo consulta sus datos.\n\n## Implementación\nStore, CitaService.history. Versión 0.1.0 importada; véase docs/TRAZABILIDAD.md.\n\n## Evidencia\nBusinessTests de propiedad/historial; WebTests de rutas; Selenium 06, 07. Reportes en docs/evidencias/DF-01 (44 JUnit); captura Selenium final: docs/evidencias/selenium-consola-usuario.png (11 aprobados, 28,55 s; XML pendiente).\n\n## Estado\ncerrado. Registro retrospectivo de la línea base, sin fechas de desarrollo inventadas. La validación técnica no sustituye aceptación formal del cliente.\n\n## Enlaces permanentes\n- [Versión publicada](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3)\n- [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md)\n- [Flujo del gestor](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/GESTION_REQUISITOS.md)\n- [Cambios](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md)\n- [Validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md)\n",
+      "state": "closed",
+      "state_reason": "completed",
+      "created_at": "2026-11-25T01:42:41Z",
+      "updated_at": "2026-11-25T01:44:40Z",
+      "closed_at": "2026-11-25T01:44:40Z",
+      "author": "DelCastilloBrad",
+      "assignees": [
+        "DelCastilloBrad"
+      ],
+      "comments": [
+        {
+          "id": 7149904173,
+          "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/10#issuecomment-7149904173",
+          "body": "### Verificado y cierre técnico de importación\nSe revisó la evidencia ya existente para RF-10: [Regresión JUnit: 44 aprobados](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/tree/990f9bc709997865f7cab9c3590a18c474915ea3/docs/evidencias/DF-01), [captura Selenium del usuario: 11 aprobados](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/evidencias/selenium-consola-usuario.png), y [registro de defectos](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/DEFECTOS.md).\n\nCódigo publicado en [990f9bc](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3). XML Selenium final pendiente de incorporar. Cierre técnico de la línea base, sin atribuir ejecución nueva ni aceptación formal del cliente. Responsable: @DelCastilloBrad. Para DF-01, relación con #19 (CC-03); para DF-02, relación con #6 (RF-06).",
+          "author": "DelCastilloBrad",
+          "created_at": "2026-11-25T01:44:39Z",
+          "updated_at": "2026-11-25T01:44:39Z"
+        }
+      ]
+    },
+    {
+      "id": "RF-11",
+      "kind": "requisito",
+      "process_status": "implementado",
+      "number": 11,
+      "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/11",
+      "title": "[RF-11] Reporte consolidado de citas",
+      "body": "## Fuente y alcance\nERS de trabajo, basada en Entregable 1 tabla 11. Prioridad Alta. Actores: Administrador. Responsable: @DelCastilloBrad.\n\n## Criterio de aceptación\nFiltrar por fechas, estado, servicio y veterinario; mostrar total, distribución y tasa NO_ASISTIO/total; contrastar combinaciones y total cero.\n\n## Implementación\nWebController.reports. Versión 0.1.0 importada; véase docs/TRAZABILIDAD.md.\n\n## Evidencia\nRenderizado y permisos probados; revisión visual del usuario con 2 citas (1 ATENDIDA, 1 CANCELADA, 0 %); matriz de filtros y total cero pendiente. Reportes en docs/evidencias/DF-01 (44 JUnit); captura Selenium final: docs/evidencias/selenium-consola-usuario.png (11 aprobados, 28,55 s; XML pendiente).\n\n## Estado\nimplementado. Registro retrospectivo de la línea base, sin fechas de desarrollo inventadas. La validación técnica no sustituye aceptación formal del cliente.\n\n## Enlaces permanentes\n- [Versión publicada](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3)\n- [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md)\n- [Flujo del gestor](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/GESTION_REQUISITOS.md)\n- [Cambios](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md)\n- [Validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md)\n",
+      "state": "open",
+      "state_reason": null,
+      "created_at": "2026-11-25T01:42:42Z",
+      "updated_at": "2026-11-25T01:42:42Z",
+      "closed_at": null,
+      "author": "DelCastilloBrad",
+      "assignees": [
+        "DelCastilloBrad"
+      ],
+      "comments": []
+    },
+    {
+      "id": "RF-12",
+      "kind": "requisito",
+      "process_status": "implementado",
+      "number": 12,
+      "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/12",
+      "title": "[RF-12] Administración de catálogos y usuarios",
+      "body": "## Fuente y alcance\nERS de trabajo, basada en Entregable 1 tabla 11. Prioridad Media. Actores: Administrador. Responsable: @DelCastilloBrad.\n\n## Criterio de aceptación\nGestionar usuarios internos, veterinarios, servicios, horarios y feriados; impedir desactivar al propio administrador; revisar manualmente altas y cambios de todos los catálogos.\n\n## Implementación\nWebController, UsuarioService. Versión 0.1.0 importada; véase docs/TRAZABILIDAD.md.\n\n## Evidencia\nWebTests.allAdminScreensRender; BusinessTests.adminCannotDisableSelf; comprobación manual completa pendiente. Reportes en docs/evidencias/DF-01 (44 JUnit); captura Selenium final: docs/evidencias/selenium-consola-usuario.png (11 aprobados, 28,55 s; XML pendiente).\n\n## Estado\nimplementado. Registro retrospectivo de la línea base, sin fechas de desarrollo inventadas. La validación técnica no sustituye aceptación formal del cliente.\n\n## Enlaces permanentes\n- [Versión publicada](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3)\n- [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md)\n- [Flujo del gestor](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/GESTION_REQUISITOS.md)\n- [Cambios](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md)\n- [Validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md)\n",
+      "state": "open",
+      "state_reason": null,
+      "created_at": "2026-11-25T01:42:44Z",
+      "updated_at": "2026-11-25T01:42:44Z",
+      "closed_at": null,
+      "author": "DelCastilloBrad",
+      "assignees": [
+        "DelCastilloBrad"
+      ],
+      "comments": []
+    },
+    {
+      "id": "RNF-01",
+      "kind": "requisito no funcional",
+      "process_status": "pendiente",
+      "number": 13,
+      "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/13",
+      "title": "[RNF-01] Rendimiento",
+      "body": "## Fuente\nEntregable 1 tabla 12; docs/ERS.md. Responsable: @DelCastilloBrad.\n\n## Criterio medible\np95 ≤ 2 s y error ≤ 1 % con 10 usuarios durante 5 min en disponibilidad y reserva.\n\n## Evidencia / pendiente\nJMeter pendiente. Ver docs/VALIDACION.md. No se afirma cumplimiento de umbrales todavía no medidos.\n\n## Enlaces permanentes\n- [Versión publicada](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3)\n- [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md)\n- [Flujo del gestor](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/GESTION_REQUISITOS.md)\n- [Cambios](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md)\n- [Validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md)\n",
+      "state": "open",
+      "state_reason": null,
+      "created_at": "2026-11-25T01:42:45Z",
+      "updated_at": "2026-11-25T01:42:45Z",
+      "closed_at": null,
+      "author": "DelCastilloBrad",
+      "assignees": [
+        "DelCastilloBrad"
+      ],
+      "comments": []
+    },
+    {
+      "id": "RNF-02",
+      "kind": "requisito no funcional",
+      "process_status": "pendiente",
+      "number": 14,
+      "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/14",
+      "title": "[RNF-02] Seguridad",
+      "body": "## Fuente\nEntregable 1 tabla 12; docs/ERS.md. Responsable: @DelCastilloBrad.\n\n## Criterio medible\n100 % de contraseñas con BCrypt; rutas no autorizadas redirigen al login o deniegan acceso.\n\n## Evidencia / pendiente\nControles probados; inventario exhaustivo de rutas pendiente. Ver docs/VALIDACION.md. No se afirma cumplimiento de umbrales todavía no medidos.\n\n## Enlaces permanentes\n- [Versión publicada](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3)\n- [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md)\n- [Flujo del gestor](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/GESTION_REQUISITOS.md)\n- [Cambios](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md)\n- [Validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md)\n",
+      "state": "open",
+      "state_reason": null,
+      "created_at": "2026-11-25T01:42:47Z",
+      "updated_at": "2026-11-25T01:42:47Z",
+      "closed_at": null,
+      "author": "DelCastilloBrad",
+      "assignees": [
+        "DelCastilloBrad"
+      ],
+      "comments": []
+    },
+    {
+      "id": "RNF-03",
+      "kind": "requisito no funcional",
+      "process_status": "pendiente",
+      "number": 15,
+      "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/15",
+      "title": "[RNF-03] Usabilidad",
+      "body": "## Fuente\nEntregable 1 tabla 12; docs/ERS.md. Responsable: @DelCastilloBrad.\n\n## Criterio medible\n≥80 % de usuarios nuevos reservan en ≤2 min y ≤5 pasos.\n\n## Evidencia / pendiente\nSesión con usuarios pendiente. Ver docs/VALIDACION.md. No se afirma cumplimiento de umbrales todavía no medidos.\n\n## Enlaces permanentes\n- [Versión publicada](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3)\n- [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md)\n- [Flujo del gestor](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/GESTION_REQUISITOS.md)\n- [Cambios](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md)\n- [Validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md)\n",
+      "state": "open",
+      "state_reason": null,
+      "created_at": "2026-11-25T01:42:48Z",
+      "updated_at": "2026-11-25T01:42:48Z",
+      "closed_at": null,
+      "author": "DelCastilloBrad",
+      "assignees": [
+        "DelCastilloBrad"
+      ],
+      "comments": []
+    },
+    {
+      "id": "RNF-04",
+      "kind": "requisito no funcional",
+      "process_status": "pendiente",
+      "number": 16,
+      "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/16",
+      "title": "[RNF-04] Persistencia y recuperación",
+      "body": "## Fuente\nEntregable 1 tabla 12; docs/ERS.md. Responsable: @DelCastilloBrad.\n\n## Criterio medible\n0 registros perdidos tras 3 reinicios; restauración ≤10 min.\n\n## Evidencia / pendiente\nScripts entregados; medición pendiente. Ver docs/VALIDACION.md. No se afirma cumplimiento de umbrales todavía no medidos.\n\n## Enlaces permanentes\n- [Versión publicada](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3)\n- [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md)\n- [Flujo del gestor](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/GESTION_REQUISITOS.md)\n- [Cambios](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md)\n- [Validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md)\n",
+      "state": "open",
+      "state_reason": null,
+      "created_at": "2026-11-25T01:42:50Z",
+      "updated_at": "2026-11-25T01:42:50Z",
+      "closed_at": null,
+      "author": "DelCastilloBrad",
+      "assignees": [
+        "DelCastilloBrad"
+      ],
+      "comments": []
+    },
+    {
+      "id": "RNF-05",
+      "kind": "requisito no funcional",
+      "process_status": "cerrado",
+      "number": 17,
+      "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/17",
+      "title": "[RNF-05] Mantenibilidad",
+      "body": "## Fuente\nEntregable 1 tabla 12; docs/ERS.md. Responsable: @DelCastilloBrad.\n\n## Criterio medible\n≥80 % de líneas cubiertas en paquete service.\n\n## Evidencia / pendiente\nVerificado: 310/329 = 94,22 %, reporte inicial; servicios sin cambios posteriores. Ver docs/VALIDACION.md. No se afirma cumplimiento de umbrales todavía no medidos.\n\n## Enlaces permanentes\n- [Versión publicada](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3)\n- [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md)\n- [Flujo del gestor](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/GESTION_REQUISITOS.md)\n- [Cambios](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md)\n- [Validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md)\n",
+      "state": "closed",
+      "state_reason": "completed",
+      "created_at": "2026-11-25T01:42:51Z",
+      "updated_at": "2026-11-25T01:44:42Z",
+      "closed_at": "2026-11-25T01:44:42Z",
+      "author": "DelCastilloBrad",
+      "assignees": [
+        "DelCastilloBrad"
+      ],
+      "comments": [
+        {
+          "id": 7149904834,
+          "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/17#issuecomment-7149904834",
+          "body": "### Verificado y cierre técnico de importación\nSe revisó la evidencia ya existente para RNF-05: [Reporte JaCoCo inicial](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/evidencias/cobertura/jacoco.csv): 310/329 líneas de servicios, 94,22 %. La cobertura corresponde a 43 pruebas iniciales; posteriormente no se alteraron las clases service.\n\nCódigo publicado en [990f9bc](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3). XML Selenium final pendiente de incorporar. Cierre técnico de la línea base, sin atribuir ejecución nueva ni aceptación formal del cliente. Responsable: @DelCastilloBrad. Para DF-01, relación con #19 (CC-03); para DF-02, relación con #6 (RF-06).",
+          "author": "DelCastilloBrad",
+          "created_at": "2026-11-25T01:44:41Z",
+          "updated_at": "2026-11-25T01:44:41Z"
+        }
+      ]
+    },
+    {
+      "id": "RNF-06",
+      "kind": "requisito no funcional",
+      "process_status": "pendiente",
+      "number": 18,
+      "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/18",
+      "title": "[RNF-06] Portabilidad",
+      "body": "## Fuente\nEntregable 1 tabla 12; docs/ERS.md. Responsable: @DelCastilloBrad.\n\n## Criterio medible\nFuncionamiento Chrome y Firefox; ancho 360 px sin desbordamiento horizontal.\n\n## Evidencia / pendiente\nChrome y 360 px aprobados; Firefox pendiente. Ver docs/VALIDACION.md. No se afirma cumplimiento de umbrales todavía no medidos.\n\n## Enlaces permanentes\n- [Versión publicada](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3)\n- [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md)\n- [Flujo del gestor](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/GESTION_REQUISITOS.md)\n- [Cambios](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md)\n- [Validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md)\n",
+      "state": "open",
+      "state_reason": null,
+      "created_at": "2026-11-25T01:42:52Z",
+      "updated_at": "2026-11-25T01:42:52Z",
+      "closed_at": null,
+      "author": "DelCastilloBrad",
+      "assignees": [
+        "DelCastilloBrad"
+      ],
+      "comments": []
+    },
+    {
+      "id": "CC-03",
+      "kind": "cambio",
+      "process_status": "cerrado",
+      "number": 19,
+      "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/19",
+      "title": "[CC-03] Estilos reemplazables y personalizables",
+      "body": "## Fuente y decisión\nConversación real con el usuario. Responsable del registro: @DelCastilloBrad.\n\nSolicitud real aceptada e implementada. La configuración visual se valida, persiste y restablece. DF-01 corregido; JUnit 44 y Selenium 11 aprobados; XML Selenium pendiente de incorporar.\n\n## Análisis, versión y evidencia\nVersión 0.1.0. Véanse docs/CAMBIOS.md, docs/DEFECTOS.md y docs/VALIDACION.md. La fecha del issue corresponde a la importación, no al momento original de la solicitud o detección. XML final Selenium pendiente; captura adjunta en docs/evidencias/selenium-consola-usuario.png.\n\n## Enlaces permanentes\n- [Versión publicada](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3)\n- [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md)\n- [Flujo del gestor](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/GESTION_REQUISITOS.md)\n- [Cambios](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md)\n- [Validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md)\n",
+      "state": "closed",
+      "state_reason": "completed",
+      "created_at": "2026-11-25T01:42:54Z",
+      "updated_at": "2026-11-25T01:44:12Z",
+      "closed_at": "2026-11-25T01:44:12Z",
+      "author": "DelCastilloBrad",
+      "assignees": [
+        "DelCastilloBrad"
+      ],
+      "comments": [
+        {
+          "id": 7149894895,
+          "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/19#issuecomment-7149894895",
+          "body": "### Analizado — revisión de importación\nSe revisaron alcance, dependencias y criterios de CC-03 en [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md), [trazabilidad](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/TRAZABILIDAD.md) y, cuando corresponde, [impacto del cambio](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md). Se mantiene la línea base 0.1.0. Responsable: @DelCastilloBrad. Es una revisión técnica actual del trabajo previo, sin reconstruir fechas históricas.",
+          "author": "DelCastilloBrad",
+          "created_at": "2026-11-25T01:44:09Z",
+          "updated_at": "2026-11-25T01:44:09Z"
+        },
+        {
+          "id": 7149895229,
+          "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/19#issuecomment-7149895229",
+          "body": "### Aprobado para incorporar a la línea base de trabajo → Implementado\nLa publicación y organización fueron autorizadas por el usuario en esta conversación. Se incorpora el alcance ya implementado, sin ampliar permisos de ADMIN (CC-04 diferido). Esta decisión técnica no equivale a firma de aceptación de la clínica.\n\nImplementación disponible en [commit 990f9bc](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3); archivos y pruebas relacionados en [TRAZABILIDAD.md](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/TRAZABILIDAD.md). Para CC-03, la solicitud original de estilos fue aceptada y ejecutada; [análisis y versión](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md). Responsable de importación: @DelCastilloBrad.",
+          "author": "DelCastilloBrad",
+          "created_at": "2026-11-25T01:44:10Z",
+          "updated_at": "2026-11-25T01:44:10Z"
+        },
+        {
+          "id": 7149895474,
+          "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/19#issuecomment-7149895474",
+          "body": "### Verificado — revisión de evidencia\nLa revisión del registro disponible respalda los criterios citados en esta issue:\n- [Reportes de regresión JUnit: 44 casos, sin fallos](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/tree/990f9bc709997865f7cab9c3590a18c474915ea3/docs/evidencias/DF-01).\n- [Captura aportada por el usuario: 11 Selenium aprobados en 28,55 s](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/evidencias/selenium-consola-usuario.png).\n- [Alcance y limitaciones de validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md).\n\nLos reportes corresponden a ejecuciones previas; no se afirma una nueva ejecución al publicar. El XML Selenium final aún no se ha incorporado. Responsable de revisión técnica: @DelCastilloBrad. Procede cerrar esta importación técnica; la aceptación formal y el entregable G02 permanecen pendientes.",
+          "author": "DelCastilloBrad",
+          "created_at": "2026-11-25T01:44:11Z",
+          "updated_at": "2026-11-25T01:44:11Z"
+        }
+      ]
+    },
+    {
+      "id": "CC-04",
+      "kind": "cambio",
+      "process_status": "diferido",
+      "number": 20,
+      "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/20",
+      "title": "[CC-04] Ampliar operaciones de recepción al administrador",
+      "body": "## Fuente y decisión\nConversación real con el usuario. Responsable del registro: @DelCastilloBrad.\n\nSolicitud real analizada. Decisión expresa del usuario: conservar permisos actuales durante estas pruebas y retomarlo para la demostración en vivo. No se implementa ahora. Véanse impacto y pruebas futuras en docs/CAMBIOS.md.\n\n## Análisis, versión y evidencia\nVersión 0.1.0. Véanse docs/CAMBIOS.md, docs/DEFECTOS.md y docs/VALIDACION.md. La fecha del issue corresponde a la importación, no al momento original de la solicitud o detección. XML final Selenium pendiente; captura adjunta en docs/evidencias/selenium-consola-usuario.png.\n\n## Enlaces permanentes\n- [Versión publicada](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3)\n- [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md)\n- [Flujo del gestor](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/GESTION_REQUISITOS.md)\n- [Cambios](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md)\n- [Validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md)\n",
+      "state": "open",
+      "state_reason": null,
+      "created_at": "2026-11-25T01:42:56Z",
+      "updated_at": "2026-11-25T01:44:49Z",
+      "closed_at": null,
+      "author": "DelCastilloBrad",
+      "assignees": [
+        "DelCastilloBrad"
+      ],
+      "comments": [
+        {
+          "id": 7149907135,
+          "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/20#issuecomment-7149907135",
+          "body": "### Analizado → Diferido por decisión del usuario\nSe documentaron impacto, riesgos y pruebas futuras en docs/CAMBIOS.md. El usuario decidió mantener los permisos actuales durante estas pruebas y modificarlo para la demostración en vivo. Se conserva abierto; no se implementa ni se presenta como cambio aprobado para esta versión. Responsable del seguimiento: @DelCastilloBrad.",
+          "author": "DelCastilloBrad",
+          "created_at": "2026-11-25T01:44:49Z",
+          "updated_at": "2026-11-25T01:44:49Z"
+        }
+      ]
+    },
+    {
+      "id": "DF-01",
+      "kind": "defecto",
+      "process_status": "cerrado",
+      "number": 21,
+      "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/21",
+      "title": "[DF-01] El selector pierde el color guardado al recargar",
+      "body": "## Fuente y decisión\nConversación real con el usuario. Responsable del registro: @DelCastilloBrad.\n\nFallo real observado en Selenium 09: 8 aprobados y 1 fallo. Corregida lectura theme[key] a theme.get(key). Añadida regresión Spring MVC. Tras corrección: 44 JUnit aprobados; regresión del usuario: 11 Selenium aprobados en 28,55 s.\n\n## Análisis, versión y evidencia\nVersión 0.1.0. Véanse docs/CAMBIOS.md, docs/DEFECTOS.md y docs/VALIDACION.md. La fecha del issue corresponde a la importación, no al momento original de la solicitud o detección. XML final Selenium pendiente; captura adjunta en docs/evidencias/selenium-consola-usuario.png.\n\n## Enlaces permanentes\n- [Versión publicada](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3)\n- [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md)\n- [Flujo del gestor](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/GESTION_REQUISITOS.md)\n- [Cambios](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md)\n- [Validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md)\n",
+      "state": "closed",
+      "state_reason": "completed",
+      "created_at": "2026-11-25T01:42:57Z",
+      "updated_at": "2026-11-25T01:44:45Z",
+      "closed_at": "2026-11-25T01:44:45Z",
+      "author": "DelCastilloBrad",
+      "assignees": [
+        "DelCastilloBrad"
+      ],
+      "comments": [
+        {
+          "id": 7149905672,
+          "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/21#issuecomment-7149905672",
+          "body": "### Verificado y cierre técnico de importación\nSe revisó la evidencia ya existente para DF-01: [Regresión JUnit: 44 aprobados](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/tree/990f9bc709997865f7cab9c3590a18c474915ea3/docs/evidencias/DF-01), [captura Selenium del usuario: 11 aprobados](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/evidencias/selenium-consola-usuario.png), y [registro de defectos](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/DEFECTOS.md).\n\nCódigo publicado en [990f9bc](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3). XML Selenium final pendiente de incorporar. Cierre técnico de la línea base, sin atribuir ejecución nueva ni aceptación formal del cliente. Responsable: @DelCastilloBrad. Para DF-01, relación con #19 (CC-03); para DF-02, relación con #6 (RF-06).",
+          "author": "DelCastilloBrad",
+          "created_at": "2026-11-25T01:44:44Z",
+          "updated_at": "2026-11-25T01:44:44Z"
+        }
+      ]
+    },
+    {
+      "id": "DF-02",
+      "kind": "defecto",
+      "process_status": "cerrado",
+      "number": 22,
+      "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/22",
+      "title": "[DF-02] Clic interceptado en confirmación de reserva Selenium",
+      "body": "## Fuente y decisión\nConversación real con el usuario. Responsable del registro: @DelCastilloBrad.\n\nFallo de automatización tras 10 aprobados; caso 11 con ElementClickInterceptedException. Se centra el control y espera a que no esté obstruido; clic nativo WebDriver, mismas aserciones. Usuario repitió los 11 casos: todos aprobados en 28,55 s. No se atribuye un defecto de negocio sin evidencia.\n\n## Análisis, versión y evidencia\nVersión 0.1.0. Véanse docs/CAMBIOS.md, docs/DEFECTOS.md y docs/VALIDACION.md. La fecha del issue corresponde a la importación, no al momento original de la solicitud o detección. XML final Selenium pendiente; captura adjunta en docs/evidencias/selenium-consola-usuario.png.\n\n## Enlaces permanentes\n- [Versión publicada](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3)\n- [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md)\n- [Flujo del gestor](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/GESTION_REQUISITOS.md)\n- [Cambios](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md)\n- [Validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md)\n",
+      "state": "closed",
+      "state_reason": "completed",
+      "created_at": "2026-11-25T01:42:59Z",
+      "updated_at": "2026-11-25T01:44:47Z",
+      "closed_at": "2026-11-25T01:44:47Z",
+      "author": "DelCastilloBrad",
+      "assignees": [
+        "DelCastilloBrad"
+      ],
+      "comments": [
+        {
+          "id": 7149906445,
+          "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/22#issuecomment-7149906445",
+          "body": "### Verificado y cierre técnico de importación\nSe revisó la evidencia ya existente para DF-02: [Regresión JUnit: 44 aprobados](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/tree/990f9bc709997865f7cab9c3590a18c474915ea3/docs/evidencias/DF-01), [captura Selenium del usuario: 11 aprobados](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/evidencias/selenium-consola-usuario.png), y [registro de defectos](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/DEFECTOS.md).\n\nCódigo publicado en [990f9bc](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3). XML Selenium final pendiente de incorporar. Cierre técnico de la línea base, sin atribuir ejecución nueva ni aceptación formal del cliente. Responsable: @DelCastilloBrad. Para DF-01, relación con #19 (CC-03); para DF-02, relación con #6 (RF-06).",
+          "author": "DelCastilloBrad",
+          "created_at": "2026-11-25T01:44:46Z",
+          "updated_at": "2026-11-25T01:44:46Z"
+        }
+      ]
+    },
+    {
+      "id": "G01",
+      "kind": "entregable",
+      "process_status": "pendiente",
+      "number": 23,
+      "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/23",
+      "title": "[G01] Elicitación y ERS",
+      "body": "## Entregable académico\nFuente: Trabajo Final Calidad de Software V1. Responsable de seguimiento: @DelCastilloBrad.\n\n## Evidencia actual y trabajo pendiente\nERS técnica de trabajo con 12 RF y 6 RNF disponible. Pendiente documentar al menos dos técnicas reales, instrumentos, resultados, representación del usuario, revisión y comparación de herramientas.\n\n## Cierre\nAdjuntar artefactos editables/exportados, ejecución real cuando corresponda y sección del informe. No cerrar con resultados simulados.\n\n## Enlaces permanentes\n- [Versión publicada](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3)\n- [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md)\n- [Flujo del gestor](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/GESTION_REQUISITOS.md)\n- [Cambios](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md)\n- [Validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md)\n",
+      "state": "open",
+      "state_reason": null,
+      "created_at": "2026-11-25T01:43:00Z",
+      "updated_at": "2026-11-25T01:43:00Z",
+      "closed_at": null,
+      "author": "DelCastilloBrad",
+      "assignees": [
+        "DelCastilloBrad"
+      ],
+      "comments": []
+    },
+    {
+      "id": "G02",
+      "kind": "entregable",
+      "process_status": "pendiente",
+      "number": 24,
+      "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/24",
+      "title": "[G02] Seguimiento de requisitos y cambios",
+      "body": "## Entregable académico\nFuente: Trabajo Final Calidad de Software V1. Responsable de seguimiento: @DelCastilloBrad.\n\n## Evidencia actual y trabajo pendiente\nGestor Issues, flujo documentado, cinco RF prioritarios, dos cambios reales y exportaciones. Completar revisión e informe, evidencias de decisiones y sus límites; evitar presentar importación como uso histórico continuo.\n\n## Cierre\nAdjuntar artefactos editables/exportados, ejecución real cuando corresponda y sección del informe. No cerrar con resultados simulados.\n\n## Enlaces permanentes\n- [Versión publicada](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3)\n- [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md)\n- [Flujo del gestor](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/GESTION_REQUISITOS.md)\n- [Cambios](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md)\n- [Validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md)\n",
+      "state": "open",
+      "state_reason": null,
+      "created_at": "2026-11-25T01:43:01Z",
+      "updated_at": "2026-11-25T01:43:01Z",
+      "closed_at": null,
+      "author": "DelCastilloBrad",
+      "assignees": [
+        "DelCastilloBrad"
+      ],
+      "comments": []
+    },
+    {
+      "id": "G03",
+      "kind": "entregable",
+      "process_status": "pendiente",
+      "number": 25,
+      "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/25",
+      "title": "[G03] Diseño y modelado",
+      "body": "## Entregable académico\nFuente: Trabajo Final Calidad de Software V1. Responsable de seguimiento: @DelCastilloBrad.\n\n## Evidencia actual y trabajo pendiente\nArquitectura técnica disponible. Pendiente SDD, UML editable/exportado (casos de uso, clases y secuencias de 3 procesos), tres casos detallados, mockups y comparación.\n\n## Cierre\nAdjuntar artefactos editables/exportados, ejecución real cuando corresponda y sección del informe. No cerrar con resultados simulados.\n\n## Enlaces permanentes\n- [Versión publicada](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3)\n- [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md)\n- [Flujo del gestor](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/GESTION_REQUISITOS.md)\n- [Cambios](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md)\n- [Validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md)\n",
+      "state": "open",
+      "state_reason": null,
+      "created_at": "2026-11-25T01:43:03Z",
+      "updated_at": "2026-11-25T01:43:03Z",
+      "closed_at": null,
+      "author": "DelCastilloBrad",
+      "assignees": [
+        "DelCastilloBrad"
+      ],
+      "comments": []
+    },
+    {
+      "id": "G04",
+      "kind": "entregable",
+      "process_status": "pendiente",
+      "number": 26,
+      "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/26",
+      "title": "[G04] Estimación y costos",
+      "body": "## Entregable académico\nFuente: Trabajo Final Calidad de Software V1. Responsable de seguimiento: @DelCastilloBrad.\n\n## Evidencia actual y trabajo pendiente\nPendiente conteo NESMA/COSMIC, COCOMO, hoja de cálculo con fórmulas, costo en soles, escenarios de 1/3 personas, sensibilidad ±20 % y supuestos explícitos.\n\n## Cierre\nAdjuntar artefactos editables/exportados, ejecución real cuando corresponda y sección del informe. No cerrar con resultados simulados.\n\n## Enlaces permanentes\n- [Versión publicada](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3)\n- [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md)\n- [Flujo del gestor](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/GESTION_REQUISITOS.md)\n- [Cambios](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md)\n- [Validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md)\n",
+      "state": "open",
+      "state_reason": null,
+      "created_at": "2026-11-25T01:43:04Z",
+      "updated_at": "2026-11-25T01:43:04Z",
+      "closed_at": null,
+      "author": "DelCastilloBrad",
+      "assignees": [
+        "DelCastilloBrad"
+      ],
+      "comments": []
+    },
+    {
+      "id": "G05",
+      "kind": "entregable",
+      "process_status": "pendiente",
+      "number": 27,
+      "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/27",
+      "title": "[G05] Configuración con SVN",
+      "body": "## Entregable académico\nFuente: Trabajo Final Calidad de Software V1. Responsable de seguimiento: @DelCastilloBrad.\n\n## Evidencia actual y trabajo pendiente\nGitHub publicado como repositorio complementario. Pendiente SVN con 8 revisiones significativas reales, rama, merge, conflicto documentado, tag final v1.0.0 y recuperación. No fabricar revisiones ni considerar Git como sustituto del requisito SVN.\n\n## Cierre\nAdjuntar artefactos editables/exportados, ejecución real cuando corresponda y sección del informe. No cerrar con resultados simulados.\n\n## Enlaces permanentes\n- [Versión publicada](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3)\n- [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md)\n- [Flujo del gestor](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/GESTION_REQUISITOS.md)\n- [Cambios](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md)\n- [Validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md)\n",
+      "state": "open",
+      "state_reason": null,
+      "created_at": "2026-11-25T01:43:05Z",
+      "updated_at": "2026-11-25T01:43:05Z",
+      "closed_at": null,
+      "author": "DelCastilloBrad",
+      "assignees": [
+        "DelCastilloBrad"
+      ],
+      "comments": []
+    },
+    {
+      "id": "G06",
+      "kind": "entregable",
+      "process_status": "pendiente",
+      "number": 28,
+      "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/28",
+      "title": "[G06] Riesgos con MAGERIT/PILAR",
+      "body": "## Entregable académico\nFuente: Trabajo Final Calidad de Software V1. Responsable de seguimiento: @DelCastilloBrad.\n\n## Evidencia actual y trabajo pendiente\nInstalador de PILAR preparado previamente; ejecución y análisis pendientes. Modelar ≥5 activos, ≥8 escenarios de amenaza, escalas/dependencias y 2 tratamientos verificados; no afirmar análisis realizado solo por instalar.\n\n## Cierre\nAdjuntar artefactos editables/exportados, ejecución real cuando corresponda y sección del informe. No cerrar con resultados simulados.\n\n## Enlaces permanentes\n- [Versión publicada](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3)\n- [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md)\n- [Flujo del gestor](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/GESTION_REQUISITOS.md)\n- [Cambios](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md)\n- [Validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md)\n",
+      "state": "open",
+      "state_reason": null,
+      "created_at": "2026-11-25T01:43:07Z",
+      "updated_at": "2026-11-25T01:43:07Z",
+      "closed_at": null,
+      "author": "DelCastilloBrad",
+      "assignees": [
+        "DelCastilloBrad"
+      ],
+      "comments": []
+    },
+    {
+      "id": "G07",
+      "kind": "entregable",
+      "process_status": "pendiente",
+      "number": 29,
+      "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/29",
+      "title": "[G07] Pruebas JUnit y cobertura",
+      "body": "## Entregable académico\nFuente: Trabajo Final Calidad de Software V1. Responsable de seguimiento: @DelCastilloBrad.\n\n## Evidencia actual y trabajo pendiente\nEvidencia disponible: 44 pruebas automatizadas aprobadas; reporte inicial de 43 con 94,22 % de líneas service; defecto controlado y restauración. Son pruebas de componentes con integración. Falta completar comparación y sección del informe.\n\n## Cierre\nAdjuntar artefactos editables/exportados, ejecución real cuando corresponda y sección del informe. No cerrar con resultados simulados.\n\n## Enlaces permanentes\n- [Versión publicada](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3)\n- [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md)\n- [Flujo del gestor](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/GESTION_REQUISITOS.md)\n- [Cambios](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md)\n- [Validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md)\n",
+      "state": "open",
+      "state_reason": null,
+      "created_at": "2026-11-25T01:43:08Z",
+      "updated_at": "2026-11-25T01:43:08Z",
+      "closed_at": null,
+      "author": "DelCastilloBrad",
+      "assignees": [
+        "DelCastilloBrad"
+      ],
+      "comments": []
+    },
+    {
+      "id": "G08",
+      "kind": "entregable",
+      "process_status": "pendiente",
+      "number": 30,
+      "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/30",
+      "title": "[G08] Rendimiento con JMeter",
+      "body": "## Entregable académico\nFuente: Trabajo Final Calidad de Software V1. Responsable de seguimiento: @DelCastilloBrad.\n\n## Evidencia actual y trabajo pendiente\nPendiente ejecutar carga (10 usuarios/5 min/rampa30 s), estrés (10/25/50 usuarios, 3 min cada nivel), pico (10→50→10) y estabilidad (10 usuarios/15 min). Entregar JMX, JTL, HTML, CPU/memoria, p95, errores y comparación de mejora. No hay resultados JMeter medidos todavía.\n\n## Cierre\nAdjuntar artefactos editables/exportados, ejecución real cuando corresponda y sección del informe. No cerrar con resultados simulados.\n\n## Enlaces permanentes\n- [Versión publicada](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3)\n- [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md)\n- [Flujo del gestor](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/GESTION_REQUISITOS.md)\n- [Cambios](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md)\n- [Validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md)\n",
+      "state": "open",
+      "state_reason": null,
+      "created_at": "2026-11-25T01:43:09Z",
+      "updated_at": "2026-11-25T01:43:09Z",
+      "closed_at": null,
+      "author": "DelCastilloBrad",
+      "assignees": [
+        "DelCastilloBrad"
+      ],
+      "comments": []
+    },
+    {
+      "id": "G09",
+      "kind": "entregable",
+      "process_status": "pendiente",
+      "number": 31,
+      "url": "https://github.com/DelCastilloBrad/VetAgenda-CaS2026/issues/31",
+      "title": "[G09] Pruebas Selenium y dictamen",
+      "body": "## Entregable académico\nFuente: Trabajo Final Calidad de Software V1. Responsable de seguimiento: @DelCastilloBrad.\n\n## Evidencia actual y trabajo pendiente\n11 casos aprobados por el usuario en Chrome, 28,55 s; captura adjunta, dos incidencias corregidas. Pendiente incorporar XML final y redactar dictamen con limitaciones; Firefox, rendimiento, usabilidad y recuperación siguen pendientes.\n\n## Cierre\nAdjuntar artefactos editables/exportados, ejecución real cuando corresponda y sección del informe. No cerrar con resultados simulados.\n\n## Enlaces permanentes\n- [Versión publicada](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/commit/990f9bc709997865f7cab9c3590a18c474915ea3)\n- [ERS](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/ERS.md)\n- [Flujo del gestor](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/GESTION_REQUISITOS.md)\n- [Cambios](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/CAMBIOS.md)\n- [Validación](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/990f9bc709997865f7cab9c3590a18c474915ea3/docs/VALIDACION.md)\n",
+      "state": "open",
+      "state_reason": null,
+      "created_at": "2026-11-25T01:43:11Z",
+      "updated_at": "2026-11-25T01:43:11Z",
+      "closed_at": null,
+      "author": "DelCastilloBrad",
+      "assignees": [
+        "DelCastilloBrad"
+      ],
+      "comments": []
+    }
+  ]
+}
