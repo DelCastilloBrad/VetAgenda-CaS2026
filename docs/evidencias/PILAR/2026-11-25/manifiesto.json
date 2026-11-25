@@ -1,0 +1,107 @@
+{
+  "proyecto": "VetAgenda",
+  "guia": "G06",
+  "fecha_verificacion": "2026-11-25",
+  "zona_horaria": "America/Lima",
+  "herramienta": "PILAR RM 2026.1.1",
+  "procedencia": "Capturas aportadas por el usuario en la sesión de verificación; contraste con VetAgenda_PILAR.zip.",
+  "mgr_revisado": {
+    "archivo": "VetAgenda.mgr",
+    "publicado_en_esta_carpeta": false,
+    "sha256": "eae4b359a56d2be042c442f3d35ee77d3b4b09a25d49955b1eb5b0adcbc6fb0d"
+  },
+  "archivos": [
+    {
+      "ruta": "capturas/01-arbol-proyecto.png",
+      "original_recibido": "image(20261125-210302).png",
+      "descripcion": "Árbol del proyecto y módulos disponibles",
+      "bytes": 29102,
+      "sha256": "3c20854f4cc6fe6628e789ba4facb40fe57cbe59b1a33f29e51499a56504f1be",
+      "transformacion": "Renombrado; contenido binario original sin cambios."
+    },
+    {
+      "ruta": "capturas/02-activo-as01.png",
+      "original_recibido": "image(20261125-205544).png",
+      "descripcion": "Identificación de AS01",
+      "bytes": 22335,
+      "sha256": "a22e62d9dfb8b657dcd0e432403c6e81b92d32b05d7924a323736e6fe2f0354f",
+      "transformacion": "Renombrado; contenido binario original sin cambios."
+    },
+    {
+      "ruta": "capturas/03-activo-as05.png",
+      "original_recibido": "image(20261125-205619).png",
+      "descripcion": "Identificación de AS05",
+      "bytes": 20096,
+      "sha256": "11190d1ec1c5f2cff4775c3557c8e4fd2c47861ea1bb03dcde026a7407e6169f",
+      "transformacion": "Renombrado; contenido binario original sin cambios."
+    },
+    {
+      "ruta": "capturas/04-valoracion-activos.png",
+      "original_recibido": "image(20261125-205903).png",
+      "descripcion": "Valoración propia de los activos",
+      "bytes": 20885,
+      "sha256": "0c10287ddc117f9246f46fabfc210fb4ff9637420ea01c07748d532805c2313b",
+      "transformacion": "Renombrado; contenido binario original sin cambios."
+    },
+    {
+      "ruta": "capturas/05-dependencias.png",
+      "original_recibido": "image(20261125-210027).png",
+      "descripcion": "Siete dependencias desplegadas",
+      "bytes": 27681,
+      "sha256": "bd9b074d74c0adbb3ad9b9454e38af44bfa916226ac8dbb51505a2bd4fd25b70",
+      "transformacion": "Renombrado; contenido binario original sin cambios."
+    },
+    {
+      "ruta": "capturas/06-amenazas.png",
+      "original_recibido": "image(20261125-210155).png",
+      "descripcion": "Frecuencias y degradaciones de amenazas",
+      "bytes": 57104,
+      "sha256": "bea4b3654c323f911a7bf49a3dd657efaff97a0f26a1b401790b6290e2911ea2",
+      "transformacion": "Renombrado; contenido binario original sin cambios."
+    },
+    {
+      "ruta": "capturas/07-salvaguardas-va.png",
+      "original_recibido": "image(20261125-210818).png",
+      "descripcion": "IA.3 e IA.4 en el dominio VA",
+      "bytes": 91360,
+      "sha256": "855bd066ea8414a9d7455fdcb1420e59ef33a8f52c9612a2c6e3612968c5b615",
+      "transformacion": "Renombrado; contenido binario original sin cambios."
+    },
+    {
+      "ruta": "capturas/08-riesgo-potencial.png",
+      "original_recibido": "Screenshot_2026-11-25_16-09-31.png",
+      "descripcion": "Riesgo potencial",
+      "bytes": 65356,
+      "sha256": "cbe2a1ececc2c74d375cfaf761c63cf8ff28ef162b1389dd6911b1d336ade847",
+      "transformacion": "Renombrado; contenido binario original sin cambios."
+    },
+    {
+      "ruta": "capturas/09-riesgo-current.png",
+      "original_recibido": "Screenshot_2026-11-25_16-09-45.png",
+      "descripcion": "Riesgo current",
+      "bytes": 65799,
+      "sha256": "8efd800f48a1a02fd58c64b8c3b8b375aec0c3ba772b13edede707a527457685",
+      "transformacion": "Renombrado; contenido binario original sin cambios."
+    },
+    {
+      "ruta": "capturas/10-riesgo-target.png",
+      "original_recibido": "Screenshot_2026-11-25_16-09-53.png",
+      "descripcion": "Riesgo target",
+      "bytes": 65838,
+      "sha256": "ccb2995f8a3a308434acbaed9c96efb59b1e6041f145c6a518aeaea54610b817",
+      "transformacion": "Renombrado; contenido binario original sin cambios."
+    },
+    {
+      "ruta": "Informe_Verificacion_PILAR_VetAgenda.pdf",
+      "bytes": 560415,
+      "sha256": "63f274e8cc3f0edf033cb16eb197aa6b513f15015f5f167db7d72b020da33220",
+      "procedencia": "Documento generado a partir de las evidencias y datos contrastados."
+    },
+    {
+      "ruta": "README.md",
+      "bytes": 2744,
+      "sha256": "e3cc4befcda573944f4d96b15f67f46d30dcb3d344e8ff9394c3275f7e4b050c",
+      "procedencia": "Documento generado a partir de las evidencias y datos contrastados."
+    }
+  ]
+}

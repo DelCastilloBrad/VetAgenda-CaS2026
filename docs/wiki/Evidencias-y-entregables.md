@@ -9,6 +9,7 @@
 | Seguimiento histórico | [CSV/JSON y eventos](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/tree/main/docs/seguimiento) |
 | JUnit y regresión DF-01 | [44 casos](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/tree/main/docs/evidencias/DF-01) |
 | Cobertura histórica | [HTML, XML y CSV](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/tree/main/docs/evidencias/cobertura) |
+| PILAR / G06 | [Informe con diez capturas](../evidencias/PILAR/2026-11-25/Informe_Verificacion_PILAR_VetAgenda.pdf), [originales PNG](../evidencias/PILAR/2026-11-25/capturas/) y [manifiesto SHA-256](../evidencias/PILAR/2026-11-25/manifiesto.json). Apertura y configuración verificadas el 25/11/2026; cierre integral pendiente. |
 | Defecto controlado | [log](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/main/docs/evidencias/defecto-controlado.log), [registro](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/main/docs/evidencias/defecto-controlado.json) |
 | Selenium | [suite](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/tree/main/tests/selenium), [captura aprobada](https://github.com/DelCastilloBrad/VetAgenda-CaS2026/blob/main/docs/evidencias/selenium-consola-usuario.png) |
 
@@ -22,7 +23,7 @@ La documentación siguiente fue consultada para organizar esta Wiki. Su mención
 | Anexos_Documentales_VetAgenda.docx | Catálogos, matrices, manuales y fichas documentales. |
 | VetAgenda_Informe_y_Anexos.zip | Documentos, exportaciones y selección de evidencias; requiere incorporación con manifiesto. |
 | jmeter-antes-20261125T022725476503Z.zip | Originales de la ejecución JMeter recibida; no hay una ejecución después acreditada. |
-| VetAgenda.mgr / VetAgenda_PILAR.zip | Proyecto de riesgos y material auxiliar; no confundir con exportaciones nativas no disponibles. |
+| VetAgenda.mgr / VetAgenda_PILAR.zip | Proyecto nativo y material auxiliar aún fuera del repositorio. Su apertura y configuración se documentan en el informe PILAR publicado arriba; capturas y matrices auxiliares no son exportaciones nativas. |
 | Evidencias SVN y XML Selenium final descritos en el informe | Deben incorporarse con su fecha, versión y procedencia. |
 
 ## Estructura exigida para el paquete final
@@ -48,3 +49,4 @@ Registrar por archivo: guía, requisito/caso, ruta, fecha con zona horaria, vers
 La Wiki organiza y explica el material; **no sustituye** el archivo ejecutable ni los originales exigidos. La creación de estas páginas no cambia estados de Issues ni atribuye ejecuciones nuevas.
 
 [Inicio](Home) · [Fuentes y criterios](Fuentes-y-criterios)
+

@@ -133,7 +133,7 @@ tests/selenium/ Suite funcional de navegador
 
 Es una entrega local v0.1.0. Incluye las funciones de los 12 RF del documento de producto y sus reglas RN-01 a RN-09. No incluye pagos, facturación, inventario, mensajería real ni despliegue público. Por defecto escucha únicamente en el equipo local.
 
-Los resultados comprobados y lo pendiente están en [docs/VALIDACION.md](docs/VALIDACION.md). El código ejecutable y sus pruebas no sustituyen las entrevistas, la gestión real de cambios, el repositorio SVN, el análisis PILAR ni las mediciones JMeter que exige el curso. No se presentan esas evidencias como realizadas.
+Los resultados comprobados y lo pendiente están en [docs/VALIDACION.md](docs/VALIDACION.md). El código ejecutable y sus pruebas no sustituyen las entrevistas, la gestión real de cambios, el repositorio SVN, el análisis PILAR ni las mediciones JMeter que exige el curso. Cada actividad requiere sus propias evidencias. La apertura y configuración del proyecto PILAR se documentan en el informe de verificación enlazado abajo, con sus pendientes de cierre.
 
 Se utilizó asistencia de IA para la implementación, pruebas y documentación. Las demostraciones contienen solo datos ficticios.
 
@@ -144,3 +144,8 @@ Se utilizó asistencia de IA para la implementación, pruebas y documentación. 
 ## Documentación por guías
 
 La [documentación organizada por G01 a G09](docs/wiki/README.md) reúne objetivo, procedimiento, resultados, análisis, conclusiones y evidencias de cada guía, con pendientes reales y criterios de cierre. Incluye fuentes listas para la Wiki y distingue resultados publicados de originales recibidos aún por incorporar.
+
+
+### Evidencias PILAR (25/11/2026)
+
+El [informe PDF de verificación](docs/evidencias/PILAR/2026-11-25/Informe_Verificacion_PILAR_VetAgenda.pdf) reúne diez capturas y el contraste de activos, dependencias, amenazas, salvaguardas y resultados potencial/current/target. Consulta la [carpeta de evidencias](docs/evidencias/PILAR/2026-11-25/) y [G06](docs/wiki/G06-Gestion-de-riesgos.md) para el alcance y los pendientes.
